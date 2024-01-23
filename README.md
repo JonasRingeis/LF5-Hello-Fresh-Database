@@ -4,10 +4,10 @@ This is the repository for the database of a school project for learning more ab
 
 ## Setup/ Start GUI
 
-First ``cd`` into GUI folder.
+First ``cd`` into the GUI/kraut-und-rueben-gui folder.
 
 ```shell
-cd ./GUI
+cd ./GUI/kraut-und-rueben-gui
 ```
 
 Then install all node packages

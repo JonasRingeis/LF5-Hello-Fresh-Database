@@ -19,13 +19,12 @@
                 </select>
             </div>
             <div class="inputfield-wrapper">
-                <input type="text" ref="searchValue" class="inputfield"></input>
-                <label>
+                <input type="text" ref="searchValue" class="inputfield" @input="checkPlaceholder"></input>
+                <label v-if="placeholderShown">
                     Search Value
                 </label>
             </div>
         
-            <!-- TODO add dropdown for all fields to be searchable through the query so we only need one input field -->
             <button class="query-button">
                 Get Customer
             </button>
@@ -66,19 +65,20 @@
     </div>
 </template>
 
-<script lang="ts">
+<script>
 import '../../assets/css/QueryStyle.css';
 
 export default {
-    props: {
-        dbConnection: Object
-    },
     data() {
         return {
+            placeholderShown: true,
             customers: []
         }
     },
     methods: {
+        checkPlaceholder() {
+            this.placeholderShown = this.$refs.searchValue.value.length == 0;
+        },
         async getAllCustomers() {
             try {
                 const response = await fetch('/api/customers');
@@ -108,7 +108,7 @@ export default {
     scrollbar-width: thin;
 }
 .result-table th, .result-table td {
-    padding: 6px;
+    padding: 3px 6px;
     white-space: nowrap;
 }
 </style>

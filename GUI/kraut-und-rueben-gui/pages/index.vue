@@ -59,7 +59,8 @@ useHead({
 <style scoped>
 .background {
     background-image: linear-gradient(to top, #c1dfc4 0%, #deecdd 100%);
-    height: 100vh;
+    min-height: 100vh;
+    height: 100%;
 }
 .title-logo-wrapper {
     display: flex;

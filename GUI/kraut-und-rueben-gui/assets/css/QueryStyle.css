@@ -32,12 +32,10 @@
 }
 .inputfield-wrapper label {
     position: absolute;
-    height: 100%;
-    width: 100%;
     text-align: center;
-    left: 0;
+    left: 10px;
     top: 0;
-    transform: translateY(25%);
+    transform: translateY(60%);
     pointer-events: none;
     color: grey;
 } 

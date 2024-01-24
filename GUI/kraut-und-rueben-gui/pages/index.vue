@@ -8,7 +8,7 @@
         </div>
 
         <div class="selector-wrapper">
-            <select @input="test" ref="query" class="query-selector">
+            <select @input="setDropdownValue" ref="query" class="query-selector">
                 <option value="0">No Query</option>
                 <option value="1">Custumer Data</option>
                 <option value="2">Query 2</option>
@@ -27,12 +27,14 @@
         </div>
         
         <div class="query-wrapper" v-if="querySelected == 1">
-            <Query1 />
+            <Query1 dbConnection=""/>
         </div>
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import mysql from '../node_modules/mysql/index';
+
 export default {
     data() {
         return {
@@ -40,9 +42,24 @@ export default {
         }
     },
     methods: {
-        test() {
-            this.querySelected = this.$refs.query.value;
+        setDropdownValue() {
+            this.querySelected = this.$refs['query'].value;
+        },
+        async connectToDb() {
+            const connenction = mysql.createConnection({
+                host: '127.0.0.1:3306',
+                user: 'root',
+                password: '!-/#vWj,]{HNM9cZEq+/',
+                database: 'krautundrueben',
+            });
+
+            await connenction.connect();
+
+            console.log("Should be connected I guess?");
         }
+    },
+    beforeMount() {
+        this.connectToDb();
     }
 }
 </script>

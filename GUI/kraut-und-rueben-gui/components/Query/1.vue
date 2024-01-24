@@ -6,6 +6,8 @@
                 CustomerId
             </input>           
         </div>
+
+        <!-- TODO add dropdown for all fields to be searchable through the query so we only need one input field -->
         <button class="query-button">
             Get Customer
         </button>
@@ -39,11 +41,12 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import '../../assets/css/QueryStyle.css';
 
 export default {
     props: {
+        dbConnection: Object
     },
     data() {
         return {
@@ -55,6 +58,16 @@ export default {
                 Straße          : "Am Rathausmarkt",
                 Hausnr          : "27",
                 PLZ             : "22110",
+                Stadt           : "Hamburg",
+            },
+            {
+                KdNr            : "2",
+                Vorname         : "Tjark",
+                Name            : "Fischer",
+                Geburtsdatum    : "05.11.2001",
+                Straße          : "Zikadenweg",
+                Hausnr          : "99",
+                PLZ             : "22117",
                 Stadt           : "Hamburg",
             }]
         }

@@ -32,9 +32,7 @@
     </div>
 </template>
 
-<script lang="ts">
-import mysql from '../node_modules/mysql/index';
-
+<script>
 export default {
     data() {
         return {
@@ -45,21 +43,9 @@ export default {
         setDropdownValue() {
             this.querySelected = this.$refs['query'].value;
         },
-        async connectToDb() {
-            const connenction = mysql.createConnection({
-                host: '127.0.0.1:3306',
-                user: 'root',
-                password: '!-/#vWj,]{HNM9cZEq+/',
-                database: 'krautundrueben',
-            });
-
-            await connenction.connect();
-
-            console.log("Should be connected I guess?");
-        }
     },
-    beforeMount() {
-        this.connectToDb();
+    mounted() {
+        this.setDropdownValue();
     }
 }
 </script>

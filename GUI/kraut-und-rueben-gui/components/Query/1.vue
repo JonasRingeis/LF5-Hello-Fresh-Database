@@ -1,20 +1,39 @@
 <template lang="">
     <div class="wrapper">
         <h2>Customer Data</h2>
-        <div class="input-wrapper">
-            <input type="text">
-                CustomerId
-            </input>           
+
+        <div class="button-wrapper">
+            <div class="selector-wrapper">
+                <select @input="setDropdownValue" ref="field" class="dropdown">
+                    <option value="0">Id</option>
+                    <option value="1">First Name</option>
+                    <option value="2">Last Name</option>
+                    <option value="3">Birth Date</option>
+                    <option value="3">Street</option>
+                    <option value="3">House Nr</option>
+                    <option value="3">Zip Code</option>
+                    <option value="3">City</option>
+                    <option value="3">State</option>
+                    <option value="3">Telephone</option>
+                    <option value="3">Email</option>
+                </select>
+            </div>
+            <div class="inputfield-wrapper">
+                <input type="text" ref="searchValue" class="inputfield"></input>
+                <label>
+                    Search Value
+                </label>
+            </div>
+        
+            <!-- TODO add dropdown for all fields to be searchable through the query so we only need one input field -->
+            <button class="query-button">
+                Get Customer
+            </button>
+        
+            <button class="query-button" @click="getAllCustomers">
+                Get All Customers
+            </button>
         </div>
-
-        <!-- TODO add dropdown for all fields to be searchable through the query so we only need one input field -->
-        <button class="query-button">
-            Get Customer
-        </button>
-
-        <button class="query-button">
-            Get All Customers
-        </button>
 
         <table class="result-table">
             <tr>
@@ -26,16 +45,22 @@
                 <th> Nr </th>
                 <th> Zip Code </th>
                 <th> City </th>
+                <th> State </th>
+                <th> Telephone </th>
+                <th> Emal </th>
             </tr>
             <tr v-for="(customer, index) in customers" :key="index">
-                <td> {{ customer.KdNr }} </td>
-                <td> {{ customer.Vorname }} </td>
-                <td> {{ customer.Name }} </td>
-                <td> {{ customer.Geburtsdatum }} </td>
-                <td> {{ customer.Straße }} </td>
-                <td> {{ customer.Hausnr }} </td>
+                <td> {{ customer.KUNDENNR }} </td>
+                <td> {{ customer.NACHNAME }} </td>
+                <td> {{ customer.VORNAME }} </td>
+                <td> {{ new Date(customer.GEBURTSDATUM).toLocaleDateString() }} </td>
+                <td> {{ customer.STRASSE }} </td>
+                <td> {{ customer.HAUSNR }} </td>
                 <td> {{ customer.PLZ }} </td>
-                <td> {{ customer.Stadt }} </td>
+                <td> {{ customer.ORT }} </td>
+                <td> {{ customer.BUNDESLAND }} </td>
+                <td> {{ customer.TELEFON }} </td>
+                <td> {{ customer.EMAIL }} </td>
             </tr>
         </table>
     </div>
@@ -50,36 +75,40 @@ export default {
     },
     data() {
         return {
-            customers: [{
-                KdNr            : "1",
-                Vorname         : "Jonas",
-                Name            : "Ringeis",
-                Geburtsdatum    : "10.06.2007",
-                Straße          : "Am Rathausmarkt",
-                Hausnr          : "27",
-                PLZ             : "22110",
-                Stadt           : "Hamburg",
-            },
-            {
-                KdNr            : "2",
-                Vorname         : "Tjark",
-                Name            : "Fischer",
-                Geburtsdatum    : "05.11.2001",
-                Straße          : "Zikadenweg",
-                Hausnr          : "99",
-                PLZ             : "22117",
-                Stadt           : "Hamburg",
-            }]
+            customers: []
         }
     },
+    methods: {
+        async getAllCustomers() {
+            try {
+                const response = await fetch('/api/customers');
+                this.customers = await response.json();
+            } catch (err) { console.log("Error fetching customers: " + err); }
+        }
+    }
 }
 </script>
 
 <style scoped>
+.button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .result-table {
     background: white;
     border-radius: 5px;
     width: 100%;
     text-align: left;
+
+    display: block;
+    overflow-x: scroll;
+    overflow-y: visible;
+
+    scrollbar-width: thin;
+}
+.result-table th, .result-table td {
+    padding: 6px;
+    white-space: nowrap;
 }
 </style>

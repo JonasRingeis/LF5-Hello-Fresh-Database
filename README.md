@@ -21,9 +21,3 @@ Make the GUI run local
 ```shell
 npm run dev
 ```
-
-Or Generate Static HTML Files
-
-```shell
-npm run generate
-```

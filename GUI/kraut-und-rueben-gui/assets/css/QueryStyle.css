@@ -14,3 +14,50 @@
     font-size: medium;
 }
 .query-button:hover { background: #006b42; }
+
+.inputfield-wrapper {
+    position: relative;
+    margin: 5px;
+}
+.inputfield {
+    padding: 10px;
+    border-radius: 5px;
+
+    border: 2px solid #008552;
+    background: white;
+
+    font-family: 'Montserrat', sans-serif;
+    font-size: medium;
+    font-weight: 600;
+}
+.inputfield-wrapper label {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    left: 0;
+    top: 0;
+    transform: translateY(25%);
+    pointer-events: none;
+    color: grey;
+} 
+.dropdown {
+    border-radius: 5px;
+    border: none;
+    
+    padding: 10px;
+    margin: 5px;
+    
+    background: #008552;
+    color: white;
+    transition: 0.3s;
+    
+    text-align: center;
+    font-weight: 900;
+    font-size: medium;
+}
+.dropdown:hover { background: #006b42; }
+.dropdown option {
+    font-weight: 600;
+    background: rgb(0, 159, 45);
+}

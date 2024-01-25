@@ -12,17 +12,12 @@ export default defineEventHandler(async (event) => {
     const table = searchParams.get('t')
     const query = searchParams.get('q');
 
-    if (field === null || value === null) {
-      const [rows] = await connection.query('SELECT * FROM ' + table);
-      return rows;
-    }
-    else {
-      const [rows] = await connection.query('SELECT * FROM ' + table + ' WHERE ' + field + ' = ?', value);
-      return rows;
-    }
+    const [rows] = await connection.query('SELECT * FROM ' + table + (query == null ? null : " " + query));
+    return rows;
+
   } catch (error) {
     console.error(error);
     event.node.res.statusCode = 500;
-    return { error: 'Error fetching customers, ' + error };
+    return { error: 'Error fetching data, ' + error };
   }
 })

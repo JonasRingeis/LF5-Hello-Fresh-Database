@@ -58,7 +58,7 @@
                 <td> {{ customer.HAUSNR }} </td>
                 <td> {{ customer.PLZ }} </td>
                 <td> {{ customer.ORT }} </td>
-                <td> {{ customer.BUNDESLAND }} </td>
+                <td> {{ customer.BUND_NAME }} </td>
                 <td> {{ customer.TELEFON }} </td>
                 <td> {{ customer.EMAIL }} </td>
             </tr>
@@ -86,14 +86,18 @@ export default {
                 const table = "kunde";
                 const field = this.$refs.searchField.value;
                 const value = this.$refs.searchValue.value;
-                const response = await fetch("/api/getData?t=" + table + "&f=" + field + "&v=" + value);
+                const query = "JOIN bundesland ON kunde.BUND_ID=bundesland.BUND_ID WHERE " + field + " = " + value;
+
+                const response = await fetch("/api/getData?t=" + table + "&q=" + query);
                 this.customers = await response.json();
             } catch (err) { console.log("Error fetching customers: " + err); }
         },
         async getAllCustomers() {
             try {
                 const table = "kunde";
-                const response = await fetch('/api/getData?t=' + table);
+                const query = "JOIN bundesland ON kunde.BUND_ID=bundesland.BUND_ID"
+
+                const response = await fetch('/api/getData?t=' + table + "&q=" + query);
                 this.customers = await response.json();
             } catch (err) { console.log("Error fetching customers: " + err); }
         }

@@ -9,15 +9,16 @@ export default defineEventHandler(async (event) => {
     const url = parseURL(event.node.req.url)
     const searchParams = new URLSearchParams(url.search)
     
+    const table = searchParams.get('t')
     const field = searchParams.get('f');
     const value = searchParams.get('v');
 
     if (field === null || value === null) {
-      const [rows] = await connection.query('SELECT * FROM kunde');
+      const [rows] = await connection.query('SELECT * FROM ' + table);
       return rows;
     }
     else {
-      const [rows] = await connection.query('SELECT * FROM kunde WHERE ' + field + ' = ?', value);
+      const [rows] = await connection.query('SELECT * FROM ' + table + ' WHERE ' + field + ' = ?', value);
       return rows;
     }
   } catch (error) {

@@ -83,15 +83,17 @@ export default {
         },
         async getFilteredCustomers() {
             try {
+                const table = "kunde";
                 const field = this.$refs.searchField.value;
                 const value = this.$refs.searchValue.value;
-                const response = await fetch("/api/customers?f=" + field + "&v=" + value);
+                const response = await fetch("/api/getData?t=" + table + "&f=" + field + "&v=" + value);
                 this.customers = await response.json();
             } catch (err) { console.log("Error fetching customers: " + err); }
         },
         async getAllCustomers() {
             try {
-                const response = await fetch('/api/customers');
+                const table = "kunde";
+                const response = await fetch('/api/getData?t=' + table);
                 this.customers = await response.json();
             } catch (err) { console.log("Error fetching customers: " + err); }
         }

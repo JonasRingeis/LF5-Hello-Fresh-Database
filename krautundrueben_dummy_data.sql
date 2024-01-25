@@ -2,10 +2,10 @@
 INSERT INTO BUNDESLAND (BUND_ID, BUND_NAME) VALUES (1, 'Hamburg'), (2, 'Berlin'), (3, 'Bayern');
 
 -- KUNDE
-INSERT INTO KUNDE (KUNDEN_ID, NACHNAME, VORNAME, GEBURTSDATUM, STRASSE, HAUSNR, PLZ, ORT, TELEFON, EMAIL, BUND_ID) VALUES (1, 'Müller', 'Anna', '1990-05-15', 'Musterstraße', '12a', '12345', 'Hamburg', '0123456789', 'anna.mueller@example.com', 1), (2, 'Schmidt', 'Max', '1985-12-10', 'Testweg', '5', '54321', 'Berlin', '0987654321', 'max.schmidt@example.com', 2), (3, 'Meier', 'Lisa', '1992-08-25', 'Beispielallee', '8', '98765', 'Bayern', '0123456789', 'lisa.meier@example.com', 3);
+INSERT INTO KUNDE (KUNDEN_ID, NACHNAME, VORNAME, GEBURTSDATUM, STRASSE, HAUSNR, PLZ, ORT, TELEFON, EMAIL, BUND_ID) VALUES (1, 'Müller', 'Anna', '1990-05-15', 'Musterstraße', '12a', '12345', 'Hamburg', '0123456789', 'anna.mueller@example.com', 1), (2, 'Schmidt', 'Max', '1985-12-10', 'Testweg', '5', '54321', 'Berlin', '0987654321', 'max.schmidt@example.com', 2), (3, 'Meier', 'Lisa', '1992-08-25', 'Beispielallee', '8', '98765', 'Mümmelmansberg', '0123456789', 'lisa.meier@example.com', 3);
 
 -- LIEFERANT
-INSERT INTO LIEFERANT (LIEFERANTEN_ID, LIEFERANTENNAME, STRASSE, HAUSNR, PLZ, ORT, TELEFON, EMAIL, BUND_ID) VALUES (1, 'Lieferant A', 'Lieferstraße', '1', '12345', 'Hamburg', '0123456789', 'lieferantA@example.com', 1), (2, 'Lieferant B', 'Lieferweg', '2', '54321', 'Berlin', '0987654321', 'lieferantB@example.com', 2), (3, 'Lieferant C', 'Lieferallee', '3', '98765', 'Bayern', '0123456789', 'lieferantC@example.com', 3);
+INSERT INTO LIEFERANT (LIEFERANTEN_ID, LIEFERANTENNAME, STRASSE, HAUSNR, PLZ, ORT, TELEFON, EMAIL, BUND_ID) VALUES (1, 'Lieferant A', 'Lieferstraße', '1', '12345', 'Hamburg', '0123456789', 'lieferantA@example.com', 1), (2, 'Lieferant B', 'Lieferweg', '2', '54321', 'Berlin', '0987654321', 'lieferantB@example.com', 2), (3, 'Lieferant C', 'Lieferallee', '3', '98765', 'Deppenhausen', '0123456789', 'lieferantC@example.com', 3);
 
 -- NÄHRWERTE
 INSERT INTO NÄHRWERTE (NÄHRWERTE_ID, KALORIEN, KOHLENHYDRATE, PROTEINE, BALLASTSTOFFE, FETT, NATRIUM) VALUES (1, 100, 10, 5, 2, 3, 100), (2, 200, 20, 10, 4, 6, 200), (3, 300, 30, 15, 6, 9, 300);

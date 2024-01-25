@@ -4,18 +4,18 @@
 
         <div class="button-wrapper">
             <div class="selector-wrapper">
-                <select @input="setDropdownValue" ref="field" class="dropdown">
-                    <option value="0">Id</option>
-                    <option value="1">First Name</option>
-                    <option value="2">Last Name</option>
-                    <option value="3">Birth Date</option>
-                    <option value="3">Street</option>
-                    <option value="3">House Nr</option>
-                    <option value="3">Zip Code</option>
-                    <option value="3">City</option>
-                    <option value="3">State</option>
-                    <option value="3">Telephone</option>
-                    <option value="3">Email</option>
+                <select @input="setDropdownValue" ref="searchField" class="dropdown">
+                    <option value="KUNDENNR">Id</option>
+                    <option value="VORNAME">First Name</option>
+                    <option value="NACHNAME">Last Name</option>
+                    <option value="GEBURTSDATUM">Birth Date</option>
+                    <option value="STRASSE">Street</option>
+                    <option value="HAUSNR">House Nr</option>
+                    <option value="PLZ">Zip Code</option>
+                    <option value="ORT">City</option>
+                    <option value="BUNDESLAND">State</option>
+                    <option value="TELEFON">Telephone</option>
+                    <option value="EMAIL">Email</option>
                 </select>
             </div>
             <div class="inputfield-wrapper">
@@ -25,8 +25,8 @@
                 </label>
             </div>
         
-            <button class="query-button">
-                Get Customer
+            <button class="query-button" @click="getFilteredCustomers">
+                Search Customers
             </button>
         
             <button class="query-button" @click="getAllCustomers">
@@ -34,6 +34,7 @@
             </button>
         </div>
 
+        <div class="result-table-wrapper">
         <table class="result-table">
             <tr>
                 <th> Id </th>
@@ -46,12 +47,12 @@
                 <th> City </th>
                 <th> State </th>
                 <th> Telephone </th>
-                <th> Emal </th>
+                <th> Email </th>
             </tr>
             <tr v-for="(customer, index) in customers" :key="index">
                 <td> {{ customer.KUNDENNR }} </td>
-                <td> {{ customer.NACHNAME }} </td>
                 <td> {{ customer.VORNAME }} </td>
+                <td> {{ customer.NACHNAME }} </td>
                 <td> {{ new Date(customer.GEBURTSDATUM).toLocaleDateString() }} </td>
                 <td> {{ customer.STRASSE }} </td>
                 <td> {{ customer.HAUSNR }} </td>
@@ -62,6 +63,7 @@
                 <td> {{ customer.EMAIL }} </td>
             </tr>
         </table>
+        </div>
     </div>
 </template>
 
@@ -79,6 +81,14 @@ export default {
         checkPlaceholder() {
             this.placeholderShown = this.$refs.searchValue.value.length == 0;
         },
+        async getFilteredCustomers() {
+            try {
+                const field = this.$refs.searchField.value;
+                const value = this.$refs.searchValue.value;
+                const response = await fetch("/api/customers?f=" + field + "&v=" + value);
+                this.customers = await response.json();
+            } catch (err) { console.log("Error fetching customers: " + err); }
+        },
         async getAllCustomers() {
             try {
                 const response = await fetch('/api/customers');
@@ -95,17 +105,18 @@ export default {
     justify-content: center;
     align-items: center;
 }
-.result-table {
-    background: white;
-    border-radius: 5px;
-    width: 100%;
-    text-align: left;
-
+.result-table-wrapper {
     display: block;
     overflow-x: scroll;
     overflow-y: visible;
 
     scrollbar-width: thin;
+}
+.result-table {
+    background: white;
+    border-radius: 5px;
+    width: 100%;
+    text-align: left;
 }
 .result-table th, .result-table td {
     padding: 3px 6px;

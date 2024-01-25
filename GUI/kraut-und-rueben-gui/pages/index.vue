@@ -27,7 +27,7 @@
         </div>
         
         <div class="query-wrapper" v-if="querySelected == 1">
-            <Query1 dbConnection=""/>
+            <QueryCustomers />
         </div>
     </div>
 </template>

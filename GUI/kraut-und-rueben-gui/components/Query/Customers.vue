@@ -5,7 +5,7 @@
         <div class="button-wrapper">
             <div class="selector-wrapper">
                 <select @input="setDropdownValue" ref="searchField" class="dropdown">
-                    <option value="KUNDENNR">Id</option>
+                    <option value="KUNDEN_ID">Id</option>
                     <option value="VORNAME">First Name</option>
                     <option value="NACHNAME">Last Name</option>
                     <option value="GEBURTSDATUM">Birth Date</option>
@@ -50,7 +50,7 @@
                 <th> Email </th>
             </tr>
             <tr v-for="(customer, index) in customers" :key="index">
-                <td> {{ customer.KUNDENNR }} </td>
+                <td> {{ customer.KUNDEN_ID }} </td>
                 <td> {{ customer.VORNAME }} </td>
                 <td> {{ customer.NACHNAME }} </td>
                 <td> {{ new Date(customer.GEBURTSDATUM).toLocaleDateString() }} </td>

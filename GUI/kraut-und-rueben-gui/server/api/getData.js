@@ -10,8 +10,7 @@ export default defineEventHandler(async (event) => {
     const searchParams = new URLSearchParams(url.search)
     
     const table = searchParams.get('t')
-    const field = searchParams.get('f');
-    const value = searchParams.get('v');
+    const query = searchParams.get('q');
 
     if (field === null || value === null) {
       const [rows] = await connection.query('SELECT * FROM ' + table);

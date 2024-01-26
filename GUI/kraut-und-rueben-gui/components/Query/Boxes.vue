@@ -5,15 +5,10 @@
         <div class="button-wrapper">
             <div class="selector-wrapper">
                 <select @input="setDropdownValue" ref="searchField" class="dropdown">
-                    <option value="boxEN_ID">Id</option>
-                    <option value="boxENNAME">Supplier Name</option>
-                    <option value="STRASSE">Street</option>
-                    <option value="HAUSNR">House Nr</option>
-                    <option value="PLZ">Zip Code</option>
-                    <option value="ORT">City</option>
-                    <option value="TELEFON">Telephone</option>
-                    <option value="EMAIL">Email</option>
-                    <option value="BUND_NAME">State Name</option>
+                    <option value="BOX_ID">Id</option>
+                    <option value="NAME">Name</option>
+                    <option value="BESCHREIBUNG">Description</option>
+                    <option value="PREIS">Price</option>
                 </select>
             </div>
             <div class="inputfield-wrapper">
@@ -34,26 +29,20 @@
 
         <div class="result-table-wrapper">
             <table class="result-table">
-                <tr>
-                  <th>Supplier ID</th>
-                  <th>Supplier Name</th>
-                  <th>Street</th>
-                  <th>Nr</th>
-                  <th>Zip Code</th>
-                  <th>City</th>
-                  <th>Telephone</th>
-                  <th>Email</th>
-                </tr>
-                <tr v-for="(Box, index) in Boxes" :key="index">
-                  <td>{{ Box.boxEN_ID }}</td>
-                  <td>{{ Box.boxENNAME }}</td>
-                  <td>{{ Box.STRASSE }}</td>
-                  <td>{{ Box.HAUSNR }}</td>
-                  <td>{{ Box.PLZ }}</td>
-                  <td>{{ Box.ORT }}</td>
-                  <td>{{ Box.TELEFON }}</td>
-                  <td>{{ Box.EMAIL }}</td>
-                </tr>
+              <tr>
+                <th>Box ID</th>
+                <th>Name</th>
+                <th>Beschreibung</th>
+                <th>Preis</th>
+                <th>Zutaten</th>
+              </tr>
+              <tr v-for="(box, index) in Boxes" :key="index">
+                <td>{{ box.BOX_ID }}</td>
+                <td>{{ box.NAME }}</td>
+                <td>{{ box.BESCHREIBUNG }}</td>
+                <td>{{ box.PREIS }}</td>
+                <td>{{ box.ZUTATEN }}</td>
+              </tr>
             </table>
         </div>
         <div v-if="Boxes.length == 0 && queryFinished">

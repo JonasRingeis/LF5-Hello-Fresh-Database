@@ -35,46 +35,57 @@
         </div>
 
         <div class="result-table-wrapper">
-        <table class="result-table">
-            <tr>
-                <th> Id </th>
-                <th> First Name </th>
-                <th> Second Name </th>
-                <th> Birthdate </th>
-                <th> Street </th>
-                <th> Nr </th>
-                <th> Zip Code </th>
-                <th> City </th>
-                <th> State </th>
-                <th> Telephone </th>
-                <th> Email </th>
-            </tr>
-            <tr v-for="(customer, index) in customers" :key="index">
-                <td> {{ customer.KUNDEN_ID }} </td>
-                <td> {{ customer.VORNAME }} </td>
-                <td> {{ customer.NACHNAME }} </td>
-                <td> {{ new Date(customer.GEBURTSDATUM).toLocaleDateString() }} </td>
-                <td> {{ customer.STRASSE }} </td>
-                <td> {{ customer.HAUSNR }} </td>
-                <td> {{ customer.PLZ }} </td>
-                <td> {{ customer.ORT }} </td>
-                <td> {{ customer.BUND_NAME }} </td>
-                <td> {{ customer.TELEFON }} </td>
-                <td> {{ customer.EMAIL }} </td>
-            </tr>
-        </table>
+            <table class="result-table">
+                <tr>
+                    <th> Id </th>
+                    <th> First Name </th>
+                    <th> Second Name </th>
+                    <th> Birthdate </th>
+                    <th> Street </th>
+                    <th> Nr </th>
+                    <th> Zip Code </th>
+                    <th> City </th>
+                    <th> State </th>
+                    <th> Telephone </th>
+                    <th> Email </th>
+                </tr>
+                <tr v-for="(customer, index) in customers" :key="index">
+                    <td> {{ customer.KUNDEN_ID }} </td>
+                    <td> {{ customer.VORNAME }} </td>
+                    <td> {{ customer.NACHNAME }} </td>
+                    <td> {{ new Date(customer.GEBURTSDATUM).toLocaleDateString() }} </td>
+                    <td> {{ customer.STRASSE }} </td>
+                    <td> {{ customer.HAUSNR }} </td>
+                    <td> {{ customer.PLZ }} </td>
+                    <td> {{ customer.ORT }} </td>
+                    <td> {{ customer.BUND_NAME }} </td>
+                    <td> {{ customer.TELEFON }} </td>
+                    <td> {{ customer.EMAIL }} </td>
+                </tr>
+            </table>
         </div>
+        <div v-if="customers.length == 0 && queryFinished">
+            <h4 style="color:red;">
+                No Customers Found
+            </h4>
+        </div>
+        <h4 style="color:red;" v-if="error != ''">
+            {{ this.error }}
+        </h4>
     </div>
 </template>
 
 <script>
 import '../../assets/css/QueryStyle.css';
+import { getCustomerWithSearch, getAllCustomers } from '../../assets/scripts/requester';
 
 export default {
     data() {
         return {
             placeholderShown: true,
-            customers: []
+            customers: [],
+            queryFinished: false,
+            error: "",
         }
     },
     methods: {
@@ -82,50 +93,36 @@ export default {
             this.placeholderShown = this.$refs.searchValue.value.length == 0;
         },
         async getFilteredCustomers() {
-            try {
-                const table = "kunde";
-                const field = this.$refs.searchField.value;
-                const value = this.$refs.searchValue.value;
-                const query = "JOIN bundesland ON kunde.BUND_ID=bundesland.BUND_ID WHERE " + field + " = " + value;
-
-                const response = await fetch("/api/getData?t=" + table + "&q=" + query);
-                this.customers = await response.json();
-            } catch (err) { console.log("Error fetching customers: " + err); }
+            this.resetProps();
+            
+            const result = await getCustomerWithSearch(this.$refs.searchField.value, this.$refs.searchValue.value);
+            if (result.error != undefined) {
+                this.error = result.error;
+            } else {
+                this.customers = result;
+                this.queryFinished = true;
+            }
         },
         async getAllCustomers() {
-            try {
-                const table = "kunde";
-                const query = "JOIN bundesland ON kunde.BUND_ID=bundesland.BUND_ID"
+            this.resetProps();
 
-                const response = await fetch('/api/getData?t=' + table + "&q=" + query);
-                this.customers = await response.json();
-            } catch (err) { console.log("Error fetching customers: " + err); }
+            const result = await getAllCustomers();
+            if (result.error != undefined) {
+                this.error = result.error;
+            } else {
+                this.customers = result;
+                this.queryFinished = true;
+            }
+        },
+        resetProps() {
+            this.customers = [];
+            this.error = "";
+            this.queryFinished = false;
         }
     }
 }
 </script>
 
 <style scoped>
-.button-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.result-table-wrapper {
-    display: block;
-    overflow-x: scroll;
-    overflow-y: visible;
 
-    scrollbar-width: thin;
-}
-.result-table {
-    background: white;
-    border-radius: 5px;
-    width: 100%;
-    text-align: left;
-}
-.result-table th, .result-table td {
-    padding: 3px 6px;
-    white-space: nowrap;
-}
 </style>

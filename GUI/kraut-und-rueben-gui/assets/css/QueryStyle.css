@@ -59,3 +59,26 @@
     font-weight: 600;
     background: rgb(0, 159, 45);
 }
+
+.button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.result-table-wrapper {
+    display: block;
+    overflow-x: scroll;
+    overflow-y: visible;
+
+    scrollbar-width: thin;
+}
+.result-table {
+    background: white;
+    border-radius: 5px;
+    width: 100%;
+    text-align: left;
+}
+.result-table th, .result-table td {
+    padding: 3px 6px;
+    white-space: nowrap;
+}

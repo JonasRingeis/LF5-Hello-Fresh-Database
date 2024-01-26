@@ -9,10 +9,9 @@ export default defineEventHandler(async (event) => {
     const url = parseURL(event.node.req.url)
     const searchParams = new URLSearchParams(url.search)
     
-    const table = searchParams.get('t')
     const query = searchParams.get('q');
 
-    const [rows] = await connection.query('SELECT * FROM ' + table + (query == null ? null : " " + query));
+    const [rows] = await connection.query(query);
     return rows;
 
   } catch (error) {

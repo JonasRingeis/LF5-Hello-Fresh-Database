@@ -58,3 +58,13 @@ export async function getAllBoxes() {
     const response = await fetch('/api/getData?q=' + query);
     return await response.json();
 }
+export async function getIngredientWithSearch(field, value) {
+
+}
+export async function getAllIngredients() {
+    const query = "SELECT * FROM ZUTAT AS Z" +
+    " JOIN NÄHRWERTE AS N ON Z.NÄHRWERTE_ID = N.NÄHRWERTE_ID";
+
+    const response = await fetch('/api/getData?q=' + query);
+    return await response.json();
+}

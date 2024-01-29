@@ -49,18 +49,6 @@ INSERT INTO ZUTAT (ZUTAT_ID, BEZEICHNUNG, EINHEIT, NETTOPREIS, BESTAND, LIEFERAN
                                                                                                                             (9, 'Bio-Honig', 'g', 3.49, 300, 9, 9, 0), 
                                                                                                                             (10, 'Frische Zwiebeln', 'Stück', 0.30, 1200, 10, 10, 0);
 
--- ZUTAT_NÄHRWERTE
-INSERT INTO ZUTAT_NÄHRWERTE (NÄHRWERTE_ID, ZUTAT_ID) VALUES (1, 1), 
-															(2, 2),
-                                                            (3, 3),
-                                                            (4, 4),
-                                                            (5, 5),
-                                                            (6, 6),
-                                                            (7, 7),
-                                                            (8, 8),
-                                                            (9, 9),
-                                                            (10, 10);
-
 -- BESTELLUNG
 INSERT INTO BESTELLUNG (BESTELL_ID, KUNDEN_ID, BESTELLDATUM, RECHNUNGSBETRAG) VALUES (1, 1, '2022-01-15', 50.99), 
                                                                                     (2, 3, '2022-02-02', 25.49), 

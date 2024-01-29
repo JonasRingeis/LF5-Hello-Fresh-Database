@@ -38,16 +38,16 @@ INSERT INTO NÄHRWERTE (NÄHRWERTE_ID, KALORIEN, KOHLENHYDRATE, PROTEINE, BALLAS
                                                                                                             (10, 40, 10, 1, 2, 0, 0);
 
 -- ZUTAT
-INSERT INTO ZUTAT (ZUTAT_ID, BEZEICHNUNG, EINHEIT, NETTOPREIS, BESTAND, LIEFERANTEN_ID, NÄHRWERTE_ID, HALTUNGSFORM_ID) VALUES (1, 'Bio-Rinderhackfleisch', 'g', 3.99, 100, 1, 1, 4), 
-                                                                                                                            (2, 'Frische Hühnereier', 'Stück', 0.25, 500, 2, 2, 4), 
-                                                                                                                            (3, 'Vollkornnudeln', 'g', 1.99, 250, 3, 3, 0), 
-                                                                                                                            (4, 'Bio-Tofu', 'g', 2.49, 200, 4, 4, 0), 
-                                                                                                                            (5, 'Frische Tomaten', 'Stück', 0.50, 1000, 5, 5, 0), 
-                                                                                                                            (6, 'Extra natives Olivenöl', 'ml', 4.99, 500, 6, 6, 0), 
-                                                                                                                            (7, 'Bio-Haferflocken', 'g', 1.49, 1000, 7, 7, 0), 
-                                                                                                                            (8, 'Frische Paprika', 'Stück', 0.75, 800, 8, 8, 0),
-                                                                                                                            (9, 'Bio-Honig', 'g', 3.49, 300, 9, 9, 0), 
-                                                                                                                            (10, 'Frische Zwiebeln', 'Stück', 0.30, 1200, 10, 10, 0);
+INSERT INTO ZUTAT (ZUTAT_ID, BEZEICHNUNG, EINHEIT, NETTOPREIS, BESTAND, LIEFERANTEN_ID, NÄHRWERTE_ID, HALTUNGSFORM_ID) VALUES (1, 'Bio-Rinderhackfleisch', 'g', 3.99, 100, 1, 1), 
+                                                                                                                            (2, 'Frische Hühnereier', 'Stück', 0.25, 500, 2, 2), 
+                                                                                                                            (3, 'Vollkornnudeln', 'g', 1.99, 250, 3, 3), 
+                                                                                                                            (4, 'Bio-Tofu', 'g', 2.49, 200, 4, 4), 
+                                                                                                                            (5, 'Frische Tomaten', 'Stück', 0.50, 1000, 5, 5), 
+                                                                                                                            (6, 'Extra natives Olivenöl', 'ml', 4.99, 500, 6, 6), 
+                                                                                                                            (7, 'Bio-Haferflocken', 'g', 1.49, 1000, 7, 7), 
+                                                                                                                            (8, 'Frische Paprika', 'Stück', 0.75, 800, 8, 8),
+                                                                                                                            (9, 'Bio-Honig', 'g', 3.49, 300, 9, 9), 
+                                                                                                                            (10, 'Frische Zwiebeln', 'Stück', 0.30, 1200, 10, 10);
 
 -- BESTELLUNG
 INSERT INTO BESTELLUNG (BESTELL_ID, KUNDEN_ID, BESTELLDATUM, RECHNUNGSBETRAG) VALUES (1, 1, '2022-01-15', 50.99), 

@@ -11,7 +11,7 @@
             <select @input="setDropdownValue" ref="query" class="query-selector">
                 <option value="0">No Query</option>
                 <option value="1">Custumers</option>
-                <option value="2">Carriers</option>
+                <option value="2">Suppliers</option>
                 <option value="3">Boxes</option>
                 <option value="4">Ingredients</option>
             </select>
@@ -31,7 +31,7 @@
             <QueryCustomers />
         </div>
         <div class="query-wrapper" v-if="querySelected == 2">
-            <QueryCarriers />
+            <QuerySuppliers />
         </div>
         <div class="query-wrapper" v-if="querySelected == 3">
             <QueryBoxes />

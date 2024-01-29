@@ -2,7 +2,7 @@
     <div class="wrapper">
         <h2>Customer Data</h2>
 
-        <div class="button-wrapper">
+        <div class="center-wrapper">
             <div class="selector-wrapper">
                 <select @input="setDropdownValue" ref="searchField" class="dropdown">
                     <option value="KUNDEN_ID">Id</option>
@@ -16,6 +16,14 @@
                     <option value="BUNDESLAND">State</option>
                     <option value="TELEFON">Telephone</option>
                     <option value="EMAIL">Email</option>
+                </select>
+            </div>
+            <div class="selector-wrapper">
+                <select @input="setDropdownValue" ref="operatorField" class="dropdown">
+                    <option value="=">=</option>
+                    <option value="<">&lt;</option>
+                    <option value=">">&gt;</option>
+                    <option value="LIKE">Contains</option>
                 </select>
             </div>
             <div class="inputfield-wrapper">
@@ -64,6 +72,11 @@
                 </tr>
             </table>
         </div>
+
+        <div class="center-wrapper" v-if="querySending">
+            <div class="loader"></div>
+        </div>
+
         <div v-if="customers.length == 0 && queryFinished">
             <h4 style="color:red;">
                 No Customers Found
@@ -85,6 +98,7 @@ export default {
             placeholderShown: true,
             customers: [],
             queryFinished: false,
+            querySending: false,
             error: "",
         }
     },
@@ -94,8 +108,11 @@ export default {
         },
         async getFilteredCustomers() {
             this.resetProps();
+            this.querySending = true;
             
-            const result = await getCustomerWithSearch(this.$refs.searchField.value, this.$refs.searchValue.value);
+            const result = await getCustomerWithSearch(this.$refs.searchField.value,
+             this.$refs.searchValue.value, this.$refs.operatorField.value);
+            this.querySending = false;
             if (result.error != undefined) {
                 this.error = result.error;
             } else {
@@ -105,8 +122,10 @@ export default {
         },
         async getAllCustomers() {
             this.resetProps();
+            this.querySending = true;
 
             const result = await getAllCustomers();
+            this.querySending = false;
             if (result.error != undefined) {
                 this.error = result.error;
             } else {

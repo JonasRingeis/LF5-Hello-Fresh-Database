@@ -12,6 +12,8 @@
     text-align: center;
     font-weight: 900;
     font-size: medium;
+
+    cursor: pointer;
 }
 .query-button:hover { background: #006b42; }
 
@@ -60,10 +62,11 @@
     background: rgb(0, 159, 45);
 }
 
-.button-wrapper {
+.center-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
 }
 .result-table-wrapper {
     display: block;
@@ -81,4 +84,34 @@
 .result-table th, .result-table td {
     padding: 3px 6px;
     white-space: nowrap;
+}
+.loader {
+    margin: 10px;
+    height: 30px;
+    width: 30px;
+
+    border-radius: 50%;
+    border: rgb(210, 210, 210) solid 4px;
+    border-top: solid 4px #006b42;
+    animation: spin 1.2s infinite ease;
+}
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.filter {
+    width: 200px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+.filter-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    text-align: left;
 }

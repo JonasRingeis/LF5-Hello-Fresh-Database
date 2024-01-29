@@ -1,8 +1,8 @@
 <template lang="">
     <div class="wrapper">
-        <h2>Carrier Data</h2>
+        <h2>Supplier Data</h2>
 
-        <div class="button-wrapper">
+        <div class="center-wrapper">
             <div class="selector-wrapper">
                 <select @input="setDropdownValue" ref="searchField" class="dropdown">
                     <option value="LIEFERANTEN_ID">Id</option>
@@ -16,6 +16,14 @@
                     <option value="BUND_NAME">State Name</option>
                 </select>
             </div>
+            <div class="selector-wrapper">
+                <select @input="setDropdownValue" ref="operatorField" class="dropdown">
+                    <option value="=">=</option>
+                    <option value="<">&lt;</option>
+                    <option value=">">&gt;</option>
+                    <option value="LIKE">Contains</option>
+                </select>
+            </div>
             <div class="inputfield-wrapper">
                 <input type="text" ref="searchValue" class="inputfield" @input="checkPlaceholder" />
                 <label v-if="placeholderShown">
@@ -23,12 +31,12 @@
                 </label>
             </div>
         
-            <button class="query-button" @click="getFilteredCarriers">
-                Search Carriers
+            <button class="query-button" @click="getFilteredSuppliers">
+                Search Suppliers
             </button>
         
-            <button class="query-button" @click="getAllCarriers">
-                Get All Carriers
+            <button class="query-button" @click="getAllSuppliers">
+                Get All Suppliers
             </button>
         </div>
 
@@ -44,21 +52,26 @@
                   <th>Telephone</th>
                   <th>Email</th>
                 </tr>
-                <tr v-for="(Carrier, index) in Carriers" :key="index">
-                  <td>{{ Carrier.LIEFERANTEN_ID }}</td>
-                  <td>{{ Carrier.LIEFERANTENNAME }}</td>
-                  <td>{{ Carrier.STRASSE }}</td>
-                  <td>{{ Carrier.HAUSNR }}</td>
-                  <td>{{ Carrier.PLZ }}</td>
-                  <td>{{ Carrier.ORT }}</td>
-                  <td>{{ Carrier.TELEFON }}</td>
-                  <td>{{ Carrier.EMAIL }}</td>
+                <tr v-for="(Supplier, index) in Suppliers" :key="index">
+                  <td>{{ Supplier.LIEFERANTEN_ID }}</td>
+                  <td>{{ Supplier.LIEFERANTENNAME }}</td>
+                  <td>{{ Supplier.STRASSE }}</td>
+                  <td>{{ Supplier.HAUSNR }}</td>
+                  <td>{{ Supplier.PLZ }}</td>
+                  <td>{{ Supplier.ORT }}</td>
+                  <td>{{ Supplier.TELEFON }}</td>
+                  <td>{{ Supplier.EMAIL }}</td>
                 </tr>
             </table>
         </div>
-        <div v-if="Carriers.length == 0 && queryFinished">
+
+        <div class="center-wrapper" v-if="querySending">
+            <div class="loader"></div>
+        </div>
+
+        <div v-if="Suppliers.length == 0 && queryFinished">
             <h4 style="color: red;">
-                No Carriers Found
+                No Suppliers Found
             </h4>
         </div>
         <h4 style="color: red;" v-if="error != ''">
@@ -69,14 +82,15 @@
 
 <script>
 import '../../assets/css/QueryStyle.css';
-import { getCarrierWithSearch, getAllCarriers } from '../../assets/scripts/requester';
+import { getSupplierWithSearch, getAllSuppliers } from '../../assets/scripts/requester';
 
 export default {
     data() {
         return {
             placeholderShown: true,
-            Carriers: [],
+            Suppliers: [],
             queryFinished: false,
+            querySending: false,
             error: ""
         }
     },
@@ -84,30 +98,35 @@ export default {
         checkPlaceholder() {
             this.placeholderShown = this.$refs.searchValue.value.length == 0;
         },
-        async getFilteredCarriers() {
+        async getFilteredSuppliers() {
             this.resetProps();
+            this.querySending = true;
             
-            const result = await getCarrierWithSearch(this.$refs.searchField.value, this.$refs.searchValue.value);
+            const result = await getSupplierWithSearch(this.$refs.searchField.value,
+                this.$refs.searchValue.value, this.$refs.operatorField.value);
+            this.querySending = false;
             if (result.error != undefined) {
                 this.error = result.error;
             } else {
-                this.Carriers = result;
+                this.Suppliers = result;
                 this.queryFinished = true;
             }
         },
-        async getAllCarriers() {
+        async getAllSuppliers() {
             this.resetProps();
+            this.querySending = true;
             
-            const result = await getAllCarriers();
+            const result = await getAllSuppliers();
+            this.querySending = false;
             if (result.error != undefined) {
                 this.error = result.error;
             } else {
-                this.Carriers = result;
+                this.Suppliers = result;
                 this.queryFinished = true;
             }
         },
         resetProps() {
-            this.Carriers = [];
+            this.Suppliers = [];
             this.error = "";
             this.queryFinished = false;
         }

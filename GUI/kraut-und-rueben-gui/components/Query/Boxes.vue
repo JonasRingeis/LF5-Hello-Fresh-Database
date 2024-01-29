@@ -2,13 +2,21 @@
     <div class="wrapper">
         <h2>Box Data</h2>
 
-        <div class="button-wrapper">
+        <div class="center-wrapper">
             <div class="selector-wrapper">
                 <select @input="setDropdownValue" ref="searchField" class="dropdown">
                     <option value="BOX_ID">Id</option>
                     <option value="NAME">Name</option>
                     <option value="BESCHREIBUNG">Description</option>
                     <option value="PREIS">Price</option>
+                </select>
+            </div>
+            <div class="selector-wrapper">
+                <select @input="setDropdownValue" ref="operatorField" class="dropdown">
+                    <option value="=">=</option>
+                    <option value="<">&lt;</option>
+                    <option value=">">&gt;</option>
+                    <option value="LIKE">Contains</option>
                 </select>
             </div>
             <div class="inputfield-wrapper">
@@ -40,11 +48,16 @@
                 <td>{{ box.BOX_ID }}</td>
                 <td>{{ box.NAME }}</td>
                 <td>{{ box.BESCHREIBUNG }}</td>
-                <td>{{ box.PREIS }}</td>
+                <td>{{ box.PREIS }}€</td>
                 <td>{{ box.ZUTATEN }}</td>
               </tr>
             </table>
         </div>
+
+        <div class="center-wrapper" v-if="querySending">
+            <div class="loader"></div>
+        </div>
+
         <div v-if="Boxes.length == 0 && queryFinished">
             <h4 style="color:red;">
                 No Boxes Found
@@ -66,6 +79,7 @@ export default {
             placeholderShown: true,
             Boxes: [],
             queryFinished: false,
+            querySending: false,
             error: ""
         }
     },
@@ -75,8 +89,11 @@ export default {
         },
         async getFilteredBoxes() {
             this.resetProps();
+            this.querySending = true;
 
-            const result = await getBoxWithSearch(this.$refs.searchField.value, this.$refs.searchValue.value);
+            const result = await getBoxWithSearch(this.$refs.searchField.value, 
+                this.$refs.searchValue.value, this.$refs.operatorField.value);
+            this.querySending = false;
             if (result.error != undefined) {
                 this.error = result.error;
             } else {
@@ -86,8 +103,10 @@ export default {
         },
         async getAllBoxes() {
             this.resetProps();
+            this.querySending = true;
             
             const result = await getAllBoxes(this.$refs.searchField.value, this.$refs.searchValue.value);
+            this.querySending = false;
             if (result.error != undefined) {
                 this.error = result.error;
             } else {

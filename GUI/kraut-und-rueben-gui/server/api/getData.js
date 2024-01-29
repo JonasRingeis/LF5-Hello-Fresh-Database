@@ -9,7 +9,8 @@ export default defineEventHandler(async (event) => {
     const url = parseURL(event.node.req.url)
     const searchParams = new URLSearchParams(url.search)
     
-    const query = searchParams.get('q');
+    let query = searchParams.get('q');
+    query = query.replace("**", "\"%").replace("**", "%\"");
 
     const [rows] = await connection.query(query);
     return rows;

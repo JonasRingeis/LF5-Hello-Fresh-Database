@@ -17,7 +17,7 @@
                 </select>
             </div>
             <div class="inputfield-wrapper">
-                <input type="text" ref="searchValue" class="inputfield" @input="checkPlaceholder"></input>
+                <input type="text" ref="searchValue" class="inputfield" @input="checkPlaceholder" />
                 <label v-if="placeholderShown">
                     Search Value
                 </label>

@@ -12,7 +12,8 @@
                 <option value="0">No Query</option>
                 <option value="1">Custumers</option>
                 <option value="2">Carriers</option>
-                <option value="3">Box</option>
+                <option value="3">Boxes</option>
+                <option value="4">Ingredients</option>
             </select>
         </div>
 
@@ -34,6 +35,9 @@
         </div>
         <div class="query-wrapper" v-if="querySelected == 3">
             <QueryBoxes />
+        </div>
+        <div class="query-wrapper" v-if="querySelected == 4">
+            <QueryIngredients />
         </div>
     </div>
 </template>

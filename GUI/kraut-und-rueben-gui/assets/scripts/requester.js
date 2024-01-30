@@ -70,11 +70,18 @@ export async function getAllIngredients() {
     return await response.json();
 }
 
-export async function getAllRecepies() {
+export async function getRecipieWithSearch() {
+    
+}
+export async function getAllRecipies() {
     const query = "SELECT * FROM REZEPT AS R";
 
     const response = await fetch('/api/getData?q=' + query);
     return await response.json();
+}
+
+export async function getAllOrders() {
+    const query = "SELECT * FROM BESTELLUNGEN AS B"
 }
 
 function buildSearchQuery(field, value, operator) {

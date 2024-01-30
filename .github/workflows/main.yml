@@ -14,9 +14,10 @@ jobs:
       id: commit-messages
       run: |
         commit_messages=""
-        for commit in $(echo '${{ toJson(github.event.commits) }}' | jq -r '.[].message'); do
-          echo "$commit_messages$commit%n"
-          commit_messages+="- $commit"$'\n'
+        commit_array=$(echo '${{ toJson(github.event.commits) }}' | jq -c '.[]')
+        for commit in $commit_array; do
+          message=$(echo $commit | jq -r '.message')
+          commit_messages+="- $message"$'\n'
         done
         commit_messages="${commit_messages//'%'/'%25'}" # Escape %
         commit_messages="${commit_messages//$'\n'/'%0A'}" # Escape newline

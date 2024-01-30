@@ -13,7 +13,11 @@ jobs:
     - name: Get All Commit Messages
       id: commit-messages
       run: |
-        commit_messages=$(git log --format=%B ${{ github.event.before }}..${{ github.event.after }})
+        commit_messages=""
+        for commit in ${{ toJson(github.event.commits) }}; do
+          message=$(echo $commit | jq -r '.message')
+          commit_messages="$commit_messages$message\n"
+        done
         echo "::set-output name=commits::$commit_messages"
     - name: Send Webhook
       uses: tsickert/discord-webhook@v5.3.0

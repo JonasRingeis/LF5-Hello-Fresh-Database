@@ -8,12 +8,20 @@ jobs:
   send-webhook:
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Get All Commit Messages
+      id: commit-messages
+      run: |
+        commit_messages=$(git log --format=%B ${{ github.event.before }}..${{ github.event.after }})
+        echo "::set-output name=commits::$commit_messages"
     - name: Send Webhook
       uses: tsickert/discord-webhook@v5.3.0
       with: 
         webhook-url: https://discord.com/api/webhooks/1201850371715112970/ruyvffCQ5K6q4OId-pAdVgfQTrVKi9YPfJDn5wTF7JThncDXK32pGGDbOmWFqsuZR-ky
         embed-title: "Commits"
-        embed-description: "New Push on [Github](<https://github.com/JonasRingeis/LF5-Kraut-Und-Rueben-Database/>)\n\n${{ github.event.commits }}"
+        embed-author-name: "New Push on [Github](<https://github.com/JonasRingeis/LF5-Kraut-Und-Rueben-Database/>)"
+        embed-description: "${{ steps.commit-messages.outputs.commits }}"
         embed-footer-text: "Commit by: ${{ github.event.pusher.name }}"
         embed-url: "${{ github.event.url }}"
-        content: "<@564842830619475979> <@239429927542325258> <@691226066580144148>"
+        # content: "<@564842830619475979> <@239429927542325258> <@691226066580144148>"

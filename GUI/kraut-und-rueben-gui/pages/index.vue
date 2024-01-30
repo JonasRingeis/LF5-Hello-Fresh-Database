@@ -15,16 +15,17 @@
                 <option value="3">Suppliers</option>
                 <option value="4">Boxes</option>
                 <option value="5">Ingredients</option>
+                <option value="6">Recipe</option>
             </select>
         </div>
 
-        
+
         <div class="query-wrapper" v-if="querySelected == 0">
             <h2>You have no query selected!</h2>
             <p>
                 To request data from the database,
                 simply choose a query at the dropdown above,
-                enter your data and send it. 
+                enter your data and send it.
             </p>
         </div>
 
@@ -42,6 +43,9 @@
         </div>
         <div class="query-wrapper" v-if="querySelected == 5">
             <QueryIngredients />
+        </div>
+        <div class="query-wrapper" v-if="querySelected == 6">
+            <QueryRecipe />
         </div>
     </div>
 </template>
@@ -76,49 +80,60 @@ useHead({
     min-height: 100vh;
     height: 100%;
 }
+
 .title-logo-wrapper {
     display: flex;
     justify-content: center;
     flex-direction: column;
     padding: 10px;
 }
+
 .logo-img {
     margin-inline: auto;
     height: 100px;
     width: auto;
 }
+
 .title {
     font-weight: 900;
     text-align: center;
     color: rgb(94, 59, 109);
 }
+
 .selector-wrapper {
     display: flex;
     justify-content: center;
 }
+
 .query-selector {
     border-radius: 5px;
     border: none;
-    
+
     padding: 10px;
-    
+
     background: #008552;
     color: white;
     transition: 0.3s;
-    
+
     text-align: center;
     font-weight: 900;
     font-size: medium;
 }
-.query-selector:hover { background: #006b42; }
+
+.query-selector:hover {
+    background: #006b42;
+}
+
 .query-selector option {
     font-weight: 600;
     background: rgb(0, 159, 45);
 }
+
 .query-wrapper {
     padding: 20px;
     text-align: center;
 }
+
 .button-wrapper {
     display: flex;
     justify-content: center;

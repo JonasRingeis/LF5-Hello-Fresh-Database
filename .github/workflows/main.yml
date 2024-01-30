@@ -14,9 +14,8 @@ jobs:
       id: commit-messages
       run: |
         commit_messages=""
-        for commit in ${{ toJson(github.event.commits) }}; do
-          message=$(echo "$commit" | jq -r '.message')
-          commit_messages="${commit_messages}${message}"$'\n'
+        for commit in $(echo '${{ toJson(github.event.commits) }}' | jq -r '.[].message'); do
+          commit_messages="$commit_messages$commit%n"
         done
         echo "::set-output name=commit_messages::$commit_messages"
     - name: Send Webhook

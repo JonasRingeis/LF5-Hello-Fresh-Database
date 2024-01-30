@@ -15,7 +15,8 @@
                 <option value="3">Suppliers</option>
                 <option value="4">Boxes</option>
                 <option value="5">Ingredients</option>
-                <option value="6">Recipe</option>
+                <option value="6">Recipies</option>
+                <option value="7">Orders</option>
             </select>
         </div>
 

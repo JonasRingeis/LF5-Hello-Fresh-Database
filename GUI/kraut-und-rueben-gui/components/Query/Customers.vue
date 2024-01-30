@@ -13,7 +13,7 @@
                     <option value="K.HAUSNR">House Nr</option>
                     <option value="K.PLZ">Zip Code</option>
                     <option value="K.ORT">City</option>
-                    <option value="K.BUNDESLAND">State</option>
+                    <option value="B.BUND_NAME">State</option>
                     <option value="K.TELEFON">Telephone</option>
                     <option value="K.EMAIL">Email</option>
                 </select>

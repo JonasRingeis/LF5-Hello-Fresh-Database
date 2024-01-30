@@ -5,25 +5,21 @@
         <div class="center-wrapper">
             <div class="selector-wrapper">
                 <select @input="setDropdownValue" ref="searchField" class="dropdown">
-                    <option value="Z.ZUTAT_ID">Id</option>
-                    <option value="Z.BEZEICHNUNG">Name</option>
-                    <option value="Z.EINHEIT">Unit</option>
-                    <option value="Z.NETTOPREIS">Net Price</option>
-                    <option value="Z.BESTAND">Stock</option>
-                    <option value="Z.LIEFERANTEN_ID">Supplier Id</option>
-                    <option value="N.KALORIEN">Calories</option>
-                    <option value="N.KOHLENHYDRATE">Carbohydrates</option>
-                    <option value="N.PROTEINE">Proteins</option>
-                    <option value="N.BALLASTSTOFFE">Fiber</option>
-                    <option value="N.FETT">Fat</option>
-                    <option value="N.NATRIUM">Sodium</option>
-                    <option value="L.LIEFERANTENNAME">Supplier Name</option>
-                    <option value="L.STRASSE">Supplier Street</option>
-                    <option value="L.HAUSNR">Supplier House Nr</option>
-                    <option value="L.PLZ">Supplier Zip Code</option>
-                    <option value="L.ORT">Supplier City</option>
-                    <option value="L.TELEFON">Supplier Telephone</option>
-                    <option value="L.EMAIL">Supplier Email</option>
+                    <option value="B.BESTELL_ID">Order ID</option>
+                    <option value="B.BESTELLDATUM">Order Date</option>
+                    <option value="B.RECHNUNGSBETRAG">Order Price</option>
+                    <option value="BX.NAME">Boxes</option>
+                    <option value="Z.BEZEICHNUNG">Ingredients</option>
+                    <option value="K.VORNAME">First Name</option>
+                    <option value="K.NACHNAME">Second Name</option>
+                    <option value="K.GEBURTSDATUM">Birthdate</option>
+                    <option value="K.STRASSE">Street</option>
+                    <option value="K.HAUSNR">Nr</option>
+                    <option value="K.PLZ">ZipCode </option>
+                    <option value="K.ORT">City</option>
+                    <option value="BL.BUND_NAME">State</option>
+                    <option value="K.TELEFON">Telephone</option>
+                    <option value="K.EMAIL">Email</option>
                 </select>
             </div>
             <div class="selector-wrapper">
@@ -54,43 +50,37 @@
             <table class="result-table">
               <tr>
                 <th>Order ID</th>
-                <th>Name</th>
-                <th>Quantity</th>
-                <th>Net Price</th>
-                <th>Stock</th>
-                <th v-if="nutritionFacts">Calories</th>
-                <th v-if="nutritionFacts">Carbohydrates</th>
-                <th v-if="nutritionFacts">Proteins</th>
-                <th v-if="nutritionFacts">Dietary Fiber</th>
-                <th v-if="nutritionFacts">Fat</th>
-                <th v-if="nutritionFacts">Sodium</th>
-                <th v-if="supplierData">Supplier Name</th>
-                <th v-if="supplierData">Supplier Street</th>
-                <th v-if="supplierData">Supplier Nr</th>
-                <th v-if="supplierData">Supplier Zip Code</th>
-                <th v-if="supplierData">Supplier City</th>
-                <th v-if="supplierData">Supplier Telephone</th>
-                <th v-if="supplierData">Supplier Email</th>
+                <th>Order Date</th>
+                <th>Order Price</th>
+                <th v-if="boxes">Boxes</th>
+                <th v-if="ingredients">Ingredients</th>
+                <th v-if="customerData">First Name</th>
+                <th v-if="customerData">Second Name</th>
+                <th v-if="customerData">Birthdate</th>
+                <th v-if="customerData">Street</th>
+                <th v-if="customerData">Nr</th>
+                <th v-if="customerData">ZipCode </th>
+                <th v-if="customerData">City</th>
+                <th v-if="customerData">State</th>
+                <th v-if="customerData">Telephone</th>
+                <th v-if="customerData">Email</th>
               </tr>
               <tr v-for="(Order, index) in Orders" :key="index">
-                <td>{{ Order.ZUTAT_ID }}</td>
-                <td>{{ Order.BEZEICHNUNG }}</td>
-                <td>{{ parseFloat(Order.MENGE) }}{{ (Order.EINHEIT == "Stück" ? " " : "") + Order.EINHEIT }}</td>
-                <td>{{ Order.NETTOPREIS }}€</td>
-                <td>{{ Order.BESTAND }}</td>
-                <td v-if="nutritionFacts">{{ Order.KALORIEN }}kcal</td>
-                <td v-if="nutritionFacts">{{ Order.KOHLENHYDRATE }}g</td>
-                <td v-if="nutritionFacts">{{ Order.PROTEINE }}g</td>
-                <td v-if="nutritionFacts">{{ Order.BALLASTSTOFFE }}g</td>
-                <td v-if="nutritionFacts">{{ Order.FETT }}g</td>
-                <td v-if="nutritionFacts">{{ Order.NATRIUM }}g</td>
-                <td v-if="supplierData">{{ Order.LIEFERANTENNAME }}</td>
-                <td v-if="supplierData">{{ Order.STRASSE }}</td>
-                <td v-if="supplierData">{{ Order.HAUSNR }}</td>
-                <td v-if="supplierData">{{ Order.PLZ }}</td>
-                <td v-if="supplierData">{{ Order.ORT }}</td>
-                <td v-if="supplierData">{{ Order.TELEFON }}</td>
-                <td v-if="supplierData">{{ Order.EMAIL }}</td>
+                <td>{{ Order.BESTELL_ID }}</td>
+                <td>{{ new Date(Order.BESTELLDATUM).toLocaleDateString() }}</td>
+                <td>{{ Order.RECHNUNGSBETRAG }} €</td>
+                <td v-if="boxes"> {{ Order.BOXEN }} </td>
+                <td v-if="ingredients"> {{ Order.ZUTATEN }} </td>
+                <td v-if="customerData"> {{ Order.VORNAME }} </td>
+                <td v-if="customerData"> {{ Order.NACHNAME }} </td>
+                <td v-if="customerData"> {{ new Date(Order.GEBURTSDATUM).toLocaleDateString() }} </td>
+                <td v-if="customerData"> {{ Order.STRASSE }} </td>
+                <td v-if="customerData"> {{ Order.HAUSNR }} </td>
+                <td v-if="customerData"> {{ Order.PLZ }} </td>
+                <td v-if="customerData"> {{ Order.ORT }} </td>
+                <td v-if="customerData"> {{ Order.BUND_NAME }} </td>
+                <td v-if="customerData"> {{ Order.TELEFON }} </td>
+                <td v-if="customerData"> {{ Order.EMAIL }} </td>
               </tr>
             </table>
         </div>
@@ -115,12 +105,16 @@
                 </h2>
                 <div class="filter-wrapper">
                     <label>
-                        <input name="nutrition" type="checkbox" checked @input="nutritionFacts = !nutritionFacts" />
-                        Nutrition Facts
+                        <input name="boxes" type="checkbox" checked @input="boxes = !boxes" />
+                        Boxes
                     </label>
                     <label>
-                        <input name="supplier" type="checkbox" checked @input="supplierData = !supplierData" />
-                        Supplier Data
+                        <input name="products" type="checkbox" checked @input="ingredients = !ingredients" />
+                        Ingredients
+                    </label>
+                    <label>
+                        <input name="customer" type="checkbox" checked @input="customerData = !customerData" />
+                        Customer Data
                     </label>
                 </div>
             </div>
@@ -141,8 +135,9 @@ export default {
             error: "",
 
             //filter
-            nutritionFacts: true,
-            supplierData: true,
+            boxes: true,
+            ingredients: true,
+            customerData: true,
         }
     },
     methods: {

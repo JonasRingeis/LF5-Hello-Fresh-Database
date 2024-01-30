@@ -92,8 +92,46 @@ export async function getAllRecipies() {
     return await response.json();
 }
 
+export async function getOrderWithSearch(field, value, operator) {
+    const query = "SELECT B.BESTELL_ID, B.BESTELLDATUM, B.RECHNUNGSBETRAG, " +
+        "K.VORNAME, K.NACHNAME, K.GEBURTSDATUM, K.STRASSE, K.HAUSNR, K.PLZ, " +
+        "K.ORT, BL.BUND_NAME, K.TELEFON, K.EMAIL, " +
+        // "GROUP_CONCAT(Z.BEZEICHNUNG SEPARATOR ', ') AS ZUTATEN," +
+        "GROUP_CONCAT(BX.NAME SEPARATOR ', ') AS BOXEN" +
+
+        " FROM BESTELLUNG AS B" +
+
+        " JOIN KUNDE AS K ON B.KUNDEN_ID = K.KUNDEN_ID" + 
+        " JOIN BUNDESLAND AS BL ON K.BUND_ID = BL.BUND_ID" +
+
+        
+        " JOIN BESTELLUNG_BOX AS BB ON B.BESTELL_ID = BB.BESTELL_ID" +
+        " JOIN BOX AS BX ON BB.BOX_ID = BX.BOX_ID" +
+        
+        " " + buildSearchQuery(field, value, operator) +
+        " GROUP BY B.BESTELL_ID";
+
+    const response = await fetch('/api/getData?q=' + query);
+    return await response.json();
+}
 export async function getAllOrders() {
-    const query = "SELECT * FROM BESTELLUNGEN AS B";
+    const query = "SELECT B.BESTELL_ID, B.BESTELLDATUM, B.RECHNUNGSBETRAG, " +
+            "K.VORNAME, K.NACHNAME, K.GEBURTSDATUM, K.STRASSE, K.HAUSNR, K.PLZ, " +
+            "K.ORT, BL.BUND_NAME, K.TELEFON, K.EMAIL, " +
+            // "GROUP_CONCAT(Z.BEZEICHNUNG SEPARATOR ', ') AS ZUTATEN," +
+            "GROUP_CONCAT(BX.NAME SEPARATOR ', ') AS BOXEN" +
+
+        " FROM BESTELLUNG AS B" +
+        
+        " JOIN KUNDE AS K ON B.KUNDEN_ID = K.KUNDEN_ID" +
+        " JOIN BUNDESLAND AS BL ON K.BUND_ID = BL.BUND_ID" +
+        
+        // " JOIN BESTELLUNG_ZUTAT AS BZ ON B.BESTELL_ID = BZ.BESTELL_ID" +
+        // " JOIN ZUTAT AS Z ON BZ.ZUTAT_ID = Z.ZUTAT_ID" +
+
+        " JOIN BESTELLUNG_BOX AS BB ON B.BESTELL_ID = BB.BESTELL_ID" +
+        " JOIN BOX AS BX ON BB.BOX_ID = BX.BOX_ID" +
+        " GROUP BY B.BESTELL_ID";
 
     const response = await fetch('/api/getData?q=' + query);
     return await response.json();

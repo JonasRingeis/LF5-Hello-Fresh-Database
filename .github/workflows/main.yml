@@ -16,8 +16,11 @@ jobs:
         commit_messages=""
         for commit in $(echo '${{ toJson(github.event.commits) }}' | jq -r '.[].message'); do
           echo "$commit_messages$commit%n"
-          commit_messages="${commit_messages}${commit}$'\n'"
+          commit_messages+="- $commit"$'\n'
         done
+        commit_messages="${commit_messages//'%'/'%25'}" # Escape %
+        commit_messages="${commit_messages//$'\n'/'%0A'}" # Escape newline
+        commit_messages="${commit_messages//$'\r'/'%0D'}" # Escape carriage return
         echo "$commit_message"
         echo "::set-output name=commits::$commit_messages"
     - name: Send Webhook

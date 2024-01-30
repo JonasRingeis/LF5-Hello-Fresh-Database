@@ -5,10 +5,10 @@
         <div class="center-wrapper">
             <div class="selector-wrapper">
                 <select @input="setDropdownValue" ref="searchField" class="dropdown">
-                    <option value="BOX_ID">Id</option>
-                    <option value="NAME">Name</option>
-                    <option value="BESCHREIBUNG">Description</option>
-                    <option value="PREIS">Price</option>
+                    <option value="B.BOX_ID">Id</option>
+                    <option value="B.NAME">Name</option>
+                    <option value="B.BESCHREIBUNG">Description</option>
+                    <option value="B.PREIS">Price</option>
                 </select>
             </div>
             <div class="selector-wrapper">

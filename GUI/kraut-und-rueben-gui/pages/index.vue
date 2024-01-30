@@ -10,10 +10,11 @@
         <div class="selector-wrapper">
             <select @input="setDropdownValue" ref="query" class="query-selector">
                 <option value="0">No Query</option>
-                <option value="1">Custumers</option>
-                <option value="2">Suppliers</option>
-                <option value="3">Boxes</option>
-                <option value="4">Ingredients</option>
+                <option value="1">Extras</option>
+                <option value="2">Custumers</option>
+                <option value="3">Suppliers</option>
+                <option value="4">Boxes</option>
+                <option value="5">Ingredients</option>
             </select>
         </div>
 
@@ -26,17 +27,20 @@
                 enter your data and send it. 
             </p>
         </div>
-        
+
         <div class="query-wrapper" v-if="querySelected == 1">
-            <QueryCustomers />
+            <QueryExtra />
         </div>
         <div class="query-wrapper" v-if="querySelected == 2">
-            <QuerySuppliers />
+            <QueryCustomers />
         </div>
         <div class="query-wrapper" v-if="querySelected == 3">
-            <QueryBoxes />
+            <QuerySuppliers />
         </div>
         <div class="query-wrapper" v-if="querySelected == 4">
+            <QueryBoxes />
+        </div>
+        <div class="query-wrapper" v-if="querySelected == 5">
             <QueryIngredients />
         </div>
     </div>

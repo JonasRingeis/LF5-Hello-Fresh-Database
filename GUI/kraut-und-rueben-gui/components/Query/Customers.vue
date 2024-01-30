@@ -5,17 +5,17 @@
         <div class="center-wrapper">
             <div class="selector-wrapper">
                 <select @input="setDropdownValue" ref="searchField" class="dropdown">
-                    <option value="KUNDEN_ID">Id</option>
-                    <option value="VORNAME">First Name</option>
-                    <option value="NACHNAME">Last Name</option>
-                    <option value="GEBURTSDATUM">Birth Date</option>
-                    <option value="STRASSE">Street</option>
-                    <option value="HAUSNR">House Nr</option>
-                    <option value="PLZ">Zip Code</option>
-                    <option value="ORT">City</option>
-                    <option value="BUNDESLAND">State</option>
-                    <option value="TELEFON">Telephone</option>
-                    <option value="EMAIL">Email</option>
+                    <option value="K.KUNDEN_ID">Id</option>
+                    <option value="K.VORNAME">First Name</option>
+                    <option value="K.NACHNAME">Last Name</option>
+                    <option value="K.GEBURTSDATUM">Birth Date</option>
+                    <option value="K.STRASSE">Street</option>
+                    <option value="K.HAUSNR">House Nr</option>
+                    <option value="K.PLZ">Zip Code</option>
+                    <option value="K.ORT">City</option>
+                    <option value="K.BUNDESLAND">State</option>
+                    <option value="K.TELEFON">Telephone</option>
+                    <option value="K.EMAIL">Email</option>
                 </select>
             </div>
             <div class="selector-wrapper">

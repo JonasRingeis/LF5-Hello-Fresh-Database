@@ -5,15 +5,15 @@
         <div class="center-wrapper">
             <div class="selector-wrapper">
                 <select @input="setDropdownValue" ref="searchField" class="dropdown">
-                    <option value="LIEFERANTEN_ID">Id</option>
-                    <option value="LIEFERANTENNAME">Supplier Name</option>
-                    <option value="STRASSE">Street</option>
-                    <option value="HAUSNR">House Nr</option>
-                    <option value="PLZ">Zip Code</option>
-                    <option value="ORT">City</option>
-                    <option value="TELEFON">Telephone</option>
-                    <option value="EMAIL">Email</option>
-                    <option value="BUND_NAME">State Name</option>
+                    <option value="L.LIEFERANTEN_ID">Id</option>
+                    <option value="L.LIEFERANTENNAME">Supplier Name</option>
+                    <option value="L.STRASSE">Street</option>
+                    <option value="L.HAUSNR">House Nr</option>
+                    <option value="L.PLZ">Zip Code</option>
+                    <option value="L.ORT">City</option>
+                    <option value="L.TELEFON">Telephone</option>
+                    <option value="L.EMAIL">Email</option>
+                    <option value="L.BUND_NAME">State Name</option>
                 </select>
             </div>
             <div class="selector-wrapper">

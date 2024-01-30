@@ -5,20 +5,25 @@
         <div class="center-wrapper">
             <div class="selector-wrapper">
                 <select @input="setDropdownValue" ref="searchField" class="dropdown">
-                    <option value="ZUTAT_ID">Id</option>
-                    <option value="BEZEICHNUNG">Name</option>
-                    <option value="EINHEIT">Unit</option>
-                    <option value="NETTOPREIS">Net Price</option>
-                    <option value="BESTAND">Stock</option>
-                    <option value="LIEFERANTEN_ID">Supplier Id</option>
-                    <option value="NÄHRWERTE_ID">Nutrition Id</option>
-                    <option value="HALTUNGSFORM_ID">Form Id</option>
-                    <option value="KALORIEN">Calories</option>
-                    <option value="KOHLENHYDRATE">Carbohydrates</option>
-                    <option value="PROTEINE">Proteins</option>
-                    <option value="BALLASTSTOFFE">Fiber</option>
-                    <option value="FETT">Fat</option>
-                    <option value="NATRIUM">Sodium</option>
+                    <option value="Z.ZUTAT_ID">Id</option>
+                    <option value="Z.BEZEICHNUNG">Name</option>
+                    <option value="Z.EINHEIT">Unit</option>
+                    <option value="Z.NETTOPREIS">Net Price</option>
+                    <option value="Z.BESTAND">Stock</option>
+                    <option value="Z.LIEFERANTEN_ID">Supplier Id</option>
+                    <option value="N.KALORIEN">Calories</option>
+                    <option value="N.KOHLENHYDRATE">Carbohydrates</option>
+                    <option value="N.PROTEINE">Proteins</option>
+                    <option value="N.BALLASTSTOFFE">Fiber</option>
+                    <option value="N.FETT">Fat</option>
+                    <option value="N.NATRIUM">Sodium</option>
+                    <option value="L.LIEFERANTENNAME">Supplier Name</option>
+                    <option value="L.STRASSE">Supplier Street</option>
+                    <option value="L.HAUSNR">Supplier House Nr</option>
+                    <option value="L.PLZ">Supplier Zip Code</option>
+                    <option value="L.ORT">Supplier City</option>
+                    <option value="L.TELEFON">Supplier Telephone</option>
+                    <option value="L.EMAIL">Supplier Email</option>
                 </select>
             </div>
             <div class="selector-wrapper">

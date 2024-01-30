@@ -105,7 +105,7 @@ export default {
             this.resetProps();
             this.querySending = true;
             
-            const result = await getAllBoxes(this.$refs.searchField.value, this.$refs.searchValue.value);
+            const result = await getAllBoxes();
             this.querySending = false;
             if (result.error != undefined) {
                 this.error = result.error;

@@ -23,7 +23,8 @@ jobs:
       with: 
         webhook-url: https://discord.com/api/webhooks/1201850371715112970/ruyvffCQ5K6q4OId-pAdVgfQTrVKi9YPfJDn5wTF7JThncDXK32pGGDbOmWFqsuZR-ky
         embed-title: "Commits"
-        embed-author-name: "New Push on [Github](<https://github.com/JonasRingeis/LF5-Kraut-Und-Rueben-Database/>)"
+        embed-author-name: "New Push on Github"
+        embed-author-url: "https://github.com/JonasRingeis/LF5-Kraut-Und-Rueben-Database/"
         embed-description: "${{ steps.commit-messages.outputs.commit-messages }}"
         embed-footer-text: "Commit by: ${{ github.event.pusher.name }}"
         embed-url: "${{ github.event.url }}"

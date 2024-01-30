@@ -56,7 +56,7 @@ export async function getIngredientWithSearch(field, value, operator) {
     const query = "SELECT * FROM ZUTAT AS Z" +
     " JOIN NÄHRWERTE AS N ON Z.NÄHRWERTE_ID = N.NÄHRWERTE_ID" +
     " JOIN LIEFERANT AS L ON Z.LIEFERANTEN_ID = L.LIEFERANTEN_ID" +
-    " " + buildSearchQuery(field, value, operator, "Z");
+    " " + buildSearchQuery(field, value, operator);
 
     const response = await fetch('/api/getData?q=' + query);
     return await response.json();
@@ -70,8 +70,12 @@ export async function getAllIngredients() {
     return await response.json();
 }
 
-export async function getRecipieWithSearch() {
-    
+export async function getRecipeWithSearch(field, value, operator) {
+    const query = "SELECT * FROM REZEPT AS R" +
+    " " + buildSearchQuery(field, value, operator);
+
+    const response = await fetch('/api/getData?q=' + query);
+    return await response.json();
 }
 export async function getAllRecipies() {
     const query = "SELECT * FROM REZEPT AS R";

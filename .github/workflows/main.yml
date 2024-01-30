@@ -13,11 +13,7 @@ jobs:
     - name: Get All Commit Messages
       id: commit-messages
       run: |
-        commit_messages=""
-        IFS=$'\n' # Set the Internal Field Separator (IFS) to newline
-        for commit in $(echo "${{ toJson(github.event.commits) }}" | jq -r '.[].message'); do
-          commit_messages+="- $commit"$'\n'
-        done
+        commit_messages=$(echo '${{ toJson(github.event.commits) }}' | jq -r '.[].message' | while read -r message; do echo "- $message"; done)
         commit_messages="${commit_messages//'%'/'%25'}" # Escape %
         commit_messages="${commit_messages//$'\n'/'%0A'}" # Escape newline
         commit_messages="${commit_messages//$'\r'/'%0D'}" # Escape carriage return

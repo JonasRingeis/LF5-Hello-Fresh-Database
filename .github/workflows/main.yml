@@ -15,9 +15,10 @@ jobs:
       run: |
         commit_messages=""
         for commit in $(echo '${{ toJson(github.event.commits) }}' | jq -r '.[].message'); do
-          echo "$commit"
+          echo "$commit_messages$commit%n"
           commit_messages="$commit_messages$commit%n"
         done
+        echo "$commit_message"
         echo "::set-output name=commits::$commit_messages"
     - name: Send Webhook
       uses: tsickert/discord-webhook@v5.3.0

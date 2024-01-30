@@ -48,7 +48,7 @@
                 <td>{{ box.BOX_ID }}</td>
                 <td>{{ box.NAME }}</td>
                 <td>{{ box.BESCHREIBUNG }}</td>
-                <td>{{ box.PREIS }}€</td>
+                <td>{{ box.PREIS }} €</td>
                 <td>{{ box.ZUTATEN }}</td>
               </tr>
             </table>

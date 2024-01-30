@@ -12,4 +12,4 @@ jobs:
       uses: tsickert/discord-webhook@v5.3.0
       with: 
         webhook-url: https://discord.com/api/webhooks/1201850371715112970/ruyvffCQ5K6q4OId-pAdVgfQTrVKi9YPfJDn5wTF7JThncDXK32pGGDbOmWFqsuZR-ky
-        content: "@everyone New Push on [Github](https://github.com/JonasRingeis/LF5-Kraut-Und-Rueben-Database/)\n\nCommit: ${{ github.event.head_commit.message }}"    
+        content: "@levaleshd @presuid @glitchdev New Push on [Github](https://github.com/JonasRingeis/LF5-Kraut-Und-Rueben-Database/)\n\nCommit: ${{ github.event.head_commit.message }}"    

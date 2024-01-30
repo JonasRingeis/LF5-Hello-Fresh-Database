@@ -45,7 +45,10 @@
             <QueryIngredients />
         </div>
         <div class="query-wrapper" v-if="querySelected == 6">
-            <QueryRecipe />
+            <QueryRecipies />
+        </div>
+        <div class="query-wrapper" v-if="querySelected == 7">
+            <QueryOrders />
         </div>
     </div>
 </template>

@@ -70,6 +70,13 @@ export async function getAllIngredients() {
     return await response.json();
 }
 
+export async function getAllRecepies() {
+    const query = "SELECT * FROM REZEPT AS R";
+
+    const response = await fetch('/api/getData?q=' + query);
+    return await response.json();
+}
+
 function buildSearchQuery(field, value, operator) {
     if (operator == "LIKE") {
         value = "**" + value + "**";

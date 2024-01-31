@@ -71,7 +71,7 @@ export async function getAllIngredients() {
 }
 
 export async function getRecipeWithSearch(field, value, operator) {
-    const query = "SELECT R.REZEPT_ID, R.NAME, R.ANLEITUNG, GROUP_CONCAT(Z.BEZEICHNUNG SEPARATOR ', ') AS ZUTATEN, SUM(Z.NETTOPREIS) AS PREIS" +
+    const query = "SELECT R.REZEPT_ID, R.NAME, R.ANLEITUNG, R.DAUER, GROUP_CONCAT(Z.BEZEICHNUNG SEPARATOR ', ') AS ZUTATEN, SUM(Z.NETTOPREIS) AS PREIS" +
         " FROM REZEPT AS R" +
         " JOIN REZEPT_ZUTAT AS RZ ON R.REZEPT_ID = RZ.REZEPT_ID" +
         " JOIN ZUTAT AS Z ON RZ.ZUTAT_ID = Z.ZUTAT_ID" +
@@ -82,7 +82,7 @@ export async function getRecipeWithSearch(field, value, operator) {
     return await response.json();
 }
 export async function getAllRecipies() {
-    const query = "SELECT R.REZEPT_ID, R.NAME, R.ANLEITUNG, GROUP_CONCAT(Z.BEZEICHNUNG SEPARATOR ', ') AS ZUTATEN, SUM(Z.NETTOPREIS) AS PREIS" +
+    const query = "SELECT R.REZEPT_ID, R.NAME, R.ANLEITUNG, R.DAUER, GROUP_CONCAT(Z.BEZEICHNUNG SEPARATOR ', ') AS ZUTATEN, SUM(Z.NETTOPREIS) AS PREIS" +
         " FROM REZEPT AS R" +
         " JOIN REZEPT_ZUTAT AS RZ ON R.REZEPT_ID = RZ.REZEPT_ID" +
         " JOIN ZUTAT AS Z ON RZ.ZUTAT_ID = Z.ZUTAT_ID" +

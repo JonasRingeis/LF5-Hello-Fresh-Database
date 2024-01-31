@@ -43,6 +43,7 @@
                 <th>Instruction</th>
                 <th>Price</th>
                 <th>Ingredients</th>
+                <th>Preparation Time</th>
               </tr>
               <tr v-for="(Recipe, index) in Recipies" :key="index">
                 <td>{{ Recipe.REZEPT_ID }}</td>
@@ -50,6 +51,7 @@
                 <td>{{ Recipe.ANLEITUNG }}</td>
                 <td>{{ Recipe.PREIS }} €</td>
                 <td>{{ Recipe.ZUTATEN }}</td>
+                <td>{{ Recipe.DAUER }} Minuten</td>
               </tr>
             </table>
         </div>

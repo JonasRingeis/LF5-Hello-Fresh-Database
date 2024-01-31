@@ -11,7 +11,7 @@
             <select @input="setDropdownValue" ref="query" class="query-selector">
                 <option value="0">No Query</option>
                 <option value="1">Extras</option>
-                <option value="2">Custumers</option>
+                <option value="2">Customers</option>
                 <option value="3">Suppliers</option>
                 <option value="4">Boxes</option>
                 <option value="5">Ingredients</option>

@@ -53,6 +53,7 @@
                 <th>Order Date</th>
                 <th>Order Price</th>
                 <th v-if="boxes">Boxes</th>
+                <th v-if="recipe">Recipes</th>
                 <th v-if="ingredients">Ingredients</th>
                 <th v-if="customerData">First Name</th>
                 <th v-if="customerData">Second Name</th>
@@ -69,8 +70,9 @@
                 <td>{{ Order.BESTELL_ID }}</td>
                 <td>{{ new Date(Order.BESTELLDATUM).toLocaleDateString() }}</td>
                 <td>{{ Order.RECHNUNGSBETRAG }} €</td>
-                <td v-if="boxes"> {{ Order.BOXEN }} </td>
-                <td v-if="ingredients"> {{ Order.ZUTATEN }} </td>
+                <td v-if="boxes"> {{ Order.BOXEN == null ? "-" : Order.BOXEN }} </td>
+                <td v-if="recipe"> {{ Order.REZEPTE == null ? "-" : Order.REZEPTE }} </td>
+                <td v-if="ingredients"> {{ Order.ZUTATEN == null ? "-" : Order.ZUTATEN }} </td>
                 <td v-if="customerData"> {{ Order.VORNAME }} </td>
                 <td v-if="customerData"> {{ Order.NACHNAME }} </td>
                 <td v-if="customerData"> {{ new Date(Order.GEBURTSDATUM).toLocaleDateString() }} </td>
@@ -109,6 +111,10 @@
                         Boxes
                     </label>
                     <label>
+                        <input name="recipe" type="checkbox" checked @input="recipe = !recipe" />
+                        Recipes
+                    </label>
+                    <label>
                         <input name="products" type="checkbox" checked @input="ingredients = !ingredients" />
                         Ingredients
                     </label>
@@ -136,6 +142,7 @@ export default {
 
             //filter
             boxes: true,
+            recipe: true,
             ingredients: true,
             customerData: true,
         }

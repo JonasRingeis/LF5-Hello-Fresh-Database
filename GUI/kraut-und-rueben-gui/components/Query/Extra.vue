@@ -10,6 +10,10 @@
             <button class="query-button" @click="findFullCustomerData">
                 Get Full Customer Data
             </button>
+
+            <button class="query-button" @click="findIngredientWithoutRecipe">
+                Get Ingredients Without Recipe
+            </button>
         </div>
 
         <div class="result-table-wrapper">
@@ -19,8 +23,8 @@
                     {{ field }}
                 </th>
               </tr>
-              <tr>
-                <td v-for="(value, index) in resultValues" :key="index">
+              <tr v-for="(dataRow, index) in resultValues" :key="index">
+                <td v-for="(value, index2) in dataRow" :key="index2">
                     {{ value }}
                 </td>
               </tr>
@@ -43,14 +47,14 @@
 </template>
 <script>
 import '../../assets/css/QueryStyle.css';
-import { getCheapestBox, getFullCustomerData } from '../../assets/scripts/requester';
+import { getCheapestBox, getFullCustomerData, getIngredientsWithoutRecipe } from '../../assets/scripts/requester';
 
 export default {
     data() {
         return {
             placeholderShown: true,
             resultFields: [],
-            resultValues: [],
+            resultValues: [[]],
             queryFinished: false,
             querySending: false,
             error: "",
@@ -70,7 +74,9 @@ export default {
                 this.error = result.error;
             } else {
                 this.resultFields = Object.keys(result[0]);
-                this.resultValues = Object.values(result[0]);
+                for (let i = 0; i < result.length; i++) {
+                    this.resultValues.push(Object.values(result[i]));
+                }
                 this.queryFinished = true;
             }
         },
@@ -84,7 +90,25 @@ export default {
                 this.error = result.error;
             } else {
                 this.resultFields = Object.keys(result[0]);
-                this.resultValues = Object.values(result[0]);
+                for (let i = 0; i < result.length; i++) {
+                    this.resultValues.push(Object.values(result[i]));
+                }
+                this.queryFinished = true;
+            }
+        },
+        async findIngredientWithoutRecipe() {
+            this.resetProps();
+            this.querySending = true;
+            
+            const result = await getIngredientsWithoutRecipe();
+            this.querySending = false;
+            if (result.error != undefined) {
+                this.error = result.error;
+            } else {
+                this.resultFields = Object.keys(result[0]);
+                for (let i = 0; i < result.length; i++) {
+                    this.resultValues.push(Object.values(result[i]));
+                }
                 this.queryFinished = true;
             }
         },

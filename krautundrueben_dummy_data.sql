@@ -1,30 +1,41 @@
 -- BUNDESLAND
 INSERT INTO BUNDESLAND (BUND_ID, BUND_NAME) VALUES (1, 'Baden-Württemberg'), (2, 'Bayern'), (3, 'Berlin'), (4, 'Brandenburg'), (5, 'Bremen'), (6, 'Hamburg'), (7, 'Hessen'), (8, 'Mecklenburg-Vorpommern'), (9, 'Niedersachsen'), (10, 'Nordrhein-Westfalen'), (11, 'Rheinland-Pfalz'), (12, 'Saarland'), (13, 'Sachsen'), (14, 'Sachsen-Anhalt'), (15, 'Schleswig-Holstein'), (16, 'Thüringen');
 
+INSERT INTO ADRESSE (ADRESS_ID, STRASSE, HAUSNR, PLZ, WOHNORT, BUND_ID) VALUES (1, 'Musterstraße', '12', '12345', 'Hamburg', 1),
+                                                                           (2, 'Hauptstraße', '5', '54321', 'Berlin',2),                                                                                                                  
+                                                                          (3, 'Neue Gasse', '9', '98765', 'München',3),                                                                                                                  
+                                                                          (4, 'Bachweg', '3', '67890', 'Stuttgart',4),                                                                                                                  
+                                                                          (5, 'Sonnenallee', '15', '54321', 'Dresden',5),                                                                                                                  
+                                                                          (6, 'Am Markt', '7', '34567', 'Hannover',6),                                                                                                                  
+                                                                          (7, 'Hauptstraße', '10', '09876', 'Köln',7),                                                                                                                  
+                                                                          (8, 'Rosenweg', '2', '76543', 'Leipzig',8),                                                                                                                  
+                                                                          (9, 'Lindenstraße', '8', '23456', 'Düsseldorf',9),                                                                                                                  
+                                                                          (10, 'Birkenweg', '6', '45678', 'Frankfurt',10);
+
 -- KUNDE
-INSERT INTO KUNDE (KUNDEN_ID, NACHNAME, VORNAME, GEBURTSDATUM, STRASSE, HAUSNR, PLZ, ORT, TELEFON, EMAIL, BUND_ID) VALUES (1, 'Müller', 'Anna', '1990-05-15', 'Musterstraße', '12', '12345', 'Hamburg', '0123456789', 'anna.mueller@example.com', 6), 
-                                                                                                                        (2, 'Schmidt', 'Peter', '1985-09-20', 'Hauptstraße', '5', '54321', 'Berlin', '0987654321', 'peter.schmidt@example.com', 3), 
-                                                                                                                        (3, 'Schulz', 'Sabine', '1978-11-10', 'Neue Gasse', '9', '98765', 'München', '0765432109', 'sabine.schulz@example.com', 2), 
-                                                                                                                        (4, 'Fischer', 'Michael', '1992-03-25', 'Bachweg', '3', '67890', 'Stuttgart', '0654321098', 'michael.fischer@example.com', 1), 
-                                                                                                                        (5, 'Koch', 'Julia', '1987-07-05', 'Sonnenallee', '15', '54321', 'Dresden', '0543210987', 'julia.koch@example.com', 13), 
-                                                                                                                        (6, 'Wagner', 'Thomas', '1980-02-12', 'Am Markt', '7', '34567', 'Hannover', '0432109876', 'thomas.wagner@example.com', 9), 
-                                                                                                                        (7, 'Becker', 'Laura', '1995-06-30', 'Hauptstraße', '10', '09876', 'Köln', '0321098765', 'laura.becker@example.com', 10), 
-                                                                                                                        (8, 'Hoffmann', 'Daniel', '1983-09-18', 'Rosenweg', '2', '76543', 'Leipzig', '0210987654', 'daniel.hoffmann@example.com', 14), 
-                                                                                                                        (9, 'Schneider', 'Sarah', '1991-12-08', 'Lindenstraße', '8', '23456', 'Düsseldorf', '0109876543', 'sarah.schneider@example.com', 4), 
-                                                                                                                        (10, 'Meyer', 'Markus', '1986-04-22', 'Birkenweg', '6', '45678', 'Frankfurt', '0987654321', 'markus.meyer@example.com', 7);
+INSERT INTO KUNDE (KUNDEN_ID, NACHNAME, VORNAME, GEBURTSDATUM, ADRESS_ID, TELEFON, EMAIL, BUND_ID) VALUES (1, 'Müller', 'Anna', '1990-05-15', 1, '0123456789', 'anna.mueller@example.com', 6), 
+                                                                                                                        (2, 'Schmidt', 'Peter', '1985-09-20', 2, '0987654321', 'peter.schmidt@example.com', 3), 
+                                                                                                                        (3, 'Schulz', 'Sabine', '1978-11-10', 3, '0765432109', 'sabine.schulz@example.com', 2), 
+                                                                                                                        (4, 'Fischer', 'Michael', '1992-03-25', 4, '0654321098', 'michael.fischer@example.com', 1), 
+                                                                                                                        (5, 'Koch', 'Julia', '1987-07-05', 5, '0543210987', 'julia.koch@example.com', 13), 
+                                                                                                                        (6, 'Wagner', 'Thomas', '1980-02-12', 6, '0432109876', 'thomas.wagner@example.com', 9), 
+                                                                                                                        (7, 'Becker', 'Laura', '1995-06-30', 7, '0321098765', 'laura.becker@example.com', 10), 
+                                                                                                                        (8, 'Hoffmann', 'Daniel', '1983-09-18', 8, '0210987654', 'daniel.hoffmann@example.com', 14), 
+                                                                                                                        (9, 'Schneider', 'Sarah', '1991-12-08', 9, '0109876543', 'sarah.schneider@example.com', 4), 
+                                                                                                                        (10, 'Meyer', 'Markus', '1986-04-22', 10, '0987654321', 'markus.meyer@example.com', 7);
 
 -- LIEFERANT
-INSERT INTO LIEFERANT (LIEFERANTEN_ID, LIEFERANTENNAME, STRASSE, HAUSNR, PLZ, ORT, TELEFON, EMAIL, BUND_ID) VALUES (1, 'Köstliche Köstlichkeiten GmbH', 'Musterstraße', '12a', '12345', 'Hamburg', '0123456789', 'info@koestlichekoestlichkeiten.de', 6), 
-                                                                                                                (2, 'Leckere Leckerbissen AG', 'Hauptstraße', '5', '54321', 'Berlin', '0987654321', 'kontakt@leckereleckerbissen.de', 3), 
-                                                                                                                (3, 'Aromatische Fusion KG', 'Neue Gasse', '9', '98765', 'München', '0765432109', 'hallo@aromatischefusion.de', 2), 
-                                                                                                                (4, 'Feinschmecker GmbH', 'Bachweg', '3', '67890', 'Stuttgart', '0654321098', 'info@feinschmecker.de', 1), 
-                                                                                                                (5, 'Herzhafte Genüsse GmbH', 'Sonnenallee', '15', '54321', 'Dresden', '0543210987', 'kontakt@herzhaftegenuesse.de', 13), 
-                                                                                                                (6, 'Kulinarische Kreationen AG', 'Am Markt', '7', '34567', 'Hannover', '0432109876', 'info@kulinarischekreationen.de', 9), 
-                                                                                                                (7, 'Frische Aromen GmbH', 'Hauptstraße', '10', '09876', 'Köln', '0321098765', 'hallo@frischaromen.de', 10), 
-                                                                                                                (8, 'Geschmackvolle Versuchungen AG', 'Rosenweg', '2', '76543', 'Leipzig', '0210987654', 'kontakt@geschmackvolleversuchungen.de', 14), 
-                                                                                                                (9, 'Handwerkliche Köstlichkeiten GmbH', 'Lindenstraße', '8', '23456', 'Düsseldorf', '0109876543', 'info@handwerklichekoestlichkeiten.de', 4), 
-                                                                                                                (10, 'Gastronomische Freuden GmbH', 'Birkenweg', '6', '45678', 'Frankfurt', '0987654321', 'hallo@gastronomischefreuden.de', 7);
-
+INSERT INTO LIEFERANT (LIEFERANTEN_ID, LIEFERANTENNAME, ADRESS_ID, TELEFON, EMAIL, BUND_ID) VALUES (1, 'Köstliche Köstlichkeiten GmbH', 1, '0123456789', 'info@koestlichekoestlichkeiten.de', 6), 
+                                                                                                                (2, 'Leckere Leckerbissen AG', 2, '0987654321', 'kontakt@leckereleckerbissen.de', 3), 
+                                                                                                                (3, 'Aromatische Fusion KG', 3, '0765432109', 'hallo@aromatischefusion.de', 2), 
+                                                                                                                (4, 'Feinschmecker GmbH', 4, '0654321098', 'info@feinschmecker.de', 1), 
+                                                                                                                (5, 'Herzhafte Genüsse GmbH', 5, '0543210987', 'kontakt@herzhaftegenuesse.de', 13), 
+                                                                                                                (6, 'Kulinarische Kreationen AG', 6, '0432109876', 'info@kulinarischekreationen.de', 9), 
+                                                                                                                (7, 'Frische Aromen GmbH', 7, '0321098765', 'hallo@frischaromen.de', 10), 
+                                                                                                                (8, 'Geschmackvolle Versuchungen AG', 8, '0210987654', 'kontakt@geschmackvolleversuchungen.de', 14), 
+                                                                                                                (9, 'Handwerkliche Köstlichkeiten GmbH', 9, '0109876543', 'info@handwerklichekoestlichkeiten.de', 4), 
+                                                                                                                (10, 'Gastronomische Freuden GmbH', 10, '0987654321', 'hallo@gastronomischefreuden.de', 7);
+                                                                                                             
 -- NÄHRWERTE
 INSERT INTO NÄHRWERTE (NÄHRWERTE_ID, KALORIEN, KOHLENHYDRATE, PROTEINE, BALLASTSTOFFE, FETT, NATRIUM) VALUES (1, 250, 0, 20, 0, 20, 50), 
                                                                                                             (2, 70, 0.5, 6, 0, 5, 70), 

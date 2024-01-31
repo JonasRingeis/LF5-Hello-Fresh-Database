@@ -1,0 +1,32 @@
+on: 
+  push: 
+    branches: [ "main" ]
+    paths-ignore:
+      - 'README.md'
+name: 🚀Push Notification
+jobs:
+  send-webhook:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Get All Commit Messages
+      id: commit-messages
+      run: |
+        commit_messages=$(echo '${{ toJson(github.event.commits) }}' | jq -r '.[].message' | while read -r message; do echo "- $message"; done)
+        commit_messages="${commit_messages//'%'/'%25'}" # Escape %
+        commit_messages="${commit_messages//$'\n'/'%0A'}" # Escape newline
+        commit_messages="${commit_messages//$'\r'/'%0D'}" # Escape carriage return
+        echo "$commit_messages"
+        echo "::set-output name=commits::$commit_messages"
+    - name: Send Webhook
+      uses: tsickert/discord-webhook@v5.3.0
+      with: 
+        webhook-url: https://discord.com/api/webhooks/1201850371715112970/ruyvffCQ5K6q4OId-pAdVgfQTrVKi9YPfJDn5wTF7JThncDXK32pGGDbOmWFqsuZR-ky
+        embed-title: "Commits"
+        embed-author-name: "New Push on Github"
+        embed-author-url: "https://github.com/JonasRingeis/LF5-Kraut-Und-Rueben-Database/"
+        embed-description: "${{ steps.commit-messages.outputs.commits }}"
+        embed-footer-text: "Commit by: ${{ github.event.pusher.name }}"
+        embed-url: "${{ github.event.url }}"
+        # content: "<@564842830619475979> <@239429927542325258> <@691226066580144148>"

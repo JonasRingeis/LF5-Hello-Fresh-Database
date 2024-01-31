@@ -13,7 +13,7 @@
                     <option value="L.ORT">City</option>
                     <option value="L.TELEFON">Telephone</option>
                     <option value="L.EMAIL">Email</option>
-                    <option value="L.BUND_NAME">State Name</option>
+                    <option value="B.BUND_NAME">State Name</option>
                 </select>
             </div>
             <div class="selector-wrapper">

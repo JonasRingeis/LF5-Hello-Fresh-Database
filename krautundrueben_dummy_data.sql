@@ -90,7 +90,7 @@ INSERT INTO BESTELLUNG_BOX(BOX_ID, BESTELL_ID, MENGE) VALUES (1, 11, 1),
                                                             (2, 12, 1);
 
 -- REZEPT
-INSERT INTO REZEPT (REZEPT_ID, NAME, ANLEITUNG) VALUES (1, 'Bolognese', 'Hier könnte Ihr Rezept stehen'), (2, 'Rührei', 'Hier könnte dein Rührei Rezept stehen');
+INSERT INTO REZEPT (REZEPT_ID, NAME, ANLEITUNG, DAUER) VALUES (1, 'Bolognese', 'Hier könnte Ihr Rezept stehen', 30), (2, 'Rührei', 'Hier könnte dein Rührei Rezept stehen', 15);
 
 -- REZEPT_ZUTAT
 INSERT INTO REZEPT_ZUTAT (MENGE, ZUTAT_ID, REZEPT_ID) VALUES (1, 1, 1), (1, 3, 1), (5, 5, 1), (1, 6, 1),

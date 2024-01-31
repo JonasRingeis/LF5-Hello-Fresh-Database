@@ -94,14 +94,11 @@ INSERT INTO BESTELLUNG_BOX(BOX_ID, BESTELL_ID, MENGE) VALUES (1, 11, 1),
 INSERT INTO REZEPT (REZEPT_ID, NAME, ANLEITUNG) VALUES (1, 'Bolognese', 'Hier könnte Ihr Rezept stehen'), (2, 'Rührei', 'Hier könnte dein Rührei Rezept stehen');
 
 -- BESTELLUNG REZEPT
-INSERT INTO BESTELLUNG_REZEPT (REZEPT_ID, BESTELL_ID, MENGE) VALUES (2, 4, 1), (1, 7, 2), (1, 12, 1);
+INSERT INTO BESTELLUNG_REZEPT (REZEPT_ID, BESTELL_ID, MENGE) VALUES (2, 4, 1), (1, 7, 2), (1, 12, 1), (2, 12, 1);
 
 -- REZEPT_ZUTAT
 INSERT INTO REZEPT_ZUTAT (MENGE, ZUTAT_ID, REZEPT_ID) VALUES (1, 1, 1), (1, 3, 1), (5, 5, 1), (1, 6, 1),
                                                             (6, 2, 2), (1, 6, 2), (3, 5, 2), (2, 10, 2);
-
--- BESTELLUNG_REZEPT
-INSERT INTO BESTELLUNG_REZEPT (BESTELL_ID, REZEPT_ID, MENGE) VALUES (13, 1, 7), (13, 2, 7), (14, 1, 7), (14, 2, 7);
 
 -- ERNÄHRUNGSKATEGORIEN
 INSERT INTO ERNÄHRUNGSKATEGORIEN (ERNÄHRUNGSKATEGORIE_ID, NAME, BESCHREIBUNG) VALUES (1, 'Omnivor', 'Die Bezeichnung klingt nur exotisch: Der Omnivor ist ein Allesesser. Der Begriff stammt aus dem Lateinischen – “Omnivore” verbindet die beiden Wörter “omnis” (alles) und “vorare” (fressen). Tierische Produkte kommen bei diesem Ernährungstypen ebenso auf den Speiseplan wie pflanzliche. Bei dieser gemischten Ernährungsweise gilt hier das Motto: Gegessen wird, was schmeckt. Genussmomente sind daher ohne Einschränkungen und Verzicht möglich.'),

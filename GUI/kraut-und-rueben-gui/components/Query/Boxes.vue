@@ -40,9 +40,9 @@
               <tr>
                 <th>Box ID</th>
                 <th>Name</th>
-                <th>Beschreibung</th>
-                <th>Preis</th>
-                <th>Zutaten</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Ingredients</th>
               </tr>
               <tr v-for="(box, index) in Boxes" :key="index">
                 <td>{{ box.BOX_ID }}</td>

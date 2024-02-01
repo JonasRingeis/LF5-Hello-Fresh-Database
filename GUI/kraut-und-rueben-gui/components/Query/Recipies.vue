@@ -68,11 +68,15 @@
         <h4 style="color: red;" v-if="error != ''">
             {{ error }}
         </h4>
+        <div>
+        <PopupCreateRecipe/>
+        </div>
     </div>
 </template>
 
 <script>
 import '../../assets/css/QueryStyle.css';
+import '../../assets/css/PopupStyle.css';
 import { getRecipeWithSearch, getAllRecipies } from '../../assets/scripts/requester';
 
 export default {

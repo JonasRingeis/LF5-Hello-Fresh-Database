@@ -1,26 +1,30 @@
 .query-button {
     border-radius: 5px;
     border: none;
-    
+
     margin: 5px;
     padding: 10px;
-    
+
     background: #008552;
     color: white;
     transition: 0.3s;
-    
+
     text-align: center;
     font-weight: 900;
     font-size: medium;
 
     cursor: pointer;
 }
-.query-button:hover { background: #006b42; }
+
+.query-button:hover {
+    background: #006b42;
+}
 
 .inputfield-wrapper {
     position: relative;
     margin: 5px;
 }
+
 .inputfield {
     padding: 10px;
     border-radius: 5px;
@@ -32,6 +36,7 @@
     font-size: medium;
     font-weight: 600;
 }
+
 .inputfield-wrapper label {
     position: absolute;
     text-align: center;
@@ -40,23 +45,28 @@
     transform: translateY(60%);
     pointer-events: none;
     color: grey;
-} 
+}
+
 .dropdown {
     border-radius: 5px;
     border: none;
-    
+
     padding: 10px;
     margin: 5px;
-    
+
     background: #008552;
     color: white;
     transition: 0.3s;
-    
+
     text-align: center;
     font-weight: 900;
     font-size: medium;
 }
-.dropdown:hover { background: #006b42; }
+
+.dropdown:hover {
+    background: #006b42;
+}
+
 .dropdown option {
     font-weight: 600;
     background: rgb(0, 159, 45);
@@ -68,6 +78,7 @@
     align-items: center;
     flex-wrap: wrap;
 }
+
 .result-table-wrapper {
     display: block;
     overflow-x: scroll;
@@ -75,19 +86,24 @@
 
     scrollbar-width: thin;
 }
+
 .result-table {
     background: white;
     border-radius: 5px;
     width: 100%;
     text-align: left;
 }
+
 .result-table tr {
     position: relative;
 }
-.result-table th, .result-table td {
+
+.result-table th,
+.result-table td {
     padding: 5px 6px;
     white-space: nowrap;
 }
+
 .loader {
     margin: 10px;
     height: 30px;
@@ -98,26 +114,31 @@
     border-top: solid 4px #006b42;
     animation: spin 1.2s infinite ease;
 }
+
 @keyframes spin {
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
 }
+
 .filter {
     width: 200px;
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
 }
+
 .filter-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: left;
     text-align: left;
 }
+
 .delete-button-wrapper {
     position: absolute;
     width: 500px;
@@ -125,9 +146,11 @@
     display: flex;
     justify-content: left;
 }
+
 .delete-button-wrapper:hover .delete-button {
     opacity: 1;
 }
+
 .delete-button {
     opacity: 0;
     border: rgba(255, 0, 0, 0.738) 2px solid;
@@ -138,18 +161,23 @@
     cursor: pointer;
     transition: 0.3s ease;
 }
+
 .delete-button:hover {
     background: rgb(202, 124, 124);
     filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.246));
 }
+
 .delete-button:focus {
     background: rgb(168, 104, 104);
 }
+
 .delete-button img {
     height: 20px;
     width: auto;
 }
-.sub-result-table td, .sub-result-table th {
+
+.sub-result-table td,
+.sub-result-table th {
     padding: 2px 4px !important;
 }
 
@@ -164,18 +192,23 @@
     cursor: pointer;
     transition: 0.2s;
 }
+
 .collapse-button:hover {
     background: rgba(27, 139, 40, 0.435);
 }
-.arrow-down, .arrow-up {
-  border: solid black;
-  border-width: 0 3px 3px 0;
-  display: inline-block;
-  padding: 3px;
+
+.arrow-down,
+.arrow-up {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
 }
+
 .arrow-down {
     transform: rotate(45deg);
 }
+
 .arrow-up {
     transform: rotate(-135deg);
 }

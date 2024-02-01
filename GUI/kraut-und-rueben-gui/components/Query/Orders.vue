@@ -75,17 +75,27 @@
                     <td v-if="recipe"> {{ Order.REZEPTE == null ? "-" : Order.REZEPTE }} </td>
                     <td v-if="ingredients">
                         {{ Order.ZUTATEN == null ? "-" : null }}
-
-                        <table v-if="Order.ZUTATEN != null">
-                            <tr>
+                        <button @click="ingredientsCollapsed[index] = true"
+                            v-if="Order.ZUTATEN != null && ingredientsCollapsed[index] != true" class="collapse-button">
+                            Open
+                            <i class="arrow-down"></i>
+                        </button>
+                        <table class="sub-result-table" v-if="Order.ZUTATEN != null && ingredientsCollapsed[index]">
+                            <tr style="position: relative;">
                                 <th>
                                     Menge
                                 </th>
                                 <th>
                                     Name
                                 </th>
+                                <div style="position: absolute; right: 0;">
+                                    <button @click="ingredientsCollapsed[index] = false" class="collapse-button">
+                                        Close
+                                        <i class="arrow-up"></i>
+                                    </button>
+                                </div>
                             </tr>
-                            <tr v-for="(ingredient, index) in Order.ZUTATEN.split(', ')" :key="index">
+                            <tr v-for="(ingredient, index2) in Order.ZUTATEN.split(', ')" :key="index2">
                                 <td style="text-align: center;">
                                     {{ ingredient.split("_")[1] }}
                                 </td>
@@ -161,6 +171,8 @@ export default {
             queryFinished: false,
             querySending: false,
             error: "",
+
+            ingredientsCollapsed: [],
 
             //filter
             boxes: true,

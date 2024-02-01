@@ -149,3 +149,33 @@
     height: 20px;
     width: auto;
 }
+.sub-result-table td, .sub-result-table th {
+    padding: 2px 4px !important;
+}
+
+.collapse-button {
+    border: none;
+    border-radius: 10px;
+    background: rgba(13, 132, 29, 0.288);
+    display: block;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.collapse-button:hover {
+    background: rgba(27, 139, 40, 0.435);
+}
+.arrow-down, .arrow-up {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+.arrow-down {
+    transform: rotate(45deg);
+}
+.arrow-up {
+    transform: rotate(-135deg);
+}

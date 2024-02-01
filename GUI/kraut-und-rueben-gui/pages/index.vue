@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import "./assets/css/fonts.css";
 export default {
     data() {
         return {

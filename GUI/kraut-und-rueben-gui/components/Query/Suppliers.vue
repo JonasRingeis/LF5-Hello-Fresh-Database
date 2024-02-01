@@ -7,10 +7,10 @@
                 <select @input="setDropdownValue" ref="searchField" class="dropdown">
                     <option value="L.LIEFERANTEN_ID">Id</option>
                     <option value="L.LIEFERANTENNAME">Supplier Name</option>
-                    <option value="L.STRASSE">Street</option>
-                    <option value="L.HAUSNR">House Nr</option>
-                    <option value="L.PLZ">Zip Code</option>
-                    <option value="L.WOHNORT">City</option>
+                    <option value="A.STRASSE">Street</option>
+                    <option value="A.HAUSNR">House Nr</option>
+                    <option value="A.PLZ">Zip Code</option>
+                    <option value="A.WOHNORT">City</option>
                     <option value="L.TELEFON">Telephone</option>
                     <option value="L.EMAIL">Email</option>
                     <option value="B.BUND_NAME">State Name</option>

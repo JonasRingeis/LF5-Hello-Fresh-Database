@@ -18,10 +18,10 @@
                     <option value="N.FETT">Fat</option>
                     <option value="N.NATRIUM">Sodium</option>
                     <option value="L.LIEFERANTENNAME">Supplier Name</option>
-                    <option value="L.STRASSE">Supplier Street</option>
-                    <option value="L.HAUSNR">Supplier House Nr</option>
-                    <option value="L.PLZ">Supplier Zip Code</option>
-                    <option value="L.ORT">Supplier City</option>
+                    <option value="A.STRASSE">Supplier Street</option>
+                    <option value="A.HAUSNR">Supplier House Nr</option>
+                    <option value="A.PLZ">Supplier Zip Code</option>
+                    <option value="A.ORT">Supplier City</option>
                     <option value="L.TELEFON">Supplier Telephone</option>
                     <option value="L.EMAIL">Supplier Email</option>
                 </select>

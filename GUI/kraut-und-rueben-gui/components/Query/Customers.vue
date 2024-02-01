@@ -9,10 +9,10 @@
                     <option value="K.VORNAME">First Name</option>
                     <option value="K.NACHNAME">Last Name</option>
                     <option value="K.GEBURTSDATUM">Birth Date</option>
-                    <option value="K.STRASSE">Street</option>
-                    <option value="K.HAUSNR">House Nr</option>
-                    <option value="K.PLZ">Zip Code</option>
-                    <option value="K.ORT">City</option>
+                    <option value="A.STRASSE">Street</option>
+                    <option value="A.HAUSNR">House Nr</option>
+                    <option value="A.PLZ">Zip Code</option>
+                    <option value="A.ORT">City</option>
                     <option value="B.BUND_NAME">State</option>
                     <option value="K.TELEFON">Telephone</option>
                     <option value="K.EMAIL">Email</option>

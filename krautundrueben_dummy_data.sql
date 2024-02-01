@@ -1,7 +1,7 @@
 -- BUNDESLAND
 INSERT INTO BUNDESLAND (BUND_ID, BUND_NAME) VALUES (0, 'Anonym'), (1, 'Baden-Württemberg'), (2, 'Bayern'), (3, 'Berlin'), (4, 'Brandenburg'), (5, 'Bremen'), (6, 'Hamburg'), (7, 'Hessen'), (8, 'Mecklenburg-Vorpommern'), (9, 'Niedersachsen'), (10, 'Nordrhein-Westfalen'), (11, 'Rheinland-Pfalz'), (12, 'Saarland'), (13, 'Sachsen'), (14, 'Sachsen-Anhalt'), (15, 'Schleswig-Holstein'), (16, 'Thüringen');
 
-INSERT INTO ADRESSE (ADRESS_ID, STRASSE, HAUSNR, PLZ, WOHNORT, BUND_ID) VALUES (0, 'Anonym', '0', '00000', 'Anonym', 0)
+INSERT INTO ADRESSE (ADRESS_ID, STRASSE, HAUSNR, PLZ, WOHNORT, BUND_ID) VALUES (0, 'Anonym', '0', '00000', 'Anonym', 0),
                                                                               (1, 'Musterstraße', '12', '12345', 'Hamburg', 1),
                                                                               (2, 'Hauptstraße', '5', '54321', 'Berlin',2),                                                                                                                  
                                                                               (3, 'Neue Gasse', '9', '98765', 'München',3),                                                                                                                  
@@ -14,7 +14,7 @@ INSERT INTO ADRESSE (ADRESS_ID, STRASSE, HAUSNR, PLZ, WOHNORT, BUND_ID) VALUES (
                                                                               (10, 'Birkenweg', '6', '45678', 'Frankfurt',10);
 
 -- KUNDE
-INSERT INTO KUNDE (KUNDEN_ID, NACHNAME, VORNAME, GEBURTSDATUM, ADRESS_ID, TELEFON, EMAIL, BUND_ID) VALUES (0, 'Anonym', 'Anonym', '0000-00-00', 0, '0123456789', 'anonym.anonym@anonym.com', 0)
+INSERT INTO KUNDE (KUNDEN_ID, NACHNAME, VORNAME, GEBURTSDATUM, ADRESS_ID, TELEFON, EMAIL, BUND_ID) VALUES (0, 'Anonym', 'Anonym', NULL, 0, '0123456789', 'anonym.anonym@anonym.com', 0),
                                                                                                           (1, 'Müller', 'Anna', '1990-05-15', 1, '0123456789', 'anna.mueller@example.com', 6), 
                                                                                                           (2, 'Schmidt', 'Peter', '1985-09-20', 2, '0987654321', 'peter.schmidt@example.com', 3), 
                                                                                                           (3, 'Schulz', 'Sabine', '1978-11-10', 3, '0765432109', 'sabine.schulz@example.com', 2), 

@@ -68,8 +68,11 @@
         <h4 style="color: red;" v-if="error != ''">
             {{ error }}
         </h4>
-        <div>
-        <PopupCreateRecipe/>
+        <div class="center-wrapper">
+            <button @click="PopupOpen=true" class="query-button">Create Recipe</button>
+        </div>
+        <div v-if="PopupOpen">
+        <PopupCreateRecipe @onWindowClose="PopupOpen=false"/>
         </div>
     </div>
 </template>
@@ -86,7 +89,8 @@ export default {
             Recipies: [],
             queryFinished: false,
             querySending: false,
-            error: ""
+            error: "",
+            PopupOpen: false,
         }
     },
     methods: {

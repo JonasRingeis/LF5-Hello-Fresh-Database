@@ -1,6 +1,7 @@
 <template>
     <div class="popup-wrapper">
         <div class="popup">
+            <img src="/img/close.svg" class="close-popup" @click="closeWindow">
             <h2>
                 Create Recipe
             </h2>
@@ -33,6 +34,9 @@ export default {
         },
         checkPreparationTimePlaceholder() {
             this.preparationTimePlaceholder = this.$refs.preparationtime.value.length == 0;
+        },
+        closeWindow() {
+            this.$emit("onWindowClose");
         }
     },
     data() {
@@ -41,7 +45,9 @@ export default {
             instructionsPlaceholder: true,
             preparationTimePlaceholder: true,
         }
-    }
+    },
+    emits: ["onWindowClose"]
+
 }
 </script>
 <style lang="">

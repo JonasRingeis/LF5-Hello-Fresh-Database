@@ -2,16 +2,16 @@
 INSERT INTO BUNDESLAND (BUND_ID, BUND_NAME) VALUES (0, 'Anonym'), (1, 'Baden-Württemberg'), (2, 'Bayern'), (3, 'Berlin'), (4, 'Brandenburg'), (5, 'Bremen'), (6, 'Hamburg'), (7, 'Hessen'), (8, 'Mecklenburg-Vorpommern'), (9, 'Niedersachsen'), (10, 'Nordrhein-Westfalen'), (11, 'Rheinland-Pfalz'), (12, 'Saarland'), (13, 'Sachsen'), (14, 'Sachsen-Anhalt'), (15, 'Schleswig-Holstein'), (16, 'Thüringen');
 
 INSERT INTO ADRESSE (ADRESS_ID, STRASSE, HAUSNR, PLZ, WOHNORT, BUND_ID) VALUES (0, 'Anonym', '0', '00000', 'Anonym', 0),
-                                                                              (1, 'Musterstraße', '12', '12345', 'Hamburg', 1),
-                                                                              (2, 'Hauptstraße', '5', '54321', 'Berlin',2),                                                                                                                  
-                                                                              (3, 'Neue Gasse', '9', '98765', 'München',3),                                                                                                                  
-                                                                              (4, 'Bachweg', '3', '67890', 'Stuttgart',4),                                                                                                                  
-                                                                              (5, 'Sonnenallee', '15', '54321', 'Dresden',5),                                                                                                                  
-                                                                              (6, 'Am Markt', '7', '34567', 'Hannover',6),                                                                                                                  
-                                                                              (7, 'Hauptstraße', '10', '09876', 'Köln',7),                                                                                                                  
-                                                                              (8, 'Rosenweg', '2', '76543', 'Leipzig',8),                                                                                                                  
-                                                                              (9, 'Lindenstraße', '8', '23456', 'Düsseldorf',9),                                                                                                                  
-                                                                              (10, 'Birkenweg', '6', '45678', 'Frankfurt',10);
+                                                                              (1, 'Musterstraße', '12', '12345', 'Hamburg', 6),
+                                                                              (2, 'Hauptstraße', '5', '54321', 'Berlin',3),                                                                                                                  
+                                                                              (3, 'Neue Gasse', '9', '98765', 'München',2),                                                                                                                  
+                                                                              (4, 'Bachweg', '3', '67890', 'Stuttgart',1),                                                                                                                  
+                                                                              (5, 'Sonnenallee', '15', '54321', 'Dresden',13),                                                                                                                  
+                                                                              (6, 'Am Markt', '7', '34567', 'Hannover',9),                                                                                                                  
+                                                                              (7, 'Hauptstraße', '10', '09876', 'Köln',10),                                                                                                                  
+                                                                              (8, 'Rosenweg', '2', '76543', 'Leipzig',13),                                                                                                                  
+                                                                              (9, 'Lindenstraße', '8', '23456', 'Düsseldorf',10),                                                                                                                  
+                                                                              (10, 'Birkenweg', '6', '45678', 'Frankfurt',7);
 
 -- KUNDE
 INSERT INTO KUNDE (KUNDEN_ID, NACHNAME, VORNAME, GEBURTSDATUM, ADRESS_ID, TELEFON, EMAIL, BUND_ID) VALUES (0, 'Anonym', 'Anonym', NULL, 0, '0123456789', 'anonym.anonym@anonym.com', 0),

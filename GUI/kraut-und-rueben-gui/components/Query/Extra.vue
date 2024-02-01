@@ -2,11 +2,11 @@
     <div class="wrapper">
         <h2>Extra Queries</h2>
 
-        <div class="center-wrapper">     
+        <div class="center-wrapper">
             <button class="query-button" @click="findCheapestBox">
                 Get Cheapest Box
             </button>
-        
+
             <button class="query-button" @click="findFullCustomerData">
                 Get Full Customer Data
             </button>
@@ -17,17 +17,18 @@
         </div>
 
         <div class="result-table-wrapper">
-            <table class="result-table">
-              <tr>
-                <th v-for="(field, index) in resultFields" :key="index">
-                    {{ field }}
-                </th>
-              </tr>
-              <tr v-for="(dataRow, index) in resultValues" :key="index">
-                <td v-for="(value, index2) in dataRow" :key="index2">
-                    {{ value }}
-                </td>
-              </tr>
+            <table class="result-table" cellspacing="0">
+                <tr>
+                    <th v-for="(field, index) in resultFields" :key="index">
+                        {{ field }}
+                    </th>
+                </tr>
+                <tr v-for="(dataRow, index) in resultValues" :key="index"
+                    :style="'background: ' + (index % 2 == 0 ? '#f2f2f2' : 'white')">
+                    <td v-for="(value, index2) in dataRow" :key="index2">
+                        {{ value }}
+                    </td>
+                </tr>
             </table>
         </div>
 
@@ -67,7 +68,7 @@ export default {
         async findCheapestBox() {
             this.resetProps();
             this.querySending = true;
-            
+
             const result = await getCheapestBox();
             this.querySending = false;
             if (result.error != undefined) {
@@ -83,7 +84,7 @@ export default {
         async findFullCustomerData() {
             this.resetProps();
             this.querySending = true;
-            
+
             const result = await getFullCustomerData(1);
             this.querySending = false;
             if (result.error != undefined) {
@@ -99,7 +100,7 @@ export default {
         async findIngredientWithoutRecipe() {
             this.resetProps();
             this.querySending = true;
-            
+
             const result = await getIngredientsWithoutRecipe();
             this.querySending = false;
             if (result.error != undefined) {

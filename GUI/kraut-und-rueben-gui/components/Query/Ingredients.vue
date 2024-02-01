@@ -40,58 +40,60 @@
                     Search Value
                 </label>
             </div>
-        
+
             <button class="query-button" @click="getFilteredIngredients">
                 Search Ingredients
             </button>
-        
+
             <button class="query-button" @click="getAllIngredients">
                 Get All Ingredients
             </button>
         </div>
 
         <div class="result-table-wrapper">
-            <table class="result-table">
-              <tr>
-                <th>Ingredient ID</th>
-                <th>Name</th>
-                <th>Quantity</th>
-                <th>Net Price</th>
-                <th>Stock</th>
-                <th v-if="nutritionFacts">Calories</th>
-                <th v-if="nutritionFacts">Carbohydrates</th>
-                <th v-if="nutritionFacts">Proteins</th>
-                <th v-if="nutritionFacts">Dietary Fiber</th>
-                <th v-if="nutritionFacts">Fat</th>
-                <th v-if="nutritionFacts">Sodium</th>
-                <th v-if="supplierData">Supplier Name</th>
-                <th v-if="supplierData">Supplier Street</th>
-                <th v-if="supplierData">Supplier Nr</th>
-                <th v-if="supplierData">Supplier Zip Code</th>
-                <th v-if="supplierData">Supplier City</th>
-                <th v-if="supplierData">Supplier Telephone</th>
-                <th v-if="supplierData">Supplier Email</th>
-              </tr>
-              <tr v-for="(Ingredient, index) in Ingredients" :key="index">
-                <td>{{ Ingredient.ZUTAT_ID }}</td>
-                <td>{{ Ingredient.BEZEICHNUNG }}</td>
-                <td>{{ parseFloat(Ingredient.MENGE) }}{{ (Ingredient.EINHEIT == "Stück" ? " " : "") + Ingredient.EINHEIT }}</td>
-                <td>{{ Ingredient.NETTOPREIS }}€</td>
-                <td>{{ Ingredient.BESTAND }}</td>
-                <td v-if="nutritionFacts">{{ Ingredient.KALORIEN }}kcal</td>
-                <td v-if="nutritionFacts">{{ Ingredient.KOHLENHYDRATE }}g</td>
-                <td v-if="nutritionFacts">{{ Ingredient.PROTEINE }}g</td>
-                <td v-if="nutritionFacts">{{ Ingredient.BALLASTSTOFFE }}g</td>
-                <td v-if="nutritionFacts">{{ Ingredient.FETT }}g</td>
-                <td v-if="nutritionFacts">{{ Ingredient.NATRIUM }}g</td>
-                <td v-if="supplierData">{{ Ingredient.LIEFERANTENNAME }}</td>
-                <td v-if="supplierData">{{ Ingredient.STRASSE }}</td>
-                <td v-if="supplierData">{{ Ingredient.HAUSNR }}</td>
-                <td v-if="supplierData">{{ Ingredient.PLZ }}</td>
-                <td v-if="supplierData">{{ Ingredient.ORT }}</td>
-                <td v-if="supplierData">{{ Ingredient.TELEFON }}</td>
-                <td v-if="supplierData">{{ Ingredient.EMAIL }}</td>
-              </tr>
+            <table class="result-table" cellspacing="0">
+                <tr>
+                    <th>Ingredient ID</th>
+                    <th>Name</th>
+                    <th>Quantity</th>
+                    <th>Net Price</th>
+                    <th>Stock</th>
+                    <th v-if="nutritionFacts">Calories</th>
+                    <th v-if="nutritionFacts">Carbohydrates</th>
+                    <th v-if="nutritionFacts">Proteins</th>
+                    <th v-if="nutritionFacts">Dietary Fiber</th>
+                    <th v-if="nutritionFacts">Fat</th>
+                    <th v-if="nutritionFacts">Sodium</th>
+                    <th v-if="supplierData">Supplier Name</th>
+                    <th v-if="supplierData">Supplier Street</th>
+                    <th v-if="supplierData">Supplier Nr</th>
+                    <th v-if="supplierData">Supplier Zip Code</th>
+                    <th v-if="supplierData">Supplier City</th>
+                    <th v-if="supplierData">Supplier Telephone</th>
+                    <th v-if="supplierData">Supplier Email</th>
+                </tr>
+                <tr v-for="(Ingredient, index) in Ingredients" :key="index"
+                    :style="'background: ' + (index % 2 == 0 ? '#f2f2f2' : 'white')">
+                    <td>{{ Ingredient.ZUTAT_ID }}</td>
+                    <td>{{ Ingredient.BEZEICHNUNG }}</td>
+                    <td>{{ parseFloat(Ingredient.MENGE) }}{{ (Ingredient.EINHEIT == "Stück" ? " " : "") + Ingredient.EINHEIT
+                    }}</td>
+                    <td>{{ Ingredient.NETTOPREIS }}€</td>
+                    <td>{{ Ingredient.BESTAND }}</td>
+                    <td v-if="nutritionFacts">{{ Ingredient.KALORIEN }}kcal</td>
+                    <td v-if="nutritionFacts">{{ Ingredient.KOHLENHYDRATE }}g</td>
+                    <td v-if="nutritionFacts">{{ Ingredient.PROTEINE }}g</td>
+                    <td v-if="nutritionFacts">{{ Ingredient.BALLASTSTOFFE }}g</td>
+                    <td v-if="nutritionFacts">{{ Ingredient.FETT }}g</td>
+                    <td v-if="nutritionFacts">{{ Ingredient.NATRIUM }}g</td>
+                    <td v-if="supplierData">{{ Ingredient.LIEFERANTENNAME }}</td>
+                    <td v-if="supplierData">{{ Ingredient.STRASSE }}</td>
+                    <td v-if="supplierData">{{ Ingredient.HAUSNR }}</td>
+                    <td v-if="supplierData">{{ Ingredient.PLZ }}</td>
+                    <td v-if="supplierData">{{ Ingredient.ORT }}</td>
+                    <td v-if="supplierData">{{ Ingredient.TELEFON }}</td>
+                    <td v-if="supplierData">{{ Ingredient.EMAIL }}</td>
+                </tr>
             </table>
         </div>
 
@@ -152,9 +154,9 @@ export default {
         async getFilteredIngredients() {
             this.resetProps();
             this.querySending = true;
-            
+
             const result = await getIngredientWithSearch(this.$refs.searchField.value,
-             this.$refs.searchValue.value, this.$refs.operatorField.value);
+                this.$refs.searchValue.value, this.$refs.operatorField.value);
             this.querySending = false;
             if (result.error != undefined) {
                 this.error = result.error;
@@ -166,7 +168,7 @@ export default {
         async getAllIngredients() {
             this.resetProps();
             this.querySending = true;
-            
+
             const result = await getAllIngredients();
             this.querySending = false;
             if (result.error != undefined) {

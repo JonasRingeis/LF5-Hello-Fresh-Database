@@ -36,11 +36,11 @@
                     Search Value
                 </label>
             </div>
-        
+
             <button class="query-button" @click="getFilteredOrders">
                 Search Orders
             </button>
-        
+
             <button class="query-button" @click="getAllOrders">
                 Get All Orders
             </button>
@@ -48,63 +48,64 @@
 
         <div class="result-table-wrapper">
             <table class="result-table" cellspacing="0">
-              <tr>
-                <th>Order ID</th>
-                <th>Order Date</th>
-                <th>Order Price</th>
-                <th v-if="boxes">Boxes</th>
-                <th v-if="recipe">Recipes</th>
-                <th v-if="ingredients">Ingredients</th>
-                <th v-if="customerData">First Name</th>
-                <th v-if="customerData">Second Name</th>
-                <th v-if="customerData">Birthdate</th>
-                <th v-if="customerData">Street</th>
-                <th v-if="customerData">Nr</th>
-                <th v-if="customerData">ZipCode </th>
-                <th v-if="customerData">City</th>
-                <th v-if="customerData">State</th>
-                <th v-if="customerData">Telephone</th>
-                <th v-if="customerData">Email</th>
-              </tr>
-              <tr v-for="(Order, index) in Orders" :key="index" :style="'background: ' + (index % 2 == 0 ? '#f2f2f2' : 'white' )">
-                <td>{{ Order.BESTELL_ID }}</td>
-                <td>{{ new Date(Order.BESTELLDATUM).toLocaleDateString() }}</td>
-                <td>{{ Order.RECHNUNGSBETRAG }} €</td>
-                <td v-if="boxes"> {{ Order.BOXEN == null ? "-" : Order.BOXEN }} </td>
-                <td v-if="recipe"> {{ Order.REZEPTE == null ? "-" : Order.REZEPTE }} </td>
-                <td v-if="ingredients">
-                    {{ Order.ZUTATEN == null ? "-" : null }}
-                    
-                    <table v-if="Order.ZUTATEN != null">
-                        <tr>
-                            <th>
-                                Menge
-                            </th>
-                            <th>
-                                Name
-                            </th>
-                        </tr>
-                        <tr v-for="(ingredient, index) in Order.ZUTATEN.split(', ')" :key="index">
-                            <td style="text-align: center;">
-                                {{ ingredient.split("_")[1] }}
-                            </td>
-                            <td>
-                                {{ ingredient.split("_")[0] }}
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                <td v-if="customerData"> {{ Order.VORNAME }} </td>
-                <td v-if="customerData"> {{ Order.NACHNAME }} </td>
-                <td v-if="customerData"> {{ new Date(Order.GEBURTSDATUM).toLocaleDateString() }} </td>
-                <td v-if="customerData"> {{ Order.STRASSE }} </td>
-                <td v-if="customerData"> {{ Order.HAUSNR }} </td>
-                <td v-if="customerData"> {{ Order.PLZ }} </td>
-                <td v-if="customerData"> {{ Order.ORT }} </td>
-                <td v-if="customerData"> {{ Order.BUND_NAME }} </td>
-                <td v-if="customerData"> {{ Order.TELEFON }} </td>
-                <td v-if="customerData"> {{ Order.EMAIL }} </td>
-              </tr>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Order Date</th>
+                    <th>Order Price</th>
+                    <th v-if="boxes">Boxes</th>
+                    <th v-if="recipe">Recipes</th>
+                    <th v-if="ingredients">Ingredients</th>
+                    <th v-if="customerData">First Name</th>
+                    <th v-if="customerData">Second Name</th>
+                    <th v-if="customerData">Birthdate</th>
+                    <th v-if="customerData">Street</th>
+                    <th v-if="customerData">Nr</th>
+                    <th v-if="customerData">ZipCode </th>
+                    <th v-if="customerData">City</th>
+                    <th v-if="customerData">State</th>
+                    <th v-if="customerData">Telephone</th>
+                    <th v-if="customerData">Email</th>
+                </tr>
+                <tr v-for="(Order, index) in Orders" :key="index"
+                    :style="'background: ' + (index % 2 == 0 ? '#f2f2f2' : 'white')">
+                    <td>{{ Order.BESTELL_ID }}</td>
+                    <td>{{ new Date(Order.BESTELLDATUM).toLocaleDateString() }}</td>
+                    <td>{{ Order.RECHNUNGSBETRAG }} €</td>
+                    <td v-if="boxes"> {{ Order.BOXEN == null ? "-" : Order.BOXEN }} </td>
+                    <td v-if="recipe"> {{ Order.REZEPTE == null ? "-" : Order.REZEPTE }} </td>
+                    <td v-if="ingredients">
+                        {{ Order.ZUTATEN == null ? "-" : null }}
+
+                        <table v-if="Order.ZUTATEN != null">
+                            <tr>
+                                <th>
+                                    Menge
+                                </th>
+                                <th>
+                                    Name
+                                </th>
+                            </tr>
+                            <tr v-for="(ingredient, index) in Order.ZUTATEN.split(', ')" :key="index">
+                                <td style="text-align: center;">
+                                    {{ ingredient.split("_")[1] }}
+                                </td>
+                                <td>
+                                    {{ ingredient.split("_")[0] }}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td v-if="customerData"> {{ Order.VORNAME }} </td>
+                    <td v-if="customerData"> {{ Order.NACHNAME }} </td>
+                    <td v-if="customerData"> {{ new Date(Order.GEBURTSDATUM).toLocaleDateString() }} </td>
+                    <td v-if="customerData"> {{ Order.STRASSE }} </td>
+                    <td v-if="customerData"> {{ Order.HAUSNR }} </td>
+                    <td v-if="customerData"> {{ Order.PLZ }} </td>
+                    <td v-if="customerData"> {{ Order.ORT }} </td>
+                    <td v-if="customerData"> {{ Order.BUND_NAME }} </td>
+                    <td v-if="customerData"> {{ Order.TELEFON }} </td>
+                    <td v-if="customerData"> {{ Order.EMAIL }} </td>
+                </tr>
             </table>
         </div>
 
@@ -175,9 +176,9 @@ export default {
         async getFilteredOrders() {
             this.resetProps();
             this.querySending = true;
-            
+
             const result = await getOrderWithSearch(this.$refs.searchField.value,
-             this.$refs.searchValue.value, this.$refs.operatorField.value);
+                this.$refs.searchValue.value, this.$refs.operatorField.value);
             this.querySending = false;
             if (result.error != undefined) {
                 this.error = result.error;
@@ -189,7 +190,7 @@ export default {
         async getAllOrders() {
             this.resetProps();
             this.querySending = true;
-            
+
             const result = await getAllOrders();
             this.querySending = false;
             if (result.error != undefined) {

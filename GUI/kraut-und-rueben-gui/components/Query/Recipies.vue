@@ -36,7 +36,7 @@
         </div>
 
         <div class="result-table-wrapper">
-            <table class="result-table">
+            <table class="result-table" cellspacing="0">
               <tr>
                 <th>Recipe ID</th>
                 <th>Name</th>
@@ -45,7 +45,7 @@
                 <th>Ingredients</th>
                 <th>Preparation Time</th>
               </tr>
-              <tr v-for="(Recipe, index) in Recipies" :key="index">
+              <tr v-for="(Recipe, index) in Recipies" :key="index" :style="'background: ' + (index % 2 == 0 ? '#f2f2f2' : 'white')">
                 <td>{{ Recipe.REZEPT_ID }}</td>
                 <td>{{ Recipe.NAME }}</td>
                 <td>{{ Recipe.ANLEITUNG }}</td>

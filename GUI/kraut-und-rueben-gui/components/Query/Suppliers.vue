@@ -41,7 +41,7 @@
         </div>
 
         <div class="result-table-wrapper">
-            <table class="result-table">
+            <table class="result-table" cellspacing="0">
                 <tr>
                   <th>Supplier ID</th>
                   <th>Supplier Name</th>
@@ -52,7 +52,7 @@
                   <th>Telephone</th>
                   <th>Email</th>
                 </tr>
-                <tr v-for="(Supplier, index) in Suppliers" :key="index">
+                <tr v-for="(Supplier, index) in Suppliers" :key="index" :style="'background: ' + (index % 2 == 0 ? '#f2f2f2' : 'white')">
                   <td>{{ Supplier.LIEFERANTEN_ID }}</td>
                   <td>{{ Supplier.LIEFERANTENNAME }}</td>
                   <td>{{ Supplier.STRASSE }}</td>
@@ -101,7 +101,7 @@ export default {
         async getFilteredSuppliers() {
             this.resetProps();
             this.querySending = true;
-            
+
             const result = await getSupplierWithSearch(this.$refs.searchField.value,
                 this.$refs.searchValue.value, this.$refs.operatorField.value);
             this.querySending = false;
@@ -115,7 +115,7 @@ export default {
         async getAllSuppliers() {
             this.resetProps();
             this.querySending = true;
-            
+
             const result = await getAllSuppliers();
             this.querySending = false;
             if (result.error != undefined) {
@@ -134,6 +134,4 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -36,7 +36,7 @@
         </div>
 
         <div class="result-table-wrapper">
-            <table class="result-table">
+            <table class="result-table" cellspacing="0">
               <tr>
                 <th>Box ID</th>
                 <th>Name</th>
@@ -44,7 +44,7 @@
                 <th>Price</th>
                 <th>Ingredients</th>
               </tr>
-              <tr v-for="(box, index) in Boxes" :key="index">
+              <tr v-for="(box, index) in Boxes" :key="index" :style="'background: ' + (index % 2 == 0 ? '#f2f2f2' : 'white' )">
                 <td>{{ box.BOX_ID }}</td>
                 <td>{{ box.NAME }}</td>
                 <td>{{ box.BESCHREIBUNG }}</td>
@@ -91,7 +91,7 @@ export default {
             this.resetProps();
             this.querySending = true;
 
-            const result = await getBoxWithSearch(this.$refs.searchField.value, 
+            const result = await getBoxWithSearch(this.$refs.searchField.value,
                 this.$refs.searchValue.value, this.$refs.operatorField.value);
             this.querySending = false;
             if (result.error != undefined) {
@@ -104,7 +104,7 @@ export default {
         async getAllBoxes() {
             this.resetProps();
             this.querySending = true;
-            
+
             const result = await getAllBoxes();
             this.querySending = false;
             if (result.error != undefined) {
@@ -123,6 +123,4 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

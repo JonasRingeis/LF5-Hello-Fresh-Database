@@ -43,7 +43,7 @@
         </div>
 
         <div class="result-table-wrapper">
-            <table class="result-table">
+            <table class="result-table" cellspacing="0">
                 <tr>
                     <th> Id </th>
                     <th> First Name </th>
@@ -57,7 +57,7 @@
                     <th> Telephone </th>
                     <th> Email </th>
                 </tr>
-                <tr v-for="(customer, index) in customers" :key="index">
+                <tr v-for="(customer, index) in customers" :key="index" :style="'background: ' + (index % 2 == 0 ? '#f2f2f2' : 'white' )"s>
                     <td> {{ customer.KUNDEN_ID }} </td>
                     <td> {{ customer.VORNAME }} </td>
                     <td> {{ customer.NACHNAME }} </td>
@@ -114,9 +114,9 @@ export default {
         async getFilteredCustomers() {
             this.resetProps();
             this.querySending = true;
-            
+
             const result = await getCustomerWithSearch(this.$refs.searchField.value,
-             this.$refs.searchValue.value, this.$refs.operatorField.value);
+                this.$refs.searchValue.value, this.$refs.operatorField.value);
             this.querySending = false;
             if (result.error != undefined) {
                 this.error = result.error;
@@ -147,6 +147,4 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

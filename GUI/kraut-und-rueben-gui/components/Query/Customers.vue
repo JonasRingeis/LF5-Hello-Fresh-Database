@@ -69,6 +69,11 @@
                     <td> {{ customer.BUND_NAME }} </td>
                     <td> {{ customer.TELEFON }} </td>
                     <td> {{ customer.EMAIL }} </td>
+                    <div class="delete-button-wrapper">
+                        <button class="delete-button" @click="deleteCustomer(customer.KUNDEN_ID)">
+                            <img src="/img/delete.svg">
+                        </button>
+                    </div>
                 </tr>
             </table>
         </div>

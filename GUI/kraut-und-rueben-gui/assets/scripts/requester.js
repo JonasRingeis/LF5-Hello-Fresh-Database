@@ -115,28 +115,30 @@ export async function getOrderWithSearch(field, value, operator) {
     return await response.json();
 }
 export async function getAllOrders() {
-    const query = "SELECT B.BESTELL_ID, B.BESTELLDATUM, B.RECHNUNGSBETRAG, " +
-            "K.VORNAME, K.NACHNAME, K.GEBURTSDATUM, K.STRASSE, K.HAUSNR, K.PLZ, " +
-            "K.ORT, BL.BUND_NAME, K.TELEFON, K.EMAIL, " +
-            "GROUP_CONCAT(Z.BEZEICHNUNG SEPARATOR ', ') AS ZUTATEN," +
-            "GROUP_CONCAT(BX.NAME SEPARATOR ', ') AS BOXEN," +
-            "GROUP_CONCAT(R.NAME SEPARATOR ', ') AS REZEPTE" +
-
-        " FROM BESTELLUNG AS B" +
-        
-        " JOIN KUNDE AS K ON B.KUNDEN_ID = K.KUNDEN_ID" +
-        " JOIN BUNDESLAND AS BL ON K.BUND_ID = BL.BUND_ID" +
-        
-        " LEFT JOIN BESTELLUNG_ZUTAT AS BZ ON B.BESTELL_ID = BZ.BESTELL_ID" +
-        " LEFT JOIN ZUTAT AS Z ON BZ.ZUTAT_ID = Z.ZUTAT_ID" +
-
-        " LEFT JOIN BESTELLUNG_BOX AS BB ON B.BESTELL_ID = BB.BESTELL_ID" +
-        " LEFT JOIN BOX AS BX ON BB.BOX_ID = BX.BOX_ID" +
-
-        " LEFT JOIN BESTELLUNG_REZEPT AS BR ON B.BESTELL_ID = BR.BESTELL_ID" +
-        " LEFT JOIN REZEPT AS R ON BR.REZEPT_ID = R.REZEPT_ID" +
-
-        " GROUP BY B.BESTELL_ID";
+    const query = encodeURIComponent("SELECT" +
+                " B.BESTELL_ID, B.BESTELLDATUM," +
+                " B.RECHNUNGSBETRAG, K.VORNAME," +
+                " K.NACHNAME, K.GEBURTSDATUM," +
+                " K.STRASSE, K.HAUSNR," +
+                " K.PLZ, K.ORT, BL.BUND_NAME," +
+                " K.TELEFON, K.EMAIL," +
+                " (SELECT GROUP_CONCAT(DISTINCT Z.BEZEICHNUNG SEPARATOR ', ')" +
+                 " FROM BESTELLUNG_ZUTAT AS BZ" +
+                 " JOIN ZUTAT AS Z ON BZ.ZUTAT_ID = Z.ZUTAT_ID" +
+                 " WHERE BZ.BESTELL_ID = B.BESTELL_ID) AS ZUTATEN," +
+                " (SELECT GROUP_CONCAT(DISTINCT BX.NAME SEPARATOR ', ')" +
+                 " FROM BESTELLUNG_BOX AS BB" +
+                 " JOIN BOX AS BX ON BB.BOX_ID = BX.BOX_ID" +
+                 " WHERE BB.BESTELL_ID = B.BESTELL_ID) AS BOXEN," +
+                " (SELECT GROUP_CONCAT(DISTINCT R.NAME SEPARATOR ', ')" +
+                 " FROM BESTELLUNG_REZEPT AS BR" +
+                 " JOIN REZEPT AS R ON BR.REZEPT_ID = R.REZEPT_ID" +
+                 " WHERE BR.BESTELL_ID = B.BESTELL_ID) AS REZEPTE" +
+                " FROM BESTELLUNG AS B" +
+                 " JOIN KUNDE AS K ON B.KUNDEN_ID = K.KUNDEN_ID" +
+                 " JOIN BUNDESLAND AS BL ON K.BUND_ID = BL.BUND_ID" +
+                " GROUP BY" +
+                 " B.BESTELL_ID");
 
     const response = await fetch('/api/getData?q=' + query);
     return await response.json();
@@ -165,11 +167,9 @@ export async function getFullCustomerData(id) {
         " K.NACHNAME AS 'Last Name', K.GEBURTSDATUM AS 'Birthdate'," +
         " K.STRASSE AS 'Street', K.HAUSNR AS 'Nr', K.PLZ AS 'Zip Code'," +
         " K.ORT AS 'Location', K.TELEFON AS 'Telephone', K.EMAIL AS 'Email'," +
-        " B.BUND_NAME AS 'State', B2.RECHNUNGSBETRAG as 'Price'," +
-        " B2.BESTELLDATUM AS 'Date' FROM KUNDE AS K" +
+        " B.BUND_NAME AS 'State' FROM KUNDE AS K" +
 
         " JOIN BUNDESLAND B ON B.BUND_ID = K.BUND_ID" +
-        " JOIN BESTELLUNG B2 ON B2.KUNDEN_ID = K.KUNDEN_ID" +
         
         " WHERE K.KUNDEN_ID  = " + id;
 

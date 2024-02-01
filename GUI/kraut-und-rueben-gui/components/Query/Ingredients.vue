@@ -21,7 +21,8 @@
                     <option value="A.STRASSE">Supplier Street</option>
                     <option value="A.HAUSNR">Supplier House Nr</option>
                     <option value="A.PLZ">Supplier Zip Code</option>
-                    <option value="A.ORT">Supplier City</option>
+                    <option value="A.WOHNORT">Supplier City</option>
+                    <option value="B.BUND_NAME">State</option>
                     <option value="L.TELEFON">Supplier Telephone</option>
                     <option value="L.EMAIL">Supplier Email</option>
                 </select>
@@ -69,6 +70,7 @@
                     <th v-if="supplierData">Supplier Nr</th>
                     <th v-if="supplierData">Supplier Zip Code</th>
                     <th v-if="supplierData">Supplier City</th>
+                    <th v-if="supplierData">Supplier State</th>
                     <th v-if="supplierData">Supplier Telephone</th>
                     <th v-if="supplierData">Supplier Email</th>
                 </tr>
@@ -90,7 +92,8 @@
                     <td v-if="supplierData">{{ Ingredient.STRASSE }}</td>
                     <td v-if="supplierData">{{ Ingredient.HAUSNR }}</td>
                     <td v-if="supplierData">{{ Ingredient.PLZ }}</td>
-                    <td v-if="supplierData">{{ Ingredient.ORT }}</td>
+                    <td v-if="supplierData">{{ Ingredient.WOHNORT }}</td>
+                    <td v-if="supplierData">{{ Ingredient.BUND_NAME }}</td>
                     <td v-if="supplierData">{{ Ingredient.TELEFON }}</td>
                     <td v-if="supplierData">{{ Ingredient.EMAIL }}</td>
                 </tr>

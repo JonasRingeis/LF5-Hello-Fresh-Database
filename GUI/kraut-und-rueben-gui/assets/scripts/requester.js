@@ -60,6 +60,8 @@ export async function getIngredientWithSearch(field, value, operator) {
     const query = "SELECT * FROM ZUTAT AS Z" +
         " JOIN NÄHRWERTE AS N ON Z.NÄHRWERTE_ID = N.NÄHRWERTE_ID" +
         " JOIN LIEFERANT AS L ON Z.LIEFERANTEN_ID = L.LIEFERANTEN_ID" +
+        " JOIN ADRESSE AS A ON A.ADRESS_ID = L.ADRESS_ID" + 
+        " JOIN BUNDESLAND AS B ON B.BUND_ID = A.BUND_ID" +
         " " + buildSearchQuery(field, value, operator);
 
     const response = await fetch('/api/getData?q=' + query);
@@ -68,7 +70,9 @@ export async function getIngredientWithSearch(field, value, operator) {
 export async function getAllIngredients() {
     const query = "SELECT * FROM ZUTAT AS Z" +
         " JOIN NÄHRWERTE AS N ON Z.NÄHRWERTE_ID = N.NÄHRWERTE_ID" +
-        " JOIN LIEFERANT AS L ON Z.LIEFERANTEN_ID = L.LIEFERANTEN_ID";
+        " JOIN LIEFERANT AS L ON Z.LIEFERANTEN_ID = L.LIEFERANTEN_ID" +
+        " JOIN ADRESSE AS A ON A.ADRESS_ID = L.ADRESS_ID" + 
+        " JOIN BUNDESLAND AS B ON B.BUND_ID = A.BUND_ID";
 
     const response = await fetch('/api/getData?q=' + query);
     return await response.json();

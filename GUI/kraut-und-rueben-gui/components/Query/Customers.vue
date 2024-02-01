@@ -65,7 +65,7 @@
                     <td> {{ customer.STRASSE }} </td>
                     <td> {{ customer.HAUSNR }} </td>
                     <td> {{ customer.PLZ }} </td>
-                    <td> {{ customer.ORT }} </td>
+                    <td> {{ customer.WOHNORT }} </td>
                     <td> {{ customer.BUND_NAME }} </td>
                     <td> {{ customer.TELEFON }} </td>
                     <td> {{ customer.EMAIL }} </td>

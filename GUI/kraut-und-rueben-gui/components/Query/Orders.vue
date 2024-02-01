@@ -111,7 +111,7 @@
                     <td v-if="customerData"> {{ Order.STRASSE }} </td>
                     <td v-if="customerData"> {{ Order.HAUSNR }} </td>
                     <td v-if="customerData"> {{ Order.PLZ }} </td>
-                    <td v-if="customerData"> {{ Order.ORT }} </td>
+                    <td v-if="customerData"> {{ Order.WOHNORT }} </td>
                     <td v-if="customerData"> {{ Order.BUND_NAME }} </td>
                     <td v-if="customerData"> {{ Order.TELEFON }} </td>
                     <td v-if="customerData"> {{ Order.EMAIL }} </td>

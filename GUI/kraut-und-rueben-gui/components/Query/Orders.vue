@@ -47,7 +47,7 @@
         </div>
 
         <div class="result-table-wrapper">
-            <table class="result-table">
+            <table class="result-table" cellspacing="0">
               <tr>
                 <th>Order ID</th>
                 <th>Order Date</th>
@@ -66,13 +66,34 @@
                 <th v-if="customerData">Telephone</th>
                 <th v-if="customerData">Email</th>
               </tr>
-              <tr v-for="(Order, index) in Orders" :key="index">
+              <tr v-for="(Order, index) in Orders" :key="index" :style="'background: ' + (index % 2 == 0 ? '#f2f2f2' : 'white' )">
                 <td>{{ Order.BESTELL_ID }}</td>
                 <td>{{ new Date(Order.BESTELLDATUM).toLocaleDateString() }}</td>
                 <td>{{ Order.RECHNUNGSBETRAG }} €</td>
                 <td v-if="boxes"> {{ Order.BOXEN == null ? "-" : Order.BOXEN }} </td>
                 <td v-if="recipe"> {{ Order.REZEPTE == null ? "-" : Order.REZEPTE }} </td>
-                <td v-if="ingredients"> {{ Order.ZUTATEN == null ? "-" : Order.ZUTATEN }} </td>
+                <td v-if="ingredients">
+                    {{ Order.ZUTATEN == null ? "-" : null }}
+                    
+                    <table v-if="Order.ZUTATEN != null">
+                        <tr>
+                            <th>
+                                Menge
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                        </tr>
+                        <tr v-for="(ingredient, index) in Order.ZUTATEN.split(', ')" :key="index">
+                            <td style="text-align: center;">
+                                {{ ingredient.split("_")[1] }}
+                            </td>
+                            <td>
+                                {{ ingredient.split("_")[0] }}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
                 <td v-if="customerData"> {{ Order.VORNAME }} </td>
                 <td v-if="customerData"> {{ Order.NACHNAME }} </td>
                 <td v-if="customerData"> {{ new Date(Order.GEBURTSDATUM).toLocaleDateString() }} </td>

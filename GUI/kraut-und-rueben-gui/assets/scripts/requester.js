@@ -122,7 +122,7 @@ export async function getAllOrders() {
                 " K.STRASSE, K.HAUSNR," +
                 " K.PLZ, K.ORT, BL.BUND_NAME," +
                 " K.TELEFON, K.EMAIL," +
-                " (SELECT GROUP_CONCAT(DISTINCT Z.BEZEICHNUNG SEPARATOR ', ')" +
+                " (SELECT GROUP_CONCAT(DISTINCT CONCAT(Z.BEZEICHNUNG, '_', BZ.MENGE) SEPARATOR ', ')" +
                  " FROM BESTELLUNG_ZUTAT AS BZ" +
                  " JOIN ZUTAT AS Z ON BZ.ZUTAT_ID = Z.ZUTAT_ID" +
                  " WHERE BZ.BESTELL_ID = B.BESTELL_ID) AS ZUTATEN," +

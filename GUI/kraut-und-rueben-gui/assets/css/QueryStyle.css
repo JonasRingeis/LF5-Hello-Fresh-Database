@@ -85,7 +85,7 @@
     position: relative;
 }
 .result-table th, .result-table td {
-    padding: 3px 6px;
+    padding: 5px 6px;
     white-space: nowrap;
 }
 .loader {

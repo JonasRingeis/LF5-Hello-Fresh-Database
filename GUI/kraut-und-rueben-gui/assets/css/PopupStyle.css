@@ -1,0 +1,7 @@
+.popup-wrapper {
+    backdrop-filter: blur(10px);
+    display: flex;
+}
+.popup {
+
+}

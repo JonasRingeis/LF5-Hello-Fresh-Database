@@ -1,46 +1,49 @@
+const customerQuery = "SELECT * FROM KUNDE as K" +
+" JOIN ADRESSE AS A ON K.ADRESS_ID = A.ADRESS_ID" +
+" JOIN BUNDESLAND as B ON A.BUND_ID = B.BUND_ID";
+
 export async function getCustomerWithSearch(field, value, operator) {
-    const query = "SELECT * FROM KUNDE as K" +
-        " JOIN ADRESSE AS A ON K.ADRESS_ID = A.ADRESS_ID" +
-        " JOIN BUNDESLAND as B ON A.BUND_ID = B.BUND_ID" +
+    const query = customerQuery +
         " " + buildSearchQuery(field, value, operator);
 
     const response = await fetch("/api/getData?q=" + query);
     return await response.json();
 }
 export async function getAllCustomers() {
-    const query = "SELECT * FROM KUNDE AS K" +
-        " JOIN ADRESSE AS A ON K.ADRESS_ID = A.ADRESS_ID" +
-        " JOIN BUNDESLAND AS b ON A.BUND_ID = B.BUND_ID";
+    const query = customerQuery;
 
     const response = await fetch('/api/getData?q=' + query);
     return await response.json();
 }
 
+const supplierQuery = "SELECT * FROM LIEFERANT as L" +
+" JOIN ADRESSE AS A ON L.ADRESS_ID = A.ADRESS_ID" +
+" JOIN BUNDESLAND AS B ON A.BUND_ID = B.BUND_ID";
+
 export async function getSupplierWithSearch(field, value, operator) {
-    const query = "SELECT * FROM LIEFERANT as L" +
-        " JOIN ADRESSE AS A ON L.ADRESS_ID = A.ADRESS_ID" +
-        " JOIN BUNDESLAND AS B ON A.BUND_ID = B.BUND_ID" +
+    const query = supplierQuery +
         " " + buildSearchQuery(field, value, operator);
 
     const response = await fetch('/api/getData?q=' + query);
     return await response.json();
 }
 export async function getAllSuppliers() {
-    const query = "SELECT * FROM LIEFERANT AS L" +
-        " JOIN ADRESSE AS A ON L.ADRESS_ID = A.ADRESS_ID" +
-        " JOIN BUNDESLAND AS B ON A.BUND_ID = B.BUND_ID";
+    const query = supplierQuery;
 
     const response = await fetch('/api/getData?q=' + query);
     return await response.json();
 }
 
+const boxQuery = "SELECT B.BOX_ID, B.NAME, B.BESCHREIBUNG, B.PREIS," +
+" GROUP_CONCAT(Z.BEZEICHNUNG SEPARATOR ', ') AS ZUTATEN" +
+" FROM BOX AS B" +
+" JOIN BOX_ZUTAT AS BZ ON B.BOX_ID = BZ.BOX_ID" +
+" JOIN ZUTAT AS Z ON BZ.ZUTAT_ID = Z.ZUTAT_ID" +
+" JOIN ZUTAT_ERNÄHRUNGSKATEGORIE AS ZE ON ZE.ZUTAT_ID = Z.ZUTAT_ID" +
+" JOIN ERNÄHRUNGSKATEGORIE AS E ON E.ERNÄHRUNGSKATEGORIE_ID = ZE.ERNÄHRUNGSKATEGORIE_ID";
+
 export async function getBoxWithSearch(field, value, operator) {
-    const query = "SELECT B.BOX_ID, B.NAME, B.BESCHREIBUNG, B.PREIS, GROUP_CONCAT(Z.BEZEICHNUNG SEPARATOR ', ') AS ZUTATEN" +
-        " FROM BOX AS B" +
-        " JOIN BOX_ZUTAT AS BZ ON B.BOX_ID = BZ.BOX_ID" +
-        " JOIN ZUTAT AS Z ON BZ.ZUTAT_ID = Z.ZUTAT_ID" +
-        "JOIN ZUTAT_ERNÄHRUNGSKATEGORIE AS ZE ON ZE.ZUTAT_ID = Z.ZUTAT_ID" +
-        "JOIN ERNÄHRUNGSKATEGORIE AS E ON E.ERNÄHRUNGSKATEGORIE_ID = ZE.ERNÄHRUNGSKATEGORIE_ID" +
+    const query = boxQuery +
         " " + buildSearchQuery(field, value, operator) +
         " GROUP BY B.BOX_ID";
 
@@ -48,51 +51,48 @@ export async function getBoxWithSearch(field, value, operator) {
     return await response.json();
 }
 export async function getAllBoxes() {
-    const query = "SELECT B.BOX_ID, B.NAME, B.BESCHREIBUNG, B.PREIS, GROUP_CONCAT(Z.BEZEICHNUNG SEPARATOR ', ') AS ZUTATEN" +
-        " FROM BOX AS B" +
-        " JOIN BOX_ZUTAT AS BZ ON B.BOX_ID = BZ.BOX_ID" +
-        " JOIN ZUTAT AS Z ON BZ.ZUTAT_ID = Z.ZUTAT_ID" +
-        "JOIN ZUTAT_ERNÄHRUNGSKATEGORIE AS ZE ON ZE.ZUTAT_ID = Z.ZUTAT_ID" +
-        "JOIN ERNÄHRUNGSKATEGORIE AS E ON E.ERNÄHRUNGSKATEGORIE_ID = ZE.ERNÄHRUNGSKATEGORIE_ID" +
+    const query = boxQuery +
         " GROUP BY B.BOX_ID";
 
     const response = await fetch('/api/getData?q=' + query);
     return await response.json();
 }
-export async function getIngredientWithSearch(field, value, operator) {
 
-    const query = "SELECT * FROM ZUTAT AS Z" +
-        " JOIN NÄHRWERTE AS N ON Z.NÄHRWERTE_ID = N.NÄHRWERTE_ID" +
-        " JOIN LIEFERANT AS L ON Z.LIEFERANTEN_ID = L.LIEFERANTEN_ID" +
-        " JOIN ADRESSE AS A ON A.ADRESS_ID = L.ADRESS_ID" +
-        " JOIN BUNDESLAND AS B ON B.BUND_ID = A.BUND_ID" +
-        "JOIN ZUTAT_ERNÄHRUNGSKATEGORIE AS ZE ON ZE.ZUTAT_ID = Z.ZUTAT_ID" +
-        "JOIN ERNÄHRUNGSKATEGORIE AS E ON E.ERNÄHRUNGSKATEGORIE_ID = ZE.ERNÄHRUNGSKATEGORIE_ID" +
+const ingredientQuery = "SELECT * FROM ZUTAT AS Z" +
+" JOIN NÄHRWERTE AS N ON Z.NÄHRWERTE_ID = N.NÄHRWERTE_ID" +
+" JOIN LIEFERANT AS L ON Z.LIEFERANTEN_ID = L.LIEFERANTEN_ID" +
+" JOIN ADRESSE AS A ON A.ADRESS_ID = L.ADRESS_ID" +
+" JOIN BUNDESLAND AS B ON B.BUND_ID = A.BUND_ID" +
+" JOIN ZUTAT_ERNÄHRUNGSKATEGORIE AS ZE ON ZE.ZUTAT_ID = Z.ZUTAT_ID" +
+" JOIN ERNÄHRUNGSKATEGORIE AS E ON E.ERNÄHRUNGSKATEGORIE_ID = ZE.ERNÄHRUNGSKATEGORIE_ID";
+
+export async function getIngredientWithSearch(field, value, operator) {
+    const query = ingredientQuery +
         " " + buildSearchQuery(field, value, operator);
 
     const response = await fetch('/api/getData?q=' + query);
     return await response.json();
 }
 export async function getAllIngredients() {
-    const query = "SELECT * FROM ZUTAT AS Z" +
-        " JOIN NÄHRWERTE AS N ON Z.NÄHRWERTE_ID = N.NÄHRWERTE_ID" +
-        " JOIN LIEFERANT AS L ON Z.LIEFERANTEN_ID = L.LIEFERANTEN_ID" +
-        " JOIN ADRESSE AS A ON A.ADRESS_ID = L.ADRESS_ID" +
-        "JOIN ZUTAT_ERNÄHRUNGSKATEGORIE AS ZE ON ZE.ZUTAT_ID = Z.ZUTAT_ID" +
-        "JOIN ERNÄHRUNGSKATEGORIE AS E ON E.ERNÄHRUNGSKATEGORIE_ID = ZE.ERNÄHRUNGSKATEGORIE_ID" +
-        " JOIN BUNDESLAND AS B ON B.BUND_ID = A.BUND_ID";
+    const query = ingredientQuery;
 
     const response = await fetch('/api/getData?q=' + query);
     return await response.json();
 }
 
+const recipeQuery = "SELECT" +
+"R.REZEPT_ID, R.NAME," +
+"R.ANLEITUNG, R.DAUER," +
+" GROUP_CONCAT(Z.BEZEICHNUNG SEPARATOR ', ') AS ZUTATEN," +
+" SUM(Z.NETTOPREIS) AS PREIS" +
+" FROM REZEPT AS R" +
+" LEFT JOIN REZEPT_ZUTAT AS RZ ON R.REZEPT_ID = RZ.REZEPT_ID" +
+" LEFT JOIN ZUTAT AS Z ON RZ.ZUTAT_ID = Z.ZUTAT_ID" +
+" JOIN ZUTAT_ERNÄHRUNGSKATEGORIE AS ZE ON ZE.ZUTAT_ID = Z.ZUTAT_ID" +
+" JOIN ERNÄHRUNGSKATEGORIE AS E ON E.ERNÄHRUNGSKATEGORIE_ID = ZE.ERNÄHRUNGSKATEGORIE_ID";
+
 export async function getRecipeWithSearch(field, value, operator) {
-    const query = "SELECT R.REZEPT_ID, R.NAME, R.ANLEITUNG, R.DAUER, GROUP_CONCAT(Z.BEZEICHNUNG SEPARATOR ', ') AS ZUTATEN, SUM(Z.NETTOPREIS) AS PREIS" +
-        " FROM REZEPT AS R" +
-        " LEFT JOIN REZEPT_ZUTAT AS RZ ON R.REZEPT_ID = RZ.REZEPT_ID" +
-        " LEFT JOIN ZUTAT AS Z ON RZ.ZUTAT_ID = Z.ZUTAT_ID" +
-        "JOIN ZUTAT_ERNÄHRUNGSKATEGORIE AS ZE ON ZE.ZUTAT_ID = Z.ZUTAT_ID" +
-        "JOIN ERNÄHRUNGSKATEGORIE AS E ON E.ERNÄHRUNGSKATEGORIE_ID = ZE.ERNÄHRUNGSKATEGORIE_ID" +
+    const query = recipeQuery +
         " " + buildSearchQuery(field, value, operator) +
         " GROUP BY R.REZEPT_ID";
 
@@ -100,42 +100,39 @@ export async function getRecipeWithSearch(field, value, operator) {
     return await response.json();
 }
 export async function getAllRecipies() {
-    const query = "SELECT R.REZEPT_ID, R.NAME, R.ANLEITUNG, R.DAUER, GROUP_CONCAT(Z.BEZEICHNUNG SEPARATOR ', ') AS ZUTATEN, SUM(Z.NETTOPREIS) AS PREIS" +
-        " FROM REZEPT AS R" +
-        " LEFT JOIN REZEPT_ZUTAT AS RZ ON R.REZEPT_ID = RZ.REZEPT_ID" +
-        " LEFT JOIN ZUTAT AS Z ON RZ.ZUTAT_ID = Z.ZUTAT_ID" +
-        "JOIN ZUTAT_ERNÄHRUNGSKATEGORIE AS ZE ON ZE.ZUTAT_ID = Z.ZUTAT_ID" +
-        "JOIN ERNÄHRUNGSKATEGORIE AS E ON E.ERNÄHRUNGSKATEGORIE_ID = ZE.ERNÄHRUNGSKATEGORIE_ID" +
+    const query = recipeQuery +
         " GROUP BY R.REZEPT_ID";
 
     const response = await fetch('/api/getData?q=' + query);
     return await response.json();
 }
 
+const orderQuery = "SELECT" +
+    " B.BESTELL_ID, B.BESTELLDATUM," +
+    " B.RECHNUNGSBETRAG, K.VORNAME," +
+    " K.NACHNAME, K.GEBURTSDATUM," +
+    " A.STRASSE, A.HAUSNR," +
+    " A.PLZ, A.WOHNORT, BL.BUND_NAME," +
+    " K.TELEFON, K.EMAIL," +
+    " (SELECT GROUP_CONCAT(DISTINCT CONCAT(Z.BEZEICHNUNG, '_', BZ.MENGE) SEPARATOR ', ')" +
+    " FROM BESTELLUNG_ZUTAT AS BZ" +
+    " JOIN ZUTAT AS Z ON BZ.ZUTAT_ID = Z.ZUTAT_ID" +
+    " WHERE BZ.BESTELL_ID = B.BESTELL_ID) AS ZUTATEN," +
+    " (SELECT GROUP_CONCAT(DISTINCT BX.NAME SEPARATOR ', ')" +
+    " FROM BESTELLUNG_BOX AS BB" +
+    " JOIN BOX AS BX ON BB.BOX_ID = BX.BOX_ID" +
+    " WHERE BB.BESTELL_ID = B.BESTELL_ID) AS BOXEN," +
+    " (SELECT GROUP_CONCAT(DISTINCT R.NAME SEPARATOR ', ')" +
+    " FROM BESTELLUNG_REZEPT AS BR" +
+    " JOIN REZEPT AS R ON BR.REZEPT_ID = R.REZEPT_ID" +
+    " WHERE BR.BESTELL_ID = B.BESTELL_ID) AS REZEPTE" +
+    " FROM BESTELLUNG AS B" +
+    " JOIN KUNDE AS K ON B.KUNDEN_ID = K.KUNDEN_ID" +
+    " JOIN ADRESSE AS A ON K.ADRESS_ID = A.ADRESS_ID" +
+    " JOIN BUNDESLAND AS BL ON A.BUND_ID = BL.BUND_ID";
+
 export async function getOrderWithSearch(field, value, operator) {
-    const query = "SELECT" +
-        " B.BESTELL_ID, B.BESTELLDATUM," +
-        " B.RECHNUNGSBETRAG, K.VORNAME," +
-        " K.NACHNAME, K.GEBURTSDATUM," +
-        " A.STRASSE, A.HAUSNR," +
-        " A.PLZ, A.WOHNORT, BL.BUND_NAME," +
-        " K.TELEFON, K.EMAIL," +
-        " (SELECT GROUP_CONCAT(DISTINCT CONCAT(Z.BEZEICHNUNG, '_', BZ.MENGE) SEPARATOR ', ')" +
-        " FROM BESTELLUNG_ZUTAT AS BZ" +
-        " JOIN ZUTAT AS Z ON BZ.ZUTAT_ID = Z.ZUTAT_ID" +
-        " WHERE BZ.BESTELL_ID = B.BESTELL_ID) AS ZUTATEN," +
-        " (SELECT GROUP_CONCAT(DISTINCT BX.NAME SEPARATOR ', ')" +
-        " FROM BESTELLUNG_BOX AS BB" +
-        " JOIN BOX AS BX ON BB.BOX_ID = BX.BOX_ID" +
-        " WHERE BB.BESTELL_ID = B.BESTELL_ID) AS BOXEN," +
-        " (SELECT GROUP_CONCAT(DISTINCT R.NAME SEPARATOR ', ')" +
-        " FROM BESTELLUNG_REZEPT AS BR" +
-        " JOIN REZEPT AS R ON BR.REZEPT_ID = R.REZEPT_ID" +
-        " WHERE BR.BESTELL_ID = B.BESTELL_ID) AS REZEPTE" +
-        " FROM BESTELLUNG AS B" +
-        " JOIN KUNDE AS K ON B.KUNDEN_ID = K.KUNDEN_ID" +
-        " JOIN ADRESSE AS A ON K.ADRESS_ID = A.ADRESS_ID" +
-        " JOIN BUNDESLAND AS BL ON A.BUND_ID = BL.BUND_ID" +
+    const query = orderQuery +
         " " + buildSearchQuery(field, value, operator) +
         " GROUP BY" +
         " B.BESTELL_ID"
@@ -144,29 +141,7 @@ export async function getOrderWithSearch(field, value, operator) {
     return await response.json();
 }
 export async function getAllOrders() {
-    const query = "SELECT" +
-        " B.BESTELL_ID, B.BESTELLDATUM," +
-        " B.RECHNUNGSBETRAG, K.VORNAME," +
-        " K.NACHNAME, K.GEBURTSDATUM," +
-        " A.STRASSE, A.HAUSNR," +
-        " A.PLZ, A.WOHNORT, BL.BUND_NAME," +
-        " K.TELEFON, K.EMAIL," +
-        " (SELECT GROUP_CONCAT(DISTINCT CONCAT(Z.BEZEICHNUNG, '_', BZ.MENGE) SEPARATOR ', ')" +
-        " FROM BESTELLUNG_ZUTAT AS BZ" +
-        " JOIN ZUTAT AS Z ON BZ.ZUTAT_ID = Z.ZUTAT_ID" +
-        " WHERE BZ.BESTELL_ID = B.BESTELL_ID) AS ZUTATEN," +
-        " (SELECT GROUP_CONCAT(DISTINCT BX.NAME SEPARATOR ', ')" +
-        " FROM BESTELLUNG_BOX AS BB" +
-        " JOIN BOX AS BX ON BB.BOX_ID = BX.BOX_ID" +
-        " WHERE BB.BESTELL_ID = B.BESTELL_ID) AS BOXEN," +
-        " (SELECT GROUP_CONCAT(DISTINCT R.NAME SEPARATOR ', ')" +
-        " FROM BESTELLUNG_REZEPT AS BR" +
-        " JOIN REZEPT AS R ON BR.REZEPT_ID = R.REZEPT_ID" +
-        " WHERE BR.BESTELL_ID = B.BESTELL_ID) AS REZEPTE" +
-        " FROM BESTELLUNG AS B" +
-        " JOIN KUNDE AS K ON B.KUNDEN_ID = K.KUNDEN_ID" +
-        " JOIN ADRESSE AS A ON K.ADRESS_ID = A.ADRESS_ID" +
-        " JOIN BUNDESLAND AS BL ON A.BUND_ID = BL.BUND_ID" +
+    const query = orderQuery +
         " GROUP BY" +
         " B.BESTELL_ID";
 
@@ -201,6 +176,7 @@ export async function createRecipe(name, instructions, preperationTime, ingredie
 
         (await (await fetch('/api/getData?q=' + createRecipe)).json());
     });
+    return "";
 }
 
 

@@ -6,7 +6,7 @@
             <button class="query-button" @click="findCheapestBox">
                 Get Cheapest Box
             </button>
-            
+
             <button class="query-button" @click="findIngredientWithoutRecipe">
                 Get Ingredients Without Recipe
             </button>
@@ -44,7 +44,7 @@
 </template>
 <script>
 import '../../assets/css/QueryStyle.css';
-import { getCheapestBox, getFullCustomerData, getIngredientsWithoutRecipe } from '../../assets/scripts/requester';
+import { getCheapestBox, getIngredientsWithoutRecipe } from '../../assets/scripts/requester';
 
 export default {
     data() {

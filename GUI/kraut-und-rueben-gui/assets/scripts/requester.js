@@ -174,12 +174,14 @@ export async function createRecipe(name, instructions, preperationTime, ingredie
     const createRecipeQuery = "INSERT INTO REZEPT (NAME, ANLEITUNG, DAUER) VALUES " +
                   "(\"" + name + "\", \"" + instructions + "\", " + preperationTime + ")";
 
-    await fetch('/api/getData?q=' + createRecipeQuery);
+    const createRecipeResult = await fetch('/api/getData?q=' + createRecipeQuery);
+    if (await createRecipeResult.status() != 200) {
+        return createRecipeResult;
+    }
 
     const getNewRecipeIdQuery = "SELECT LAST_INSERT_ID() AS REZEPT_ID;"
 
     const recipeId = (await (await fetch('/api/getData?q=' + getNewRecipeIdQuery)).json())[0].REZEPT_ID;
-    console.log(JSON.stringify(recipeId));
                   
     ingredients.forEach(async (Ingredient) => {
         const createRecipe = "INSERT INTO REZEPT_ZUTAT (MENGE, ZUTAT_ID, REZEPT_ID) VALUES " + 

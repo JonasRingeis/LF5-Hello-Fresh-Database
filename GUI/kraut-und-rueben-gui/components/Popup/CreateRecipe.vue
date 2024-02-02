@@ -6,31 +6,32 @@
                 Create Recipe
             </h2>
             <form @submit.prevent="onSubmit">
-                <input placeholder="Name" class="inputfield" v-model="name" type="text" />
-                <textarea placeholder="Instructions" class="textarea" v-model="instructions" rows="4"></textarea>
-                <input placeholder="Preparation Time (Min)" class="inputfield" v-model="preparationTime" type="number" />
+                <input placeholder="Name" class="inputfield" v-model="name" type="text" required />
+                <textarea placeholder="Instructions" class="textarea" v-model="instructions" rows="4" required ></textarea>
+                <input placeholder="Preparation Time (Min)" class="inputfield" v-model="preparationTime" type="number" required />
 
                 <div>
-                    <select class="dropdown" @input="addIngredient" ref="ingredient">
+                    <select class="ingredient-dropdown dropdown" @input="addIngredient" ref="ingredient">
                         <option v-for="(ingredient, index) in allIngredients" :value="ingredient.ZUTAT_ID" :key="index">
                             {{ ingredient.BEZEICHNUNG }}
                         </option>
                     </select>
                     <div class="popup-value-selector-result-wrapper">
                         <div v-for="(ingredient, index) in ingredientsSelected" :key="index" class="popup-value-selector-result">
-                            <p>{{ ingredient.BEZEICHNUNG }}</p>
-                            <button class="add" @click="incrementIngredient(ingredient.ZUTAT_ID)">+</button>
-                            <button class="remove" @click="removeIngredient(ingredient.ZUTAT_ID)">X</button>
+                            <p>{{ ingredient.MENGE + "x " + ingredient.BEZEICHNUNG }}</p>
+                            <button class="add" @click="incrementIngredient(ingredient.ZUTAT_ID)" @submit.prevent>
+                                +
+                            </button>
+                            <button class="remove" @click="removeIngredient(ingredient.ZUTAT_ID)" @submit.prevent>
+                                -
+                            </button>
                         </div>
                     </div>
                 </div>
-
-                <input type="submit" value=""/>
-                <button class="query-button" @click="createRecipe">
-                    Create
-                </button>
+                <input type="submit" value="Create" class="query-button" @click="createRecipe" />
             </form>
         </div>
+        
     </div>
 </template>
 
@@ -46,6 +47,7 @@ export default {
                     ingredient.ZUTAT_ID == this.$refs.ingredient.value)[0];
             ingredientToAdd.MENGE = 1;
             this.ingredientsSelected.push(ingredientToAdd);
+            this.$refs.ingredient.value = "Choose an Ingredient";
         },
         removeIngredient(ingredientId) {
             const ingredientToRemove = this.ingredientsSelected.filter((ingredient) => ingredient.ZUTAT_ID == ingredientId)[0];
@@ -61,12 +63,19 @@ export default {
             ingredientToIncrement.MENGE += 1;
         },
         async getAllIngredients() {
-            console.log("Getting all ingredients");
+            this.allIngredients = [];
+            this.allIngredients.push({BEZEICHNUNG: "Choose an Ingredient"});
             const result = await getAllIngredients();
-            this.allIngredients = result;
+            this.allIngredients = this.allIngredients.concat(result);
         },
         async createRecipe() {
-            
+            if (this.name == "" || this.instructions == "" || this.preparationTime == "") {
+                return;
+            }
+            if (this.ingredientsSelected.length == 0) {
+                alert("No Ingredients Selected!");
+                return;
+            }
             await createRecipe(this.name, this.instructions, this.preparationTime, this.ingredientsSelected);
         }
     },
@@ -88,6 +97,9 @@ export default {
     }
 }
 </script>
-<style lang="">
-    
+<style scoped>
+.ingredient-dropdown {
+    width: 100%;
+    margin: 5px 0px;
+}
 </style>

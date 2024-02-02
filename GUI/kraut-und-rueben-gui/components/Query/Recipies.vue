@@ -40,18 +40,20 @@
               <tr>
                 <th>Recipe ID</th>
                 <th>Name</th>
-                <th>Instruction</th>
                 <th>Price</th>
-                <th>Ingredients</th>
                 <th>Preparation Time</th>
+                <th>Food Category</th>
+                <th>Instruction</th>
+                <th>Ingredients</th>
               </tr>
               <tr v-for="(Recipe, index) in Recipies" :key="index" :style="'background: ' + (index % 2 == 0 ? '#f2f2f2' : 'white')">
                 <td>{{ Recipe.REZEPT_ID }}</td>
                 <td>{{ Recipe.NAME }}</td>
-                <td>{{ Recipe.ANLEITUNG }}</td>
                 <td>{{ Recipe.PREIS }} €</td>
-                <td>{{ Recipe.ZUTATEN }}</td>
                 <td>{{ Recipe.DAUER }} Minuten</td>
+                <td>{{ Recipe.ERNÄHRUNGSKATEGORIE_NAME }}</td>
+                <td>{{ Recipe.ANLEITUNG }}</td>
+                <td>{{ Recipe.ZUTATEN }}</td>
               </tr>
             </table>
         </div>

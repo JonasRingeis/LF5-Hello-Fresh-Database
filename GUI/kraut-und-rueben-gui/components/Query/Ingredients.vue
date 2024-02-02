@@ -59,6 +59,7 @@
                     <th>Quantity</th>
                     <th>Net Price</th>
                     <th>Stock</th>
+                    <th>Food Category</th>
                     <th v-if="nutritionFacts">Calories</th>
                     <th v-if="nutritionFacts">Carbohydrates</th>
                     <th v-if="nutritionFacts">Proteins</th>
@@ -82,6 +83,7 @@
                     }}</td>
                     <td>{{ Ingredient.NETTOPREIS }}€</td>
                     <td>{{ Ingredient.BESTAND }}</td>
+                    <td>{{ Ingredient.NAME }}</td>
                     <td v-if="nutritionFacts">{{ Ingredient.KALORIEN }}kcal</td>
                     <td v-if="nutritionFacts">{{ Ingredient.KOHLENHYDRATE }}g</td>
                     <td v-if="nutritionFacts">{{ Ingredient.PROTEINE }}g</td>

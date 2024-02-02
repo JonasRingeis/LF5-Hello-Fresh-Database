@@ -40,15 +40,17 @@
               <tr>
                 <th>Box ID</th>
                 <th>Name</th>
-                <th>Description</th>
                 <th>Price</th>
+                <th>Food Category</th>
+                <th>Description</th>
                 <th>Ingredients</th>
               </tr>
               <tr v-for="(box, index) in Boxes" :key="index" :style="'background: ' + (index % 2 == 0 ? '#f2f2f2' : 'white' )">
                 <td>{{ box.BOX_ID }}</td>
                 <td>{{ box.NAME }}</td>
-                <td>{{ box.BESCHREIBUNG }}</td>
                 <td>{{ box.PREIS }} €</td>
+                <td>{{ box.ERNÄHRUNGSKATEGORIE_NAME }}</td>
+                <td>{{ box.BESCHREIBUNG }}</td>
                 <td>{{ box.ZUTATEN }}</td>
               </tr>
             </table>

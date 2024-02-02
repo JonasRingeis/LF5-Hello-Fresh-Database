@@ -189,21 +189,6 @@ export async function getCheapestBox() {
     const response = await fetch('/api/getData?q=' + query);
     return await response.json();
 }
-export async function getFullCustomerData(id) {
-    const query = "SELECT K.KUNDEN_ID AS 'Id', K.VORNAME AS 'First Name'," +
-        " K.NACHNAME AS 'Last Name', K.GEBURTSDATUM AS 'Birthdate'," +
-        " A.STRASSE AS 'Street', A.HAUSNR AS 'Nr', A.PLZ AS 'Zip Code'," +
-        " A.WOHNORT AS 'Location', K.TELEFON AS 'Telephone', K.EMAIL AS 'Email'," +
-        " B.BUND_NAME AS 'State' FROM KUNDE AS K" +
-
-        " JOIN ADRESSE A ON K.ADRESS_ID = A.ADRESS_ID" +
-        " JOIN BUNDESLAND B ON B.BUND_ID = A.BUND_ID" +
-
-        " WHERE K.KUNDEN_ID  = " + id;
-
-    const response = await fetch('/api/getData?q=' + query);
-    return await response.json();
-}
 export async function getIngredientsWithoutRecipe() {
     const query = "SELECT Z.ZUTAT_ID AS 'Ingredient Id', Z.BEZEICHNUNG AS 'Name', CONCAT(Z.NETTOPREIS, '€') AS 'Price', Z.BESTAND as Stock, CONCAT(Z.MENGE, ' ', Z.EINHEIT) AS Quantity FROM ZUTAT AS Z" +
         " LEFT JOIN REZEPT_ZUTAT AS RZ ON Z.ZUTAT_ID = RZ.ZUTAT_ID" +

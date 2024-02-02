@@ -6,11 +6,7 @@
             <button class="query-button" @click="findCheapestBox">
                 Get Cheapest Box
             </button>
-
-            <button class="query-button" @click="findFullCustomerData">
-                Get Full Customer Data
-            </button>
-
+            
             <button class="query-button" @click="findIngredientWithoutRecipe">
                 Get Ingredients Without Recipe
             </button>
@@ -70,22 +66,6 @@ export default {
             this.querySending = true;
 
             const result = await getCheapestBox();
-            this.querySending = false;
-            if (result.error != undefined) {
-                this.error = result.error;
-            } else {
-                this.resultFields = Object.keys(result[0]);
-                for (let i = 0; i < result.length; i++) {
-                    this.resultValues.push(Object.values(result[i]));
-                }
-                this.queryFinished = true;
-            }
-        },
-        async findFullCustomerData() {
-            this.resetProps();
-            this.querySending = true;
-
-            const result = await getFullCustomerData(1);
             this.querySending = false;
             if (result.error != undefined) {
                 this.error = result.error;

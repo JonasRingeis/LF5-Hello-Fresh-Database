@@ -111,14 +111,17 @@ INSERT INTO BESTELLUNG_BOX(BOX_ID, BESTELL_ID, MENGE) VALUES (1, 11, 1),
 
 
 -- REZEPT
-INSERT INTO REZEPT (REZEPT_ID, NAME, ANLEITUNG, DAUER) VALUES (1, 'Bolognese', 'Hier könnte Ihr Rezept stehen', 30), (2, 'Rührei', 'Hier könnte dein Rührei Rezept stehen', 15);
+INSERT INTO REZEPT (REZEPT_ID, NAME, ANLEITUNG, DAUER) VALUES (1, 'Bolognese', 'Hier könnte Ihr Rezept stehen', 30),
+                                                              (2, 'Rührei', 'Hier könnte dein Rührei Rezept stehen', 15),
+                                                              (3, 'Tomatensalat', "Alle Zutaten in kleine Würfel schneiden und in einer Schüssel tun. Etwas Salz dazu geben und nach Wunsch Öl dazugeben.", 20);
 
 -- BESTELLUNG REZEPT
 INSERT INTO BESTELLUNG_REZEPT (REZEPT_ID, BESTELL_ID, MENGE) VALUES (2, 4, 1), (1, 7, 2), (1, 12, 1), (2, 12, 1);
 
 -- REZEPT_ZUTAT
 INSERT INTO REZEPT_ZUTAT (MENGE, ZUTAT_ID, REZEPT_ID) VALUES (1, 1, 1), (1, 3, 1), (5, 5, 1), (1, 6, 1),
-                                                            (6, 2, 2), (1, 6, 2), (3, 5, 2), (2, 10, 2);
+                                                            (6, 2, 2), (1, 6, 2), (3, 5, 2), (2, 10, 2),
+                                                            (3, 5, 3), (1, 10, 3);
 
 -- ERNÄHRUNGSTRENDS
 INSERT INTO ERNÄHRUNGSTRENDS (ERNÄHRUNGSTREND_ID, NAME, BESCHREIBUNG) VALUES (1, 'Paleo', 'Lebensmittel aus der Steinzeit'), (2, 'Low-Carb', 'Ernährung ohne Kohlenhydrate');

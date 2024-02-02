@@ -28,10 +28,15 @@
                         </div>
                     </div>
                 </div>
+                <p>
+                    {{ error }}
+                </p>
+                <div class="center-wrapper" v-if="querySending">
+                    <div class="loader"></div>
+                </div>
                 <input type="submit" value="Create" class="query-button" @click="createRecipe" />
             </form>
         </div>
-        
     </div>
 </template>
 
@@ -76,13 +81,20 @@ export default {
                 alert("No Ingredients Selected!");
                 return;
             }
-            await createRecipe(this.name, this.instructions, this.preparationTime, this.ingredientsSelected);
+            this.querySending = true;
+            this.error = await createRecipe(this.name, this.instructions, this.preparationTime, this.ingredientsSelected);
+            this.querySending = false;
+            if (this.error == "") {
+                this.closeWindow();
+            }
         }
     },
     data() {
         return {
             allIngredients: [],
             ingredientsSelected: [],
+            error: "",
+            querySending: false,
 
             name: "",
             instructions: "",

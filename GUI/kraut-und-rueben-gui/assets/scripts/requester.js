@@ -163,7 +163,7 @@ export async function createRecipe(name, instructions, preperationTime, ingredie
         "(\"" + name + "\", \"" + instructions + "\", " + preperationTime + ")";
 
     const createRecipeResult = await fetch('/api/getData?q=' + createRecipeQuery);
-    if (await createRecipeResult.status() != 200) {
+    if (createRecipeResult.status != "200") {
         return createRecipeResult;
     }
 

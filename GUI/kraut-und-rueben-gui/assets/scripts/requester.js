@@ -81,8 +81,8 @@ export async function getAllIngredients() {
 export async function getRecipeWithSearch(field, value, operator) {
     const query = "SELECT R.REZEPT_ID, R.NAME, R.ANLEITUNG, R.DAUER, GROUP_CONCAT(Z.BEZEICHNUNG SEPARATOR ', ') AS ZUTATEN, SUM(Z.NETTOPREIS) AS PREIS" +
         " FROM REZEPT AS R" +
-        " JOIN REZEPT_ZUTAT AS RZ ON R.REZEPT_ID = RZ.REZEPT_ID" +
-        " JOIN ZUTAT AS Z ON RZ.ZUTAT_ID = Z.ZUTAT_ID" +
+        " LEFT JOIN REZEPT_ZUTAT AS RZ ON R.REZEPT_ID = RZ.REZEPT_ID" +
+        " LEFT JOIN ZUTAT AS Z ON RZ.ZUTAT_ID = Z.ZUTAT_ID" +
         " " + buildSearchQuery(field, value, operator) +
         " GROUP BY R.REZEPT_ID";
 
@@ -92,8 +92,8 @@ export async function getRecipeWithSearch(field, value, operator) {
 export async function getAllRecipies() {
     const query = "SELECT R.REZEPT_ID, R.NAME, R.ANLEITUNG, R.DAUER, GROUP_CONCAT(Z.BEZEICHNUNG SEPARATOR ', ') AS ZUTATEN, SUM(Z.NETTOPREIS) AS PREIS" +
         " FROM REZEPT AS R" +
-        " JOIN REZEPT_ZUTAT AS RZ ON R.REZEPT_ID = RZ.REZEPT_ID" +
-        " JOIN ZUTAT AS Z ON RZ.ZUTAT_ID = Z.ZUTAT_ID" +
+        " LEFT JOIN REZEPT_ZUTAT AS RZ ON R.REZEPT_ID = RZ.REZEPT_ID" +
+        " LEFT JOIN ZUTAT AS Z ON RZ.ZUTAT_ID = Z.ZUTAT_ID" +
         " GROUP BY R.REZEPT_ID";
 
     const response = await fetch('/api/getData?q=' + query);
@@ -169,6 +169,27 @@ function buildSearchQuery(field, value, operator) {
     return "WHERE " + field + " " + operator + " " + value;
 }
 
+// Creation Queries
+export async function createRecipe(name, instructions, preperationTime, ingredients) {
+    const createRecipeQuery = "INSERT INTO REZEPT (NAME, ANLEITUNG, DAUER) VALUES " +
+                  "(\"" + name + "\", \"" + instructions + "\", " + preperationTime + ")";
+
+    const createRecipeResult = await fetch('/api/getData?q=' + createRecipeQuery);
+    if (await createRecipeResult.status() != 200) {
+        return createRecipeResult;
+    }
+
+    const getNewRecipeIdQuery = "SELECT LAST_INSERT_ID() AS REZEPT_ID;"
+
+    const recipeId = (await (await fetch('/api/getData?q=' + getNewRecipeIdQuery)).json())[0].REZEPT_ID;
+                  
+    ingredients.forEach(async (Ingredient) => {
+        const createRecipe = "INSERT INTO REZEPT_ZUTAT (MENGE, ZUTAT_ID, REZEPT_ID) VALUES " + 
+        "(" + Ingredient.MENGE + ", " + Ingredient.ZUTAT_ID + ", " + recipeId + ")";
+
+        (await (await fetch('/api/getData?q=' + createRecipe)).json());
+    });
+}
 
 
 //✨ Special Queries ✨

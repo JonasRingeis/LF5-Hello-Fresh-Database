@@ -39,6 +39,8 @@ export async function getBoxWithSearch(field, value, operator) {
         " FROM BOX AS B" +
         " JOIN BOX_ZUTAT AS BZ ON B.BOX_ID = BZ.BOX_ID" +
         " JOIN ZUTAT AS Z ON BZ.ZUTAT_ID = Z.ZUTAT_ID" +
+        "JOIN ZUTAT_ERNÄHRUNGSKATEGORIE AS ZE ON ZE.ZUTAT_ID = Z.ZUTAT_ID" +
+        "JOIN ERNÄHRUNGSKATEGORIE AS E ON E.ERNÄHRUNGSKATEGORIE_ID = ZE.ERNÄHRUNGSKATEGORIE_ID" +
         " " + buildSearchQuery(field, value, operator) +
         " GROUP BY B.BOX_ID";
 
@@ -50,6 +52,8 @@ export async function getAllBoxes() {
         " FROM BOX AS B" +
         " JOIN BOX_ZUTAT AS BZ ON B.BOX_ID = BZ.BOX_ID" +
         " JOIN ZUTAT AS Z ON BZ.ZUTAT_ID = Z.ZUTAT_ID" +
+        "JOIN ZUTAT_ERNÄHRUNGSKATEGORIE AS ZE ON ZE.ZUTAT_ID = Z.ZUTAT_ID" +
+        "JOIN ERNÄHRUNGSKATEGORIE AS E ON E.ERNÄHRUNGSKATEGORIE_ID = ZE.ERNÄHRUNGSKATEGORIE_ID" +
         " GROUP BY B.BOX_ID";
 
     const response = await fetch('/api/getData?q=' + query);
@@ -62,6 +66,8 @@ export async function getIngredientWithSearch(field, value, operator) {
         " JOIN LIEFERANT AS L ON Z.LIEFERANTEN_ID = L.LIEFERANTEN_ID" +
         " JOIN ADRESSE AS A ON A.ADRESS_ID = L.ADRESS_ID" +
         " JOIN BUNDESLAND AS B ON B.BUND_ID = A.BUND_ID" +
+        "JOIN ZUTAT_ERNÄHRUNGSKATEGORIE AS ZE ON ZE.ZUTAT_ID = Z.ZUTAT_ID" +
+        "JOIN ERNÄHRUNGSKATEGORIE AS E ON E.ERNÄHRUNGSKATEGORIE_ID = ZE.ERNÄHRUNGSKATEGORIE_ID" +
         " " + buildSearchQuery(field, value, operator);
 
     const response = await fetch('/api/getData?q=' + query);
@@ -72,15 +78,12 @@ export async function getAllIngredients() {
         " JOIN NÄHRWERTE AS N ON Z.NÄHRWERTE_ID = N.NÄHRWERTE_ID" +
         " JOIN LIEFERANT AS L ON Z.LIEFERANTEN_ID = L.LIEFERANTEN_ID" +
         " JOIN ADRESSE AS A ON A.ADRESS_ID = L.ADRESS_ID" +
+        "JOIN ZUTAT_ERNÄHRUNGSKATEGORIE AS ZE ON ZE.ZUTAT_ID = Z.ZUTAT_ID" +
+        "JOIN ERNÄHRUNGSKATEGORIE AS E ON E.ERNÄHRUNGSKATEGORIE_ID = ZE.ERNÄHRUNGSKATEGORIE_ID" +
         " JOIN BUNDESLAND AS B ON B.BUND_ID = A.BUND_ID";
 
     const response = await fetch('/api/getData?q=' + query);
     return await response.json();
-}
-export async function getAllIngredientsWithCategory() {
-    const query = "SELECT * FROM ZUTAT AS Z" +
-        "JOIN ZUTAT_ERNÄHRUNGSKATEGORIE AS ZE ON ZE.ZUTAT_ID = Z.ZUTAT_ID" +
-        "JOIN ERNÄHRUNGSKATEGORIE AS E ON E.ERNÄHRUNGSKATEGORIE_ID = ZE.ERNÄHRUNGSKATEGORIE_ID"
 }
 
 export async function getRecipeWithSearch(field, value, operator) {
@@ -88,6 +91,8 @@ export async function getRecipeWithSearch(field, value, operator) {
         " FROM REZEPT AS R" +
         " LEFT JOIN REZEPT_ZUTAT AS RZ ON R.REZEPT_ID = RZ.REZEPT_ID" +
         " LEFT JOIN ZUTAT AS Z ON RZ.ZUTAT_ID = Z.ZUTAT_ID" +
+        "JOIN ZUTAT_ERNÄHRUNGSKATEGORIE AS ZE ON ZE.ZUTAT_ID = Z.ZUTAT_ID" +
+        "JOIN ERNÄHRUNGSKATEGORIE AS E ON E.ERNÄHRUNGSKATEGORIE_ID = ZE.ERNÄHRUNGSKATEGORIE_ID" +
         " " + buildSearchQuery(field, value, operator) +
         " GROUP BY R.REZEPT_ID";
 
@@ -99,6 +104,8 @@ export async function getAllRecipies() {
         " FROM REZEPT AS R" +
         " LEFT JOIN REZEPT_ZUTAT AS RZ ON R.REZEPT_ID = RZ.REZEPT_ID" +
         " LEFT JOIN ZUTAT AS Z ON RZ.ZUTAT_ID = Z.ZUTAT_ID" +
+        "JOIN ZUTAT_ERNÄHRUNGSKATEGORIE AS ZE ON ZE.ZUTAT_ID = Z.ZUTAT_ID" +
+        "JOIN ERNÄHRUNGSKATEGORIE AS E ON E.ERNÄHRUNGSKATEGORIE_ID = ZE.ERNÄHRUNGSKATEGORIE_ID" +
         " GROUP BY R.REZEPT_ID";
 
     const response = await fetch('/api/getData?q=' + query);

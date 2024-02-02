@@ -5,49 +5,87 @@
             <h2>
                 Create Recipe
             </h2>
-            <form>
-                <div class="inputfield-wrapper">
-                    <input @input="checkNamePlaceholder" class="inputfield" name="Name" ref="name">
-                    <label for="Name" v-if="namePlaceholder">Name</label>
+            <form @submit.prevent="onSubmit">
+                <input placeholder="Name" class="inputfield" v-model="name" type="text" />
+                <textarea placeholder="Instructions" class="textarea" v-model="instructions" rows="4"></textarea>
+                <input placeholder="Preparation Time (Min)" class="inputfield" v-model="preparationTime" type="number" />
+
+                <div>
+                    <select class="dropdown" @input="addIngredient" ref="ingredient">
+                        <option v-for="(ingredient, index) in allIngredients" :value="ingredient.ZUTAT_ID" :key="index">
+                            {{ ingredient.BEZEICHNUNG }}
+                        </option>
+                    </select>
+                    <div class="popup-value-selector-result-wrapper">
+                        <div v-for="(ingredient, index) in ingredientsSelected" :key="index" class="popup-value-selector-result">
+                            <p>{{ ingredient.BEZEICHNUNG }}</p>
+                            <button class="add" @click="incrementIngredient(ingredient.ZUTAT_ID)">+</button>
+                            <button class="remove" @click="removeIngredient(ingredient.ZUTAT_ID)">X</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="inputfield-wrapper">
-                    <input @input="checkInstructionsPlaceholder" class="inputfield" name="Instructions" ref="instructions">
-                    <label for="Instructions" v-if="instructionsPlaceholder">Instructions</label>
-                </div>
-                <div class="inputfield-wrapper">
-                    <input @input="checkPreparationTimePlaceholder" class="inputfield" name="Preparation Time"
-                        ref="preparationtime">
-                    <label for="Preparation Time" v-if="preparationTimePlaceholder">Preparation Time</label>
-                </div>
+
+                <input type="submit" value=""/>
+                <button class="query-button" @click="createRecipe">
+                    Create
+                </button>
             </form>
         </div>
     </div>
 </template>
+
 <script>
+import { getAllIngredients, createRecipe } from '../../assets/scripts/requester';
 export default {
     methods: {
-        checkNamePlaceholder() {
-            this.namePlaceholder = this.$refs.name.value.length == 0;
-        },
-        checkInstructionsPlaceholder() {
-            this.instructionsPlaceholder = this.$refs.instructions.value.length == 0;
-        },
-        checkPreparationTimePlaceholder() {
-            this.preparationTimePlaceholder = this.$refs.preparationtime.value.length == 0;
-        },
         closeWindow() {
             this.$emit("onWindowClose");
+        },
+        addIngredient() {
+            const ingredientToAdd = this.allIngredients.filter((ingredient) => 
+                    ingredient.ZUTAT_ID == this.$refs.ingredient.value)[0];
+            ingredientToAdd.MENGE = 1;
+            this.ingredientsSelected.push(ingredientToAdd);
+        },
+        removeIngredient(ingredientId) {
+            const ingredientToRemove = this.ingredientsSelected.filter((ingredient) => ingredient.ZUTAT_ID == ingredientId)[0];
+            if (ingredientToRemove.MENGE == 1) {
+                this.ingredientsSelected.pop(ingredientToRemove);
+            }
+            else {
+                ingredientToRemove.MENGE -= 1;
+            }
+        },
+        incrementIngredient(ingredientId) {
+            const ingredientToIncrement = this.ingredientsSelected.filter((ingredient) => ingredient.ZUTAT_ID == ingredientId)[0];
+            ingredientToIncrement.MENGE += 1;
+        },
+        async getAllIngredients() {
+            console.log("Getting all ingredients");
+            const result = await getAllIngredients();
+            this.allIngredients = result;
+        },
+        async createRecipe() {
+            
+            await createRecipe(this.name, this.instructions, this.preparationTime, this.ingredientsSelected);
         }
     },
     data() {
         return {
-            namePlaceholder: true,
-            instructionsPlaceholder: true,
-            preparationTimePlaceholder: true,
+            allIngredients: [],
+            ingredientsSelected: [],
+
+            name: "",
+            instructions: "",
+            preparationTime: "",
         }
     },
-    emits: ["onWindowClose"]
-
+    emits: [
+        "onWindowClose"
+    ],
+    mounted() {
+        this.getAllIngredients();
+    }
 }
 </script>
 <style lang="">

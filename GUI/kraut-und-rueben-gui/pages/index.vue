@@ -8,7 +8,7 @@
         </div>
 
         <div class="selector-wrapper">
-            <select @input="setDropdownValue" ref="query" class="query-selector">
+            <select @input="setDropdownValue" ref="query" class="dropdown">
                 <option value="0">No Query</option>
                 <option value="1">Extras</option>
                 <option value="2">Customers</option>
@@ -108,30 +108,6 @@ useHead({
 .selector-wrapper {
     display: flex;
     justify-content: center;
-}
-
-.query-selector {
-    border-radius: 5px;
-    border: none;
-
-    padding: 10px;
-
-    background: #008552;
-    color: white;
-    transition: 0.3s;
-
-    text-align: center;
-    font-weight: 900;
-    font-size: medium;
-}
-
-.query-selector:hover {
-    background: #006b42;
-}
-
-.query-selector option {
-    font-weight: 600;
-    background: rgb(0, 159, 45);
 }
 
 .query-wrapper {

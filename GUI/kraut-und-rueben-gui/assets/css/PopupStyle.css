@@ -20,14 +20,12 @@
     flex-direction: column;
     align-items: center;
     position: relative;
-
 }
 
 form {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    width: 250px;
 }
 
 .close-popup {
@@ -35,4 +33,54 @@ form {
     top: 10px;
     right: 10px;
     cursor: pointer;
+}
+
+.popup-value-selector-result-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    max-height: 200px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.popup-value-selector-result {
+    background: rgb(232, 232, 232);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin: 2px;
+    position: relative;
+}
+.popup-value-selector-result p {
+    margin-block: 5px;
+}
+.popup-value-selector-result button {
+    position: absolute;
+    
+    border: none;
+    border-radius: 5px;
+
+    background: var(--accent);
+    color: white;
+
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    opacity: 0;
+    transition: 0.2s;
+    cursor: pointer; 
+}
+.popup-value-selector-result .add {
+    left: 5px;
+}
+.popup-value-selector-result .remove {
+    right: 5px;
+}
+.popup-value-selector-result button:hover {
+    background: rgb(0, 71, 0);
+}
+.popup-value-selector-result:hover button {
+    opacity: 1;
+    transition: 0.4s;
 }

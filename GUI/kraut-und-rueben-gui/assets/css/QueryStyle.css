@@ -1,3 +1,6 @@
+:root {
+    --accent: #006b42;
+}
 .query-button {
     border-radius: 5px;
     border: none;
@@ -5,12 +8,13 @@
     margin: 5px;
     padding: 10px;
 
+    font-family: 'Montserrat', sans-serif;
     background: #008552;
     color: white;
     transition: 0.3s;
 
     text-align: center;
-    font-weight: 900;
+    font-weight: 700;
     font-size: medium;
 
     cursor: pointer;
@@ -36,7 +40,20 @@
     font-size: medium;
     font-weight: 600;
 }
+.textarea {
+    margin-block: 5px;
+    padding: 10px;
+    border-radius: 5px;
 
+    border: 2px solid #008552;
+    background: white;
+
+    scrollbar-width: thin;
+
+    font-family: 'Montserrat', sans-serif;
+    font-size: medium;
+    font-weight: 600;
+}
 .inputfield-wrapper label {
     position: absolute;
     text-align: center;
@@ -59,7 +76,8 @@
     transition: 0.3s;
 
     text-align: center;
-    font-weight: 900;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
     font-size: medium;
 }
 

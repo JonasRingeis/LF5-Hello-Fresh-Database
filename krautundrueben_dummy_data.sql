@@ -113,7 +113,7 @@ INSERT INTO BESTELLUNG_BOX(BOX_ID, BESTELL_ID, MENGE) VALUES (1, 11, 1),
 -- REZEPT
 INSERT INTO REZEPT (REZEPT_ID, NAME, ANLEITUNG, DAUER) VALUES (1, 'Bolognese', 'Hier könnte Ihr Rezept stehen', 30),
                                                               (2, 'Rührei', 'Hier könnte dein Rührei Rezept stehen', 15),
-                                                              (3, 'Tomatensalat', "Alle Zutaten in kleine Würfel schneiden und in einer Schüssel tun. Etwas Salz dazu geben und nach Wunsch Öl dazugeben.", 20);
+                                                              (3, 'Tomatensalat', "Alle Zutaten in kleine Würfel schneiden und in eine Schüssel tun. Etwas Salz dazu geben und nach Wunsch mit Öl verfeinern.", 20);
 
 -- BESTELLUNG REZEPT
 INSERT INTO BESTELLUNG_REZEPT (REZEPT_ID, BESTELL_ID, MENGE) VALUES (2, 4, 1), (1, 7, 2), (1, 12, 1), (2, 12, 1);

@@ -16,19 +16,29 @@ export async function getAllCustomers() {
     return await response.json();
 }
 
-const supplierQuery = "SELECT * FROM LIEFERANT as L" +
+const supplierQuery = "SELECT L.LIEFERANTEN_ID, " +
+    " L.LIEFERANTENNAME, L.ADRESS_ID," +
+    " L.TELEFON, L.EMAIL," +
+    " L.BUND_ID, A.STRASSE," +
+    " A.HAUSNR, A.PLZ," +
+    " A.WOHNORT, B.BUND_NAME," +
+    " GROUP_CONCAT(Z.BEZEICHNUNG SEPARATOR ', ') AS ZUTATEN" +
+    " FROM LIEFERANT AS L" +
     " JOIN ADRESSE AS A ON L.ADRESS_ID = A.ADRESS_ID" +
-    " JOIN BUNDESLAND AS B ON A.BUND_ID = B.BUND_ID";
+    " JOIN BUNDESLAND AS B ON A.BUND_ID = B.BUND_ID" +
+    " RIGHT JOIN ZUTAT AS Z ON Z.LIEFERANTEN_ID = L.LIEFERANTEN_ID";
 
 export async function getSupplierWithSearch(field, value, operator) {
     const query = supplierQuery +
-        " " + buildSearchQuery(field, value, operator);
+        " " + buildSearchQuery(field, value, operator) +
+        " GROUP BY L.LIEFERANTEN_ID";
 
     const response = await fetch('/api/getData?q=' + query);
     return await response.json();
 }
 export async function getAllSuppliers() {
-    const query = supplierQuery;
+    const query = supplierQuery +
+    " GROUP BY L.LIEFERANTEN_ID";
 
     const response = await fetch('/api/getData?q=' + query);
     return await response.json();

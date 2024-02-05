@@ -45,6 +45,7 @@
                 <tr>
                   <th>Supplier ID</th>
                   <th>Supplier Name</th>
+                  <th>Ingredients</th>
                   <th>Street</th>
                   <th>Nr</th>
                   <th>Zip Code</th>
@@ -55,6 +56,7 @@
                 <tr v-for="(Supplier, index) in Suppliers" :key="index" :style="'background: ' + (index % 2 == 0 ? '#f2f2f2' : 'white')">
                   <td>{{ Supplier.LIEFERANTEN_ID }}</td>
                   <td>{{ Supplier.LIEFERANTENNAME }}</td>
+                  <td>{{ Supplier.ZUTATEN }}</td>
                   <td>{{ Supplier.STRASSE }}</td>
                   <td>{{ Supplier.HAUSNR }}</td>
                   <td>{{ Supplier.PLZ }}</td>

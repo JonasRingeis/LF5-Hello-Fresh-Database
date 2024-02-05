@@ -57,6 +57,10 @@ INSERT INTO ERNÄHRUNGSKATEGORIE (ERNÄHRUNGSKATEGORIE_ID, NAME, BESCHREIBUNG) V
                                                                                      (4, 'Vegan', 'Keine Produkte tierischen Ursprungs: Das ist für die vegane Ernährungsform das höchste Gebot. Butter und Eier, Käse und Quark, Milch und Kefir – alles tabu. Bei der Auswahl der Lebensmittel gilt es daher, auf eine ausreichende Zufuhr von Vitaminen, Nährstoffen und Mineralien zu achten. Als Ersatz für tierische Zutaten dienen vor allem pflanzliche Alternativen, darunter zum Beispiel milcheiweißfreie Margarine, Sojamilch oder veganer Quark auf Basis von Mandeln oder Kokos. Wichtig zu wissen: Es gibt Lebensabschnitte und -phasen, in denen insgesamt von einer veganen Ernährungsform abgeraten wird: So ist die vegane Küche zum Beispiel für Babys und Kinder sowie in der Schwangerschaft und Stillzeit ungeeignet.'),
                                                                                     (5, 'Frutar', 'Vor allem Früchte essen? Ja! Das ist der Ansatz der Frutarier, die eine Randgruppe innerhalb der Veganer bilden. Die Pflanzen, Früchte und Nüsse dürfen durch die Ernte zudem nicht beschädigt werden. Daher gibt es bei dieser radikalen Ernährungsform auch Frutarier, die nur Lebensmittel essen, die bereits vom Baum gefallen sind. Mangelerscheinungen vorzubeugen ist bei diesem Ernährungstypen nachweislich sehr schwierig, da die Auswahl verzehrbarer Lebensmittel eng gesteckt ist. Weil zum Beispiel Gemüse wie Möhren oder Kartoffeln geerntet werden müssen, dürfen auch diese nicht auf dem Speiseplan stehen.');                                                       
 
+-- ERNÄHRUNGSTRENDS
+INSERT INTO ERNÄHRUNGSTRENDS (ERNÄHRUNGSTREND_ID, NAME, BESCHREIBUNG) VALUES (1, 'Paleo', 'Lebensmittel aus der Steinzeit'), 
+                                                                              (2, 'Low-Carb', 'Ernährung ohne Kohlenhydrate');
+
 -- ZUTAT
 INSERT INTO ZUTAT (ZUTAT_ID, BEZEICHNUNG, MENGE, EINHEIT, NETTOPREIS, BESTAND, LIEFERANTEN_ID, NÄHRWERTE_ID, ERNÄHRUNGSKATEGORIE_ID) VALUES (1, 'Bio-Rinderhackfleisch', 250, 'g', 3.99, 100, 1, 1, 1), 
                                                                                                                             (2, 'Frische Hühnereier', 1, 'Stück', 0.25, 500, 2, 2, 3), 
@@ -68,6 +72,9 @@ INSERT INTO ZUTAT (ZUTAT_ID, BEZEICHNUNG, MENGE, EINHEIT, NETTOPREIS, BESTAND, L
                                                                                                                             (8, 'Frische Paprika', 1, 'Stück', 0.75, 800, 8, 8, 5),
                                                                                                                             (9, 'Bio-Honig', 300, 'g', 3.49, 300, 9, 9, 3), 
                                                                                                                             (10, 'Frische Zwiebeln', 1, 'Stück', 0.30, 1200, 10, 10, 4);
+
+-- ZUTAT_ERNÄHRUNGSTRENDS
+INSERT INTO ZUTAT_ERNÄHRUNGSTRENDS (ZUTAT_ID, ERNÄHRUNGSTREND_ID) VALUES (5, 1), (5, 2), (8, 2), (10, 2);
 
 -- BESTELLUNG
 INSERT INTO BESTELLUNG (BESTELL_ID, KUNDEN_ID, BESTELLDATUM, RECHNUNGSBETRAG) VALUES (1, 1, '2022-01-15', 23.74), 
@@ -122,13 +129,6 @@ INSERT INTO BESTELLUNG_REZEPT (REZEPT_ID, BESTELL_ID, MENGE) VALUES (2, 4, 1), (
 INSERT INTO REZEPT_ZUTAT (MENGE, ZUTAT_ID, REZEPT_ID) VALUES (1, 1, 1), (1, 3, 1), (5, 5, 1), (1, 6, 1),
                                                             (6, 2, 2), (1, 6, 2), (3, 5, 2), (2, 10, 2),
                                                             (3, 5, 3), (1, 10, 3);
-
--- ERNÄHRUNGSTRENDS
-INSERT INTO ERNÄHRUNGSTRENDS (ERNÄHRUNGSTREND_ID, NAME, BESCHREIBUNG) VALUES (1, 'Paleo', 'Lebensmittel aus der Steinzeit'), (2, 'Low-Carb', 'Ernährung ohne Kohlenhydrate');
-
--- ZUTAT_ERNÄHRUNGSTRENDS
-INSERT INTO ZUTAT_ERNÄHRUNGSTRENDS (ZUTAT_ID, ERNÄHRUNGSTREND_ID) VALUES (5, 1), (5, 2), (8, 2), (10, 2);
-
 -- HALTUNGSFORM
 INSERT INTO HALTUNGSFORM (HALTUNGSFORM_ID, ART) VALUES (1, 'Haltungsform 1, Stallhaltung'), 
                                                         (2, 'Haltungsform 2, StallhaltungPlus'),

@@ -14,17 +14,17 @@ INSERT INTO ADRESSE (ADRESS_ID, STRASSE, HAUSNR, PLZ, WOHNORT, BUND_ID) VALUES (
                                                                               (10, 'Birkenweg', '6', '45678', 'Frankfurt',7);
 
 -- KUNDE
-INSERT INTO KUNDE (KUNDEN_ID, NACHNAME, VORNAME, GEBURTSDATUM, ADRESS_ID, TELEFON, EMAIL, BUND_ID) VALUES (0, 'Anonym', 'Anonym', NULL, 0, '0123456789', 'anonym.anonym@anonym.com', 0),
-                                                                                                          (1, 'Müller', 'Anna', '1990-05-15', 1, '0123456789', 'anna.mueller@example.com', 6), 
-                                                                                                          (2, 'Schmidt', 'Peter', '1985-09-20', 2, '0987654321', 'peter.schmidt@example.com', 3), 
-                                                                                                          (3, 'Schulz', 'Sabine', '1978-11-10', 3, '0765432109', 'sabine.schulz@example.com', 2), 
-                                                                                                          (4, 'Fischer', 'Michael', '1992-03-25', 4, '0654321098', 'michael.fischer@example.com', 1), 
-                                                                                                          (5, 'Koch', 'Julia', '1987-07-05', 5, '0543210987', 'julia.koch@example.com', 13), 
-                                                                                                          (6, 'Wagner', 'Thomas', '1980-02-12', 6, '0432109876', 'thomas.wagner@example.com', 9), 
-                                                                                                          (7, 'Becker', 'Laura', '1995-06-30', 7, '0321098765', 'laura.becker@example.com', 10), 
-                                                                                                          (8, 'Hoffmann', 'Daniel', '1983-09-18', 8, '0210987654', 'daniel.hoffmann@example.com', 14), 
-                                                                                                          (9, 'Schneider', 'Sarah', '1991-12-08', 9, '0109876543', 'sarah.schneider@example.com', 4), 
-                                                                                                          (10, 'Meyer', 'Markus', '1986-04-22', 10, '0987654321', 'markus.meyer@example.com', 7);
+INSERT INTO KUNDE (KUNDEN_ID, NACHNAME, VORNAME, GEBURTSDATUM, ADRESS_ID, TELEFON, EMAIL) VALUES (0, 'Anonym', 'Anonym', NULL, 0, '0123456789', 'anonym.anonym@anonym.com'),
+                                                                                                          (1, 'Müller', 'Anna', '1990-05-15', 1, '0123456789', 'anna.mueller@example.com'), 
+                                                                                                          (2, 'Schmidt', 'Peter', '1985-09-20', 2, '0987654321', 'peter.schmidt@example.com'), 
+                                                                                                          (3, 'Schulz', 'Sabine', '1978-11-10', 3, '0765432109', 'sabine.schulz@example.com'), 
+                                                                                                          (4, 'Fischer', 'Michael', '1992-03-25', 4, '0654321098', 'michael.fischer@example.com'), 
+                                                                                                          (5, 'Koch', 'Julia', '1987-07-05', 5, '0543210987', 'julia.koch@example.com'), 
+                                                                                                          (6, 'Wagner', 'Thomas', '1980-02-12', 6, '0432109876', 'thomas.wagner@example.com'), 
+                                                                                                          (7, 'Becker', 'Laura', '1995-06-30', 7, '0321098765', 'laura.becker@example.com'), 
+                                                                                                          (8, 'Hoffmann', 'Daniel', '1983-09-18', 8, '0210987654', 'daniel.hoffmann@example.com'), 
+                                                                                                          (9, 'Schneider', 'Sarah', '1991-12-08', 9, '0109876543', 'sarah.schneider@example.com'), 
+                                                                                                          (10, 'Meyer', 'Markus', '1986-04-22', 10, '0987654321', 'markus.meyer@example.com');
 
 -- LIEFERANT
 INSERT INTO LIEFERANT (LIEFERANTEN_ID, LIEFERANTENNAME, ADRESS_ID, TELEFON, EMAIL, BUND_ID) VALUES (1, 'Köstliche Köstlichkeiten GmbH', 1, '0123456789', 'info@koestlichekoestlichkeiten.de', 6), 
@@ -57,6 +57,10 @@ INSERT INTO ERNÄHRUNGSKATEGORIE (ERNÄHRUNGSKATEGORIE_ID, NAME, BESCHREIBUNG) V
                                                                                      (4, 'Vegan', 'Keine Produkte tierischen Ursprungs: Das ist für die vegane Ernährungsform das höchste Gebot. Butter und Eier, Käse und Quark, Milch und Kefir – alles tabu. Bei der Auswahl der Lebensmittel gilt es daher, auf eine ausreichende Zufuhr von Vitaminen, Nährstoffen und Mineralien zu achten. Als Ersatz für tierische Zutaten dienen vor allem pflanzliche Alternativen, darunter zum Beispiel milcheiweißfreie Margarine, Sojamilch oder veganer Quark auf Basis von Mandeln oder Kokos. Wichtig zu wissen: Es gibt Lebensabschnitte und -phasen, in denen insgesamt von einer veganen Ernährungsform abgeraten wird: So ist die vegane Küche zum Beispiel für Babys und Kinder sowie in der Schwangerschaft und Stillzeit ungeeignet.'),
                                                                                     (5, 'Frutar', 'Vor allem Früchte essen? Ja! Das ist der Ansatz der Frutarier, die eine Randgruppe innerhalb der Veganer bilden. Die Pflanzen, Früchte und Nüsse dürfen durch die Ernte zudem nicht beschädigt werden. Daher gibt es bei dieser radikalen Ernährungsform auch Frutarier, die nur Lebensmittel essen, die bereits vom Baum gefallen sind. Mangelerscheinungen vorzubeugen ist bei diesem Ernährungstypen nachweislich sehr schwierig, da die Auswahl verzehrbarer Lebensmittel eng gesteckt ist. Weil zum Beispiel Gemüse wie Möhren oder Kartoffeln geerntet werden müssen, dürfen auch diese nicht auf dem Speiseplan stehen.');                                                       
 
+-- ERNÄHRUNGSTRENDS
+INSERT INTO ERNÄHRUNGSTRENDS (ERNÄHRUNGSTREND_ID, NAME, BESCHREIBUNG) VALUES (1, 'Paleo', 'Lebensmittel aus der Steinzeit'), 
+                                                                              (2, 'Low-Carb', 'Ernährung ohne Kohlenhydrate');
+
 -- ZUTAT
 INSERT INTO ZUTAT (ZUTAT_ID, BEZEICHNUNG, MENGE, EINHEIT, NETTOPREIS, BESTAND, LIEFERANTEN_ID, NÄHRWERTE_ID, ERNÄHRUNGSKATEGORIE_ID) VALUES (1, 'Bio-Rinderhackfleisch', 250, 'g', 3.99, 100, 1, 1, 1), 
                                                                                                                             (2, 'Frische Hühnereier', 1, 'Stück', 0.25, 500, 2, 2, 3), 
@@ -69,17 +73,20 @@ INSERT INTO ZUTAT (ZUTAT_ID, BEZEICHNUNG, MENGE, EINHEIT, NETTOPREIS, BESTAND, L
                                                                                                                             (9, 'Bio-Honig', 300, 'g', 3.49, 300, 9, 9, 3), 
                                                                                                                             (10, 'Frische Zwiebeln', 1, 'Stück', 0.30, 1200, 10, 10, 4);
 
+-- ZUTAT_ERNÄHRUNGSTRENDS
+INSERT INTO ZUTAT_ERNÄHRUNGSTRENDS (ZUTAT_ID, ERNÄHRUNGSTREND_ID) VALUES (5, 1), (5, 2), (8, 2), (10, 2);
+
 -- BESTELLUNG
-INSERT INTO BESTELLUNG (BESTELL_ID, KUNDEN_ID, BESTELLDATUM, RECHNUNGSBETRAG) VALUES (1, 1, '2022-01-15', 50.99), 
-                                                                                    (2, 3, '2022-02-02', 25.49), 
-                                                                                    (3, 2, '2022-03-10', 75.80), 
-                                                                                    (4, 4, '2022-04-05', 12.99), 
-                                                                                    (5, 1, '2022-05-20', 35.50), 
-                                                                                    (6, 5, '2022-06-08', 18.75), 
-                                                                                    (7, 3, '2022-07-17', 42.30), 
-                                                                                    (8, 2, '2022-08-22', 65.25), 
-                                                                                    (9, 4, '2022-09-14', 30.00), 
-                                                                                    (10, 1, '2022-10-30', 55.99),
+INSERT INTO BESTELLUNG (BESTELL_ID, KUNDEN_ID, BESTELLDATUM, RECHNUNGSBETRAG) VALUES (1, 1, '2022-01-15', 23.74), 
+                                                                                    (2, 3, '2022-02-02', 26.71), 
+                                                                                    (3, 2, '2022-03-10', 39.68), 
+                                                                                    (4, 4, '2022-04-05', 34.18), 
+                                                                                    (5, 1, '2022-05-20', 32.45), 
+                                                                                    (6, 5, '2022-06-08', 60.14), 
+                                                                                    (7, 3, '2022-07-17', 73.91), 
+                                                                                    (8, 2, '2022-08-22', 33.48), 
+                                                                                    (9, 4, '2022-09-14', 73.28), 
+                                                                                    (10, 1, '2022-10-30', 59.36),
                                                                                     (11, 4, '2022-09-14', 9.99), 
                                                                                     (12, 1, '2022-10-30', 14.99),
                                                                                     (13, 1, '2022-10-30', 10.00),
@@ -116,19 +123,12 @@ INSERT INTO REZEPT (REZEPT_ID, NAME, ANLEITUNG, DAUER) VALUES (1, 'Bolognese', '
                                                               (3, 'Tomatensalat', "Alle Zutaten in kleine Würfel schneiden und in eine Schüssel tun. Etwas Salz dazu geben und nach Wunsch mit Öl verfeinern.", 20);
 
 -- BESTELLUNG REZEPT
-INSERT INTO BESTELLUNG_REZEPT (REZEPT_ID, BESTELL_ID, MENGE) VALUES (2, 4, 1), (1, 7, 2), (1, 12, 1), (2, 12, 1);
+INSERT INTO BESTELLUNG_REZEPT (REZEPT_ID, BESTELL_ID, MENGE) VALUES (2, 4, 1), (1, 7, 2), (1, 13, 1), (2, 14, 1);
 
 -- REZEPT_ZUTAT
 INSERT INTO REZEPT_ZUTAT (MENGE, ZUTAT_ID, REZEPT_ID) VALUES (1, 1, 1), (1, 3, 1), (5, 5, 1), (1, 6, 1),
                                                             (6, 2, 2), (1, 6, 2), (3, 5, 2), (2, 10, 2),
                                                             (3, 5, 3), (1, 10, 3);
-
--- ERNÄHRUNGSTRENDS
-INSERT INTO ERNÄHRUNGSTRENDS (ERNÄHRUNGSTREND_ID, NAME, BESCHREIBUNG) VALUES (1, 'Paleo', 'Lebensmittel aus der Steinzeit'), (2, 'Low-Carb', 'Ernährung ohne Kohlenhydrate');
-
--- ZUTAT_ERNÄHRUNGSTRENDS
-INSERT INTO ZUTAT_ERNÄHRUNGSTRENDS (ZUTAT_ID, ERNÄHRUNGSTREND_ID) VALUES (5, 1), (5, 2), (8, 2), (10, 2);
-
 -- HALTUNGSFORM
 INSERT INTO HALTUNGSFORM (HALTUNGSFORM_ID, ART) VALUES (1, 'Haltungsform 1, Stallhaltung'), 
                                                         (2, 'Haltungsform 2, StallhaltungPlus'),

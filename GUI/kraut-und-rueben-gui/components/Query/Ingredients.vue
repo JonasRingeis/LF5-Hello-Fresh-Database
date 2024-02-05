@@ -10,6 +10,7 @@
                     <option value="Z.EINHEIT">Unit</option>
                     <option value="Z.NETTOPREIS">Net Price</option>
                     <option value="Z.BESTAND">Stock</option>
+                    <option value="ERNÄHRUNGSTRENDS">Nutrition Trend</option>
                     <option value="Z.LIEFERANTEN_ID">Supplier Id</option>
                     <option value="N.KALORIEN">Calories</option>
                     <option value="N.KOHLENHYDRATE">Carbohydrates</option>
@@ -60,6 +61,7 @@
                     <th>Net Price</th>
                     <th>Stock</th>
                     <th>Food Category</th>
+                    <th>Nutrition Trend</th>
                     <th v-if="nutritionFacts">Calories</th>
                     <th v-if="nutritionFacts">Carbohydrates</th>
                     <th v-if="nutritionFacts">Proteins</th>
@@ -83,7 +85,8 @@
                     }}</td>
                     <td>{{ Ingredient.NETTOPREIS }}€</td>
                     <td>{{ Ingredient.BESTAND }}</td>
-                    <td>{{ Ingredient.NAME }}</td>
+                    <td>{{ Ingredient.ERNÄHRUNGSKATEGORIE }}</td>
+                    <td>{{ Ingredient.ERNÄHRUNGSTRENDS }}</td>
                     <td v-if="nutritionFacts">{{ Ingredient.KALORIEN }}kcal</td>
                     <td v-if="nutritionFacts">{{ Ingredient.KOHLENHYDRATE }}g</td>
                     <td v-if="nutritionFacts">{{ Ingredient.PROTEINE }}g</td>

@@ -10,11 +10,12 @@
         </select>
         <div class="popup-value-selector-result-wrapper">
             <div v-for="(value, index) in valuesSelected" :key="index" class="popup-value-selector-result">
-                <p>{{ value.MENGE + "x " + value[nameKey] }}</p>
+                <p v-if="quantityChangeable">{{ value.MENGE + "x " + value[nameKey] }}</p>
+                <p v-else>{{ value[nameKey] }}</p>
                 <button v-if="quantityChangeable" class="add" @click="incrementValue(value[idKey])" @submit.prevent>
                     +
                 </button>
-                <button v-if="quantityChangeable" class="remove" @click="removeValue(value[idKey])" @submit.prevent>
+                <button class="remove" @click="removeValue(value[idKey])" @submit.prevent>
                     -
                 </button>
             </div>
@@ -30,7 +31,7 @@ export default {
         nameKey: String,
         quantityKey: String,
         quantityChangeable: {
-            type: String,
+            type: Boolean,
             default: true
         }
     },
@@ -43,6 +44,10 @@ export default {
         addValue() {
             const valueToAdd = this.values.filter((value) => 
                     value[this.idKey] == this.$refs.selector.value)[0];
+            if (this.valuesSelected.includes(valueToAdd)) {
+                this.$refs.selector.value = "none";
+                return;
+            }
             if (this.quantityChangeable) {
                 valueToAdd[this.quantityKey] = 1;
             }
@@ -51,7 +56,7 @@ export default {
         },
         removeValue(id) {
             const valueToRemove = this.valuesSelected.filter((value) => value[this.idKey] == id)[0];
-            if (valueToRemove[this.quantityKey] == 1) {
+            if (!this.quantityChangeable || valueToRemove[this.quantityKey] == 1) {
                 this.valuesSelected.pop(valueToRemove);
             }
             else {

@@ -151,6 +151,7 @@ import { getIngredientWithSearch, getAllIngredients } from '../../assets/scripts
 export default {
     data() {
         return {
+            popupOpen: false,
             placeholderShown: true,
             Ingredients: [],
             queryFinished: false,

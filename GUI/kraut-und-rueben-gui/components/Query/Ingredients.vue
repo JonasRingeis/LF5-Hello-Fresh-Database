@@ -88,8 +88,8 @@
                     <td>{{ Ingredient.NETTOPREIS }}€</td>
                     <td>{{ Ingredient.BESTAND }}</td>
                     <td>{{ Ingredient.ERNÄHRUNGSKATEGORIE }}</td>
-                    <td>{{ Ingredient.ERNÄHRUNGSTRENDS }}</td>
-                    <td>{{ Ingredient.EXTRAS }}</td>
+                    <td>{{ Ingredient.ERNÄHRUNGSTRENDS == null ? "-" : Ingredient.ERNÄHRUNGSKATEGORIE }}</td>
+                    <td>{{ Ingredient.EXTRAS == null ? "-" : Ingredient.EXTRAS }}</td>
                     <td v-if="nutritionFacts">{{ Ingredient.KALORIEN }}kcal</td>
                     <td v-if="nutritionFacts">{{ Ingredient.KOHLENHYDRATE }}g</td>
                     <td v-if="nutritionFacts">{{ Ingredient.PROTEINE }}g</td>

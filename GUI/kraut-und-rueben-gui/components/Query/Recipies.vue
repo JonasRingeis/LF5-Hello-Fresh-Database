@@ -76,7 +76,7 @@
             <button @click="PopupOpen=true" class="query-button">Create Recipe</button>
         </div>
         <div v-if="PopupOpen">
-        <PopupCreateRecipe @onWindowClose="PopupOpen=false"/>
+            <PopupCreateRecipe @onWindowClose="PopupOpen=false"/>
         </div>
     </div>
 </template>

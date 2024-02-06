@@ -70,26 +70,9 @@ export async function getAllBoxes() {
 }
 
 const ingredientQuery = "SELECT Z.ZUTAT_ID," +
-    " Z.BEZEICHNUNG," +
-    " Z.EINHEIT," +
-    " Z.NETTOPREIS," +
-    " Z.BESTAND," +
-    " Z.LIEFERANTEN_ID," +
-    " N.KALORIEN," +
-    " N.KOHLENHYDRATE," +
-    " N.PROTEINE," +
-    " N.BALLASTSTOFFE," +
-    " N.FETT," +
-    " N.NATRIUM," +
-    " L.LIEFERANTENNAME," +
-    " A.STRASSE," +
-    " A.HAUSNR," +
-    " A.PLZ," +
-    " A.WOHNORT," +
+    " Z.*, N.*, A.*, L.*" +
     " B.BUND_NAME," +
-    " L.TELEFON," +
     " E.NAME AS ERNÄHRUNGSKATEGORIE," +
-    " L.EMAIL," +
     " (SELECT GROUP_CONCAT(ET.NAME SEPARATOR ', ')" +
     " FROM ZUTAT_ERNÄHRUNGSTRENDS AS ZE" +
     " JOIN ERNÄHRUNGSTRENDS AS ET ON ZE.ERNÄHRUNGSTREND_ID = ET.ERNÄHRUNGSTREND_ID" +

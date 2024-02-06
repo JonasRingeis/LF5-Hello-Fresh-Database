@@ -1,7 +1,7 @@
 <template>
     <div>
         <select class="ingredient-dropdown dropdown" @input="addValue" ref="selector" >
-            <option value="none" selected>
+            <option value="none" selected hidden>
                 {{ placeholder }}
             </option>
             <option v-for="(ingredient, index) in values" :value="ingredient[idKey]" :key="index">
@@ -11,10 +11,10 @@
         <div class="popup-value-selector-result-wrapper">
             <div v-for="(value, index) in valuesSelected" :key="index" class="popup-value-selector-result">
                 <p>{{ value.MENGE + "x " + value[nameKey] }}</p>
-                <button class="add" @click="incrementValue(value[idKey])" @submit.prevent>
+                <button v-if="quantityChangeable" class="add" @click="incrementValue(value[idKey])" @submit.prevent>
                     +
                 </button>
-                <button class="remove" @click="removeValue(value[idKey])" @submit.prevent>
+                <button v-if="quantityChangeable" class="remove" @click="removeValue(value[idKey])" @submit.prevent>
                     -
                 </button>
             </div>
@@ -28,7 +28,11 @@ export default {
         values: Array,
         idKey: String,
         nameKey: String,
-        quantityKey: String
+        quantityKey: String,
+        quantityChangeable: {
+            type: String,
+            default: true
+        }
     },
     data() {
         return {
@@ -39,7 +43,9 @@ export default {
         addValue() {
             const valueToAdd = this.values.filter((value) => 
                     value[this.idKey] == this.$refs.selector.value)[0];
-            valueToAdd[this.quantityKey] = 1;
+            if (this.quantityChangeable) {
+                valueToAdd[this.quantityKey] = 1;
+            }
             this.valuesSelected.push(valueToAdd);
             this.$refs.selector.value = "none";
         },

@@ -132,8 +132,12 @@
                         <input name="supplier" type="checkbox" checked @input="supplierData = !supplierData" />
                         Supplier Data
                     </label>
+                    <button @click="popupOpen=true" class="query-button">Create Ingredient</button>
                 </div>
             </div>
+        </div>
+        <div v-if="popupOpen">
+            <PopupCreateIngredient @onWindowClose="popupOpen=false"/>
         </div>
     </div>
 </template>

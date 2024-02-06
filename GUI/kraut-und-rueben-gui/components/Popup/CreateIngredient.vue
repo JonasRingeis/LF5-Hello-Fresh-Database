@@ -3,7 +3,7 @@
         <div class="popup">
             <img src="/img/close.svg" class="close-popup" @click="closeWindow">
             <h2>
-                Create Recipe
+                Create Ingredient
             </h2>
             <form @submit.prevent="onSubmit">
                 <input placeholder="Name" class="inputfield" v-model="name" type="text" required />
@@ -17,14 +17,14 @@
                 <div class="center-wrapper" v-if="querySending">
                     <div class="loader"></div>
                 </div>
-                <input type="submit" value="Create" class="query-button" @click="createRecipe" />
+                <input type="submit" value="Create" class="query-button" @click="createIngredient" />
             </form>
         </div>
     </div>
 </template>
 
 <script>
-import { getAllIngredients, createRecipe } from '../../assets/scripts/requester';
+import { getAllFoodCategories, getAllNurtitionTrends, createIngredient } from '../../assets/scripts/requester';
 export default {
     methods: {
         closeWindow() {
@@ -35,7 +35,7 @@ export default {
             const result = await getAllIngredients();
             this.allIngredients = this.allIngredients.concat(result);
         },
-        async createRecipe() {
+        async createIngredient() {
             if (this.name == "" || this.instructions == "" || this.preparationTime == "") {
                 return;
             }
@@ -44,7 +44,7 @@ export default {
                 return;
             }
             this.querySending = true;
-            this.error = await createRecipe(this.name, this.instructions, this.preparationTime, this.ingredientsSelected);
+            this.error = await createIngredient(this.name, this.instructions, this.preparationTime, this.ingredientsSelected);
             this.querySending = false;
             if (this.error == "") {
                 this.closeWindow();

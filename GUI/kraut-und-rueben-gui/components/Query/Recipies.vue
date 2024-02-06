@@ -7,8 +7,10 @@
                 <select @input="setDropdownValue" ref="searchField" class="dropdown">
                     <option value="R.REZEPT_ID">Id</option>
                     <option value="R.NAME">Name</option>
-                    <option value="R.ANLEITUNG">Instruction</option>
+                    <option value="R.DAUER">Preparation Time</option>
                     <option value="R.MENGE">Quantity</option>
+                    <option value="R.ANLEITUNG">Instruction</option>
+                    <option value="Z.BEZEICHNUNG">Ingredient</option>
                 </select>
             </div>
             <div class="selector-wrapper">
@@ -71,10 +73,10 @@
             {{ error }}
         </h4>
         <div class="center-wrapper">
-            <button @click="PopupOpen=true" class="query-button">Create Recipe</button>
+            <button @click="popupOpen=true" class="query-button">Create Recipe</button>
         </div>
-        <div v-if="PopupOpen">
-        <PopupCreateRecipe @onWindowClose="PopupOpen=false"/>
+        <div v-if="popupOpen">
+            <PopupCreateRecipe @onWindowClose="popupOpen=false"/>
         </div>
     </div>
 </template>
@@ -92,7 +94,7 @@ export default {
             queryFinished: false,
             querySending: false,
             error: "",
-            PopupOpen: false,
+            popupOpen: false,
         }
     },
     methods: {

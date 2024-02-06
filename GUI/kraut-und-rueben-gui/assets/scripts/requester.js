@@ -70,17 +70,21 @@ export async function getAllBoxes() {
 }
 
 const ingredientQuery = "SELECT Z.ZUTAT_ID," +
-    " Z.*, N.*, A.*, L.*" +
+    " Z.*, N.*, A.*, L.*," +
     " B.BUND_NAME," +
     " E.NAME AS ERNÄHRUNGSKATEGORIE," +
-    " (SELECT GROUP_CONCAT(ET.NAME SEPARATOR ', ')" +
-    " FROM ZUTAT_ERNÄHRUNGSTRENDS AS ZE" +
-    " JOIN ERNÄHRUNGSTRENDS AS ET ON ZE.ERNÄHRUNGSTREND_ID = ET.ERNÄHRUNGSTREND_ID" +
-    " WHERE ZE.ZUTAT_ID = Z.ZUTAT_ID) AS ERNÄHRUNGSTRENDS," +
-    " (SELECT GROUP_CONCAT(EX.NAME SEPARATOR ', ')" +
-    " FROM ZUTAT_EXTRAS AS ZX" +
-    " JOIN EXTRAS AS EX ON ZX.EXTRA_ID = EX.EXTRA_ID" +
-    " WHERE ZX.ZUTAT_ID = Z.ZUTAT_ID) AS EXTRAS FROM ZUTAT AS Z" +
+    " (" +
+        " SELECT GROUP_CONCAT(ET.NAME SEPARATOR ', ')" +
+        " FROM ZUTAT_ERNÄHRUNGSTRENDS AS ZE" +
+        " JOIN ERNÄHRUNGSTRENDS AS ET ON ZE.ERNÄHRUNGSTREND_ID = ET.ERNÄHRUNGSTREND_ID" +
+        " WHERE ZE.ZUTAT_ID = Z.ZUTAT_ID" +
+    ") AS ERNÄHRUNGSTRENDS," +
+    " (" +
+        "SELECT GROUP_CONCAT(EX.NAME SEPARATOR ', ')" +
+        " FROM ZUTAT_EXTRAS AS ZX" +
+        " JOIN EXTRAS AS EX ON ZX.EXTRA_ID = EX.EXTRA_ID" +
+        " WHERE ZX.ZUTAT_ID = Z.ZUTAT_ID" +
+    ") AS EXTRAS FROM ZUTAT AS Z" +
     " JOIN NÄHRWERTE AS N ON Z.NÄHRWERTE_ID = N.NÄHRWERTE_ID" +
     " JOIN LIEFERANT AS L ON Z.LIEFERANTEN_ID = L.LIEFERANTEN_ID" +
     " JOIN ADRESSE AS A ON A.ADRESS_ID = L.ADRESS_ID" +
@@ -89,15 +93,13 @@ const ingredientQuery = "SELECT Z.ZUTAT_ID," +
 
 export async function getIngredientWithSearch(field, value, operator) {
     const query = ingredientQuery +
-        " " + buildSearchQuery(field, value, operator) +
-        " GROUP BY Z.ZUTAT_ID";
+        " " + buildSearchQuery(field, value, operator);
 
     const response = await fetch('/api/getData?q=' + query);
     return await response.json();
 }
 export async function getAllIngredients() {
-    const query = ingredientQuery +
-        " GROUP BY Z.ZUTAT_ID";
+    const query = ingredientQuery;
 
     const response = await fetch('/api/getData?q=' + query);
     return await response.json();

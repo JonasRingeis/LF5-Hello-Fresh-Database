@@ -11,6 +11,7 @@
                     <option value="Z.NETTOPREIS">Net Price</option>
                     <option value="Z.BESTAND">Stock</option>
                     <option value="ERNÄHRUNGSTRENDS">Nutrition Trend</option>
+                    <option value="EXTRAS">EXTRAS</option>
                     <option value="Z.LIEFERANTEN_ID">Supplier Id</option>
                     <option value="N.KALORIEN">Calories</option>
                     <option value="N.KOHLENHYDRATE">Carbohydrates</option>
@@ -62,6 +63,7 @@
                     <th>Stock</th>
                     <th>Food Category</th>
                     <th>Nutrition Trend</th>
+                    <th>Extras</th>
                     <th v-if="nutritionFacts">Calories</th>
                     <th v-if="nutritionFacts">Carbohydrates</th>
                     <th v-if="nutritionFacts">Proteins</th>
@@ -87,6 +89,7 @@
                     <td>{{ Ingredient.BESTAND }}</td>
                     <td>{{ Ingredient.ERNÄHRUNGSKATEGORIE }}</td>
                     <td>{{ Ingredient.ERNÄHRUNGSTRENDS }}</td>
+                    <td>{{ Ingredient.EXTRAS }}</td>
                     <td v-if="nutritionFacts">{{ Ingredient.KALORIEN }}kcal</td>
                     <td v-if="nutritionFacts">{{ Ingredient.KOHLENHYDRATE }}g</td>
                     <td v-if="nutritionFacts">{{ Ingredient.PROTEINE }}g</td>
@@ -132,12 +135,12 @@
                         <input name="supplier" type="checkbox" checked @input="supplierData = !supplierData" />
                         Supplier Data
                     </label>
-                    <button @click="popupOpen=true" class="query-button">Create Ingredient</button>
+                    <button @click="popupOpen = true" class="query-button">Create Ingredient</button>
                 </div>
             </div>
         </div>
         <div v-if="popupOpen">
-            <PopupCreateIngredient @onWindowClose="popupOpen=false"/>
+            <PopupCreateIngredient @onWindowClose="popupOpen = false" />
         </div>
     </div>
 </template>

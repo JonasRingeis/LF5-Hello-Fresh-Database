@@ -137,7 +137,7 @@ INSERT INTO HALTUNGSFORM (HALTUNGSFORM_ID, ART) VALUES (1, 'Haltungsform 1, Stal
                                                         (5, 'Kleingruppen'),
                                                         (6, 'Bodenhaltung'),
                                                         (7, 'Freilandhaltung'),
-                                                        (8, 'Öke-Haltung');
+                                                        (8, 'Öko-Haltung');
 
 -- EXTRAS
 INSERT INTO EXTRAS (EXTRA_ID, NAME, HALTUNGSFORM_ID) VALUES (1, 'Biosiegel', NULL), 

@@ -73,10 +73,10 @@
             {{ error }}
         </h4>
         <div class="center-wrapper">
-            <button @click="PopupOpen=true" class="query-button">Create Recipe</button>
+            <button @click="popupOpen=true" class="query-button">Create Recipe</button>
         </div>
-        <div v-if="PopupOpen">
-            <PopupCreateRecipe @onWindowClose="PopupOpen=false"/>
+        <div v-if="popupOpen">
+            <PopupCreateRecipe @onWindowClose="popupOpen=false"/>
         </div>
     </div>
 </template>
@@ -94,7 +94,7 @@ export default {
             queryFinished: false,
             querySending: false,
             error: "",
-            PopupOpen: false,
+            popupOpen: false,
         }
     },
     methods: {

@@ -234,3 +234,6 @@ export async function getIngredientsWithoutRecipe() {
     const response = await fetch('/api/getData?q=' + query);
     return await response.json();
 }
+export async function getFoodTrends() {
+    
+}

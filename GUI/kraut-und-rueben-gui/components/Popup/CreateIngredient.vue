@@ -1,35 +1,41 @@
 <template>
     <div class="popup-wrapper">
-        <div class="popup">
+        <div class="popup" style="width:auto !important">
             <img src="/img/close.svg" class="close-popup" @click="closeWindow">
             <h2>
                 Create Ingredient
             </h2>
             <form @submit.prevent="onSubmit">
-                <input placeholder="Name" class="inputfield" v-model="name" type="text" required />
-                <input placeholder="Quantity" class="inputfield" v-model="quantity" type="text" required />
-                <input placeholder="Unit (g, ml, kg)" class="inputfield" v-model="unit" type="text" required />
-                <input placeholder="Price (X.xx)" class="inputfield" v-model="price" type="text" required />
-                <input placeholder="Stock" class="inputfield" v-model="stock" type="number" required />
+                <div class="row-wrapper" style="gap: 5px;">
+                    <div class="column-wrapper">
+                        <input placeholder="Name" class="inputfield" v-model="name" type="text" required />
+                        <input placeholder="Quantity" class="inputfield" v-model="quantity" type="number" step="0.01" required />
+                        <input placeholder="Unit (g, ml, kg)" class="inputfield" v-model="unit" type="text" required />
+                        <input placeholder="Price (X.xx)" class="inputfield" v-model="price" type="number" step="0.01" required />
+                        <input placeholder="Stock" class="inputfield" v-model="stock" type="number" required />
 
-                <select class="dropdown" ref="foodCategory">
-                    <option value="none" hidden>Select a Food Category</option>
-                    <option value="1">Omnivor</option>
-                    <option value="2">Pescetarian</option>
-                    <option value="3">Vegetarian</option>
-                    <option value="4">Vegan</option>
-                    <option value="5">Frutar</option>
-                </select>
+                        <select class="dropdown" ref="foodCategory" required>
+                            <option value="none" hidden>Select a Food Category</option>
+                            <option value="1">Omnivor</option>
+                            <option value="2">Pescetarian</option>
+                            <option value="3">Vegetarian</option>
+                            <option value="4">Vegan</option>
+                            <option value="5">Frutar</option>
+                        </select>
 
-                <DropdownMultiSelector placeholder="Select a Nutrition Trend" :values="allINutritionTrends" idKey="ERNÄHRUNGSTREND_ID" nameKey="NAME" quantityChangeable="false" @submit.prevent />
-                
-                <h3>Nutrition Facts</h3>
-                <input placeholder="Calories" class="inputfield" v-model="calories" type="text" required />
-                <input placeholder="Carbohydrates" class="inputfield" v-model="carbohydrates" type="text" required />
-                <input placeholder="Proteins" class="inputfield" v-model="proteins" type="text" required />
-                <input placeholder="Diatary Fiber" class="inputfield" v-model="diataryFiber" type="text" required />
-                <input placeholder="Fat" class="inputfield" v-model="fat" type="text" required />
-                <input placeholder="Sodium" class="inputfield" v-model="sodium" type="text" required />
+                        <DropdownMultiSelector ref="nutritionTrend" placeholder="Select a Nutrition Trend" :values="allINutritionTrends" idKey="ERNÄHRUNGSTREND_ID" nameKey="NAME" :quantityChangeable="false" @submit.prevent />
+                    </div>
+                    <div class="column-wrapper">
+                        <input placeholder="Calories" class="inputfield" v-model="calories" type="number" step="0.01" required />
+                        <input placeholder="Carbohydrates" class="inputfield" v-model="carbohydrates" type="number" step="0.01" required />
+                        <input placeholder="Proteins" class="inputfield" v-model="proteins" type="number" step="0.01" required />
+                        <input placeholder="Diatary Fiber" class="inputfield" v-model="diataryFiber" type="number" step="0.01" required />
+                        <input placeholder="Fat" class="inputfield" v-model="fat" type="number" step="0.01" required />
+                        <input placeholder="Sodium" class="inputfield" v-model="sodium" type="number" step="0.01" required />
+                        
+                        <!-- TODO: Add Supplier Dropdown -->
+                    </div>
+                </div>
 
                 <p>
                     {{ error }}
@@ -51,13 +57,21 @@ export default {
             this.$emit("onWindowClose");
         },
         async getAllData() {
-            this.allIngredients = await getAllNutritionTrends();
+            this.allINutritionTrends = await getAllNutritionTrends();
         },
         async createIngredient() {
-            if (this.name == "" || this.instructions == "" || this.preparationTime == "") {
+            if (this.name == "" || this.quantity == "" || this.unit == "" || this.price == "" ||
+                 this.stock == "" || this.calories == "" || this.carbohydrates == "" || this.proteins == "" ||
+                 this.diataryFiber == "" || this.fat == "" || this.sodium == "") {
                 return;
             }
-            if (this.ingredientsSelected.length == 0) {
+            const foodCategory = this.$refs.foodCategory.value;
+            if (foodCategory == "none") {
+                alert("No Food Category Selected!");
+                return;
+            }
+            const selectedNutritionTrend = this.$refs.nutritionTrend.value;
+            if (selectedNutritionTrend.length == 0) {
                 alert("No Ingredients Selected!");
                 return;
             }
@@ -76,8 +90,16 @@ export default {
             querySending: false,
 
             name: "",
-            instructions: "",
-            preparationTime: "",
+            quantity: "",
+            unit: "",
+            price: "",
+            stock: "",
+            calories: "",
+            carbohydrates: "",
+            proteins: "",
+            diataryFiber: "",
+            fat: "",
+            sodium: "",
         }
     },
     emits: [

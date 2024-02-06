@@ -178,16 +178,7 @@ export async function getAllOrders() {
     return await response.json();
 }
 
-const foodCategoryQuery = "";
-
-export async function getAllFoodCategories() {
-    const query = foodCategoryQuery;
-
-    const response = await fetch('/api/getData?q=' + query);
-    return await response.json();
-}
-
-const nutritionTrendQuery = "";
+const nutritionTrendQuery = "SELECT * FROM ERNÄHRUNGSTRENDS AS ET";
 
 export async function getAllNutritionTrends() {
     const query = nutritionTrendQuery;

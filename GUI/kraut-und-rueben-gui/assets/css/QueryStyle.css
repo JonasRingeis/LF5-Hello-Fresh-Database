@@ -96,6 +96,14 @@
     align-items: center;
     flex-wrap: wrap;
 }
+.row-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+.column-wrapper {
+    display: flex;
+    flex-direction: column;
+}
 
 .result-table-wrapper {
     display: block;

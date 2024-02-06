@@ -10,7 +10,7 @@
                 <textarea placeholder="Instructions" class="textarea" v-model="instructions" rows="4" required ></textarea>
                 <input placeholder="Preparation Time (Min)" class="inputfield" v-model="preparationTime" type="number" required />
 
-                <DropdownMultiSelector placeholder="Select an Ingredient" :values="allIngredients" idKey="ZUTAT_ID" nameKey="BEZEICHNUNG" quantityKey="MENGE" @submit.prevent />
+                <DropdownMultiSelector ref="ingredients" placeholder="Select an Ingredient" :values="allIngredients" idKey="ZUTAT_ID" nameKey="BEZEICHNUNG" quantityKey="MENGE" @submit.prevent />
                 <p>
                     {{ error }}
                 </p>
@@ -39,12 +39,13 @@ export default {
             if (this.name == "" || this.instructions == "" || this.preparationTime == "") {
                 return;
             }
-            if (this.ingredientsSelected.length == 0) {
+            const ingredientsSelected = this.$refs.ingredients.getSelectedValues();
+            if (ingredientsSelected.length == 0) {
                 alert("No Ingredients Selected!");
                 return;
             }
             this.querySending = true;
-            this.error = await createRecipe(this.name, this.instructions, this.preparationTime, this.ingredientsSelected);
+            this.error = await createRecipe(this.name, this.instructions, this.preparationTime, ingredientsSelected);
             this.querySending = false;
             if (this.error == "") {
                 this.closeWindow();
@@ -54,7 +55,6 @@ export default {
     data() {
         return {
             allIngredients: [],
-            ingredientsSelected: [],
             error: "",
             querySending: false,
 

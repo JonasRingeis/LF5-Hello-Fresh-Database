@@ -149,14 +149,17 @@ INSERT INTO EXTRAS (EXTRA_ID, NAME, HALTUNGSFORM_ID) VALUES (1, 'Biosiegel', NUL
                                                             (7, 'Haltungsform', 5),
                                                             (8, 'Haltungsform', 6),
                                                             (9, 'Haltungsform', 7),
-                                                            (10, 'Haltungsform', 8);
+                                                            (10, 'Haltungsform', 8),
+                                                            (11, 'Laktosefrei', NULL);
 
 -- ZUTAT_EXTRAS
 INSERT INTO ZUTAT_EXTRAS (ZUTAT_ID, EXTRA_ID) VALUES (1, 1), 
                                                     (2, 10), 
                                                     (3, 1),
-                                                    (4, 4),
+                                                    (4, 1),
                                                     (6, 1),
                                                     (7, 1),
-                                                    (9, 1);
+                                                    (9, 1),
+                                                    (9, 11),
+                                                    (2, 11);
 

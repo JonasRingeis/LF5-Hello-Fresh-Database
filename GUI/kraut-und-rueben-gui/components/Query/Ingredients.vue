@@ -89,7 +89,10 @@
                     <td>{{ Ingredient.BESTAND }}</td>
                     <td>{{ Ingredient.ERNÄHRUNGSKATEGORIE }}</td>
                     <td>{{ Ingredient.ERNÄHRUNGSTRENDS == null ? "-" : Ingredient.ERNÄHRUNGSTRENDS }}</td>
-                    <td>{{ Ingredient.EXTRAS == null ? "-" : Ingredient.EXTRAS }}</td>
+                    <td>{{ Ingredient.EXTRAS == null ? "-" : (Ingredient.EXTRAS.replace("Haltungsform",
+                        Ingredient.HALTUNGSFORM == null ?
+                            "" :
+                            ("Haltungsform: " + Ingredient.HALTUNGSFORM))) }}</td>
                     <td v-if="nutritionFacts">{{ Ingredient.KALORIEN }}kcal</td>
                     <td v-if="nutritionFacts">{{ Ingredient.KOHLENHYDRATE }}g</td>
                     <td v-if="nutritionFacts">{{ Ingredient.PROTEINE }}g</td>

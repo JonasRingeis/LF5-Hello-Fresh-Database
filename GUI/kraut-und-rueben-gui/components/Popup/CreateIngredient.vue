@@ -24,13 +24,13 @@
 </template>
 
 <script>
-import { getAllFoodCategories, getAllNurtitionTrends, createIngredient } from '../../assets/scripts/requester';
+import { getAllFoodCategories, getAllNutritionTrends, createIngredient } from '../../assets/scripts/requester';
 export default {
     methods: {
         closeWindow() {
             this.$emit("onWindowClose");
         },
-        async getAllIngredients() {
+        async getAllData() {
             this.allIngredients = [];
             const result = await getAllIngredients();
             this.allIngredients = this.allIngredients.concat(result);
@@ -53,8 +53,8 @@ export default {
     },
     data() {
         return {
-            allIngredients: [],
-            ingredientsSelected: [],
+            allFoodCategories: [],
+            allINutritionTrends: [],
             error: "",
             querySending: false,
 
@@ -67,7 +67,7 @@ export default {
         "onWindowClose"
     ],
     mounted() {
-        this.getAllIngredients();
+        this.getAllData();
     }
 }
 </script>

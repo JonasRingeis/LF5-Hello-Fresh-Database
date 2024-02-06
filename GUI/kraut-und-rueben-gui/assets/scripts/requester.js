@@ -186,6 +186,24 @@ export async function getAllOrders() {
     return await response.json();
 }
 
+const foodCategoryQuery = "";
+
+export async function getAllFoodCategories() {
+    const query = foodCategoryQuery;
+
+    const response = await fetch('/api/getData?q=' + query);
+    return await response.json();
+}
+
+const nutritionTrendQuery = "";
+
+export async function getAllNutritionTrends() {
+    const query = nutritionTrendQuery;
+
+    const response = await fetch('/api/getData?q=' + query);
+    return await response.json();
+}
+
 function buildSearchQuery(field, value, operator) {
     if (operator == "LIKE") {
         value = "**" + value + "**";
@@ -235,5 +253,5 @@ export async function getIngredientsWithoutRecipe() {
     return await response.json();
 }
 export async function getFoodTrends() {
-    
+
 }

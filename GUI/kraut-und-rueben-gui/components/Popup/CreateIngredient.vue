@@ -33,7 +33,14 @@
                         <input placeholder="Fat" class="inputfield" v-model="fat" type="number" step="0.01" required />
                         <input placeholder="Sodium" class="inputfield" v-model="sodium" type="number" step="0.01" required />
                         
-                        <!-- TODO: Add Supplier Dropdown -->
+                        <select class="dropdown" ref="supplier">
+                            <option value="none" selected hidden>
+                                Select a Supplier
+                            </option>
+                            <option v-for="(supplier, index) in suppliers" :key="index" :value="supplier.LIEFERANTEN_ID">
+                                {{ supplier.LIEFERANTENNAME }}
+                            </option>
+                        </select>
                     </div>
                 </div>
 
@@ -50,7 +57,8 @@
 </template>
 
 <script>
-import { getAllNutritionTrends, createIngredient } from '../../assets/scripts/requester';
+import { getAllNutritionTrends, createIngredient, getAllSuppliers } from '../../assets/scripts/requester';
+import Suppliers from '../Query/Suppliers.vue';
 export default {
     methods: {
         closeWindow() {
@@ -58,6 +66,7 @@ export default {
         },
         async getAllData() {
             this.allINutritionTrends = await getAllNutritionTrends();
+            this.suppliers = await getAllSuppliers();
         },
         async createIngredient() {
             if (this.name == "" || this.quantity == "" || this.unit == "" || this.price == "" ||
@@ -72,11 +81,19 @@ export default {
             }
             const selectedNutritionTrend = this.$refs.nutritionTrend.value;
             if (selectedNutritionTrend.length == 0) {
-                alert("No Ingredients Selected!");
+                alert("No Nutrition Trend Selected!");
+                return;
+            }
+            const supplier = this.$refs.supplier.value;
+            if (supplier == "none") {
+                alert("No Supplier Selected");
                 return;
             }
             this.querySending = true;
-            this.error = await createIngredient(this.name, this.instructions, this.preparationTime, this.ingredientsSelected);
+            this.error = await createIngredient(this.name, this.quantity, this.unit, 
+                    this.price, this.stock, this.calories, this.carbohydrates,
+                    this.proteins, this.diataryFiber, this.fat, this.sodium,
+                    foodCategory, selectedNutritionTrend, supplier);
             this.querySending = false;
             if (this.error == "") {
                 this.closeWindow();
@@ -100,6 +117,7 @@ export default {
             diataryFiber: "",
             fat: "",
             sodium: "",
+            suppliers: [],
         }
     },
     emits: [

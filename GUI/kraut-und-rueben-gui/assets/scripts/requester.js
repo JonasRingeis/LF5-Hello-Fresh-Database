@@ -331,6 +331,15 @@ export async function getIngredientsWithoutRecipe() {
     const response = await fetch('/api/getData?q=' + query);
     return await response.json();
 }
-export async function getFoodTrends() {
+export async function getNutritionTrendsWithIngredients() {
+    const query = "SELECT E.ERNÄHRUNGSTREND_ID AS Id, E.NAME AS Name," +
+    " E.BESCHREIBUNG as Description," +
+    " GROUP_CONCAT(Z.BEZEICHNUNG SEPARATOR ', ') AS Zutaten" +
+    " FROM ERNÄHRUNGSTRENDS AS E" +
+    " LEFT JOIN ZUTAT_ERNÄHRUNGSTRENDS AS ZE ON ZE.ERNÄHRUNGSTREND_ID = E.ERNÄHRUNGSTREND_ID" +
+    " LEFT JOIN ZUTAT AS Z ON Z.ZUTAT_ID = ZE.ZUTAT_ID" +
+    " GROUP BY E.ERNÄHRUNGSTREND_ID";
 
+    const response = await fetch('/api/getData?q=' + query);
+    return await response.json();
 }

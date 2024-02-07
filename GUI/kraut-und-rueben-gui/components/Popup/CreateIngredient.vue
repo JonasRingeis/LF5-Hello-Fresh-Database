@@ -33,16 +33,17 @@
                         <input placeholder="Fat" class="inputfield" v-model="fat" type="number" step="0.01" required />
                         <input placeholder="Sodium" class="inputfield" v-model="sodium" type="number" step="0.01" required />
                         
-                        <select class="dropdown" ref="supplier">
-                            <option value="none" selected hidden>
-                                Select a Supplier
-                            </option>
-                            <option v-for="(supplier, index) in suppliers" :key="index" :value="supplier.LIEFERANTEN_ID">
-                                {{ supplier.LIEFERANTENNAME }}
-                            </option>
-                        </select>
+                        <DropdownMultiSelector ref="extra" placeholder="Select an Extra Tag" :values="allExtras" idKey="EXTRA_ID" nameKey="NAME" :quantityChangeable="false" @submit.prevent />
                     </div>
                 </div>
+                <select class="dropdown" ref="supplier">
+                    <option value="none" selected hidden>
+                        Select a Supplier
+                    </option>
+                    <option v-for="(supplier, index) in suppliers" :key="index" :value="supplier.LIEFERANTEN_ID">
+                        {{ supplier.LIEFERANTENNAME }}
+                    </option>
+                </select>
 
                 <p>
                     {{ error }}
@@ -57,7 +58,7 @@
 </template>
 
 <script>
-import { getAllNutritionTrends, createIngredient, getAllSuppliers } from '../../assets/scripts/requester';
+import { getAllNutritionTrends, createIngredient, getAllSuppliers, getAllExtras } from '../../assets/scripts/requester';
 export default {
     methods: {
         closeWindow() {
@@ -66,6 +67,10 @@ export default {
         async getAllData() {
             this.allINutritionTrends = await getAllNutritionTrends();
             this.suppliers = await getAllSuppliers();
+            this.allExtras = await getAllExtras();
+            this.allExtras = this.allExtras.map(extra => {
+                return { NAME: extra.NAME.replace("Haltungsform", extra.ART), EXTRA_ID: extra.EXTRA_ID } 
+            });
         },
         async createIngredient() {
             if (this.name == "" || this.quantity == "" || this.unit == "" || this.price == "" ||
@@ -79,6 +84,7 @@ export default {
                 return;
             }
             const selectedNutritionTrend = this.$refs.nutritionTrend.getSelectedValues();
+            const extraTags = this.$refs.extra.getSelectedValues();
             const supplier = this.$refs.supplier.value;
             if (supplier == "none") {
                 alert("No Supplier Selected");
@@ -88,7 +94,7 @@ export default {
             this.error = await createIngredient(this.name, this.quantity, this.unit, 
                     this.price, this.stock, this.calories, this.carbohydrates,
                     this.proteins, this.diataryFiber, this.fat, this.sodium,
-                    foodCategory, selectedNutritionTrend, supplier);
+                    foodCategory, selectedNutritionTrend, supplier, extraTags);
             this.querySending = false;
             if (this.error == "") {
                 this.closeWindow();
@@ -98,6 +104,9 @@ export default {
     data() {
         return {
             allINutritionTrends: [],
+            suppliers: [],
+            allExtras: [],
+
             error: "",
             querySending: false,
 
@@ -112,7 +121,7 @@ export default {
             diataryFiber: "",
             fat: "",
             sodium: "",
-            suppliers: [],
+            
         }
     },
     emits: [

@@ -187,6 +187,16 @@ export async function getAllNutritionTrends() {
     return await response.json();
 }
 
+const extraQuery = "SELECT E.NAME, H.ART, E.EXTRA_ID FROM EXTRAS AS E" + 
+" LEFT JOIN HALTUNGSFORM AS H ON H.HALTUNGSFORM_ID = E.HALTUNGSFORM_ID";
+
+export async function getAllExtras() {
+    const query = extraQuery;
+
+    const response = await fetch('/api/getData?q=' + query);
+    return await response.json();
+}
+
 function buildSearchQuery(field, value, operator) {
     if (operator == "LIKE") {
         value = "**" + value + "**";
@@ -218,7 +228,7 @@ export async function createRecipe(name, instructions, preperationTime, ingredie
 }
 export async function createIngredient(name, quantity, unit, 
     price, stock, calories, carbohydrates, proteins, diataryFiber, fat, sodium,
-    foodCategory, selectedNutritionTrend, supplier) {
+    foodCategory, selectedNutritionTrend, supplier, extras) {
         
     const getNewestId = "SELECT LAST_INSERT_ID() AS ID";
     
@@ -250,6 +260,14 @@ export async function createIngredient(name, quantity, unit,
         " (" + ingredientId + ", " + trend.ERNÄHRUNGSTREND_ID + ")";
 
         await fetch('/api/getData?q=' + nutritionTrendQuery);
+    });
+
+    extras.forEach(async (extra) => {
+        const extraQuery = "INSERT INTO ZUTAT_EXTRAS" + 
+        " (ZUTAT_ID, EXTRA_ID) VALUES" +
+        " (" + ingredientId + ", " + extra.EXTRA_ID + ")";
+
+        await fetch('/api/getData?q=' + extraQuery);
     });
     return "";
 }

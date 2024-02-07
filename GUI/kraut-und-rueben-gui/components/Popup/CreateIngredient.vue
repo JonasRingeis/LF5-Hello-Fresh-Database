@@ -58,7 +58,6 @@
 
 <script>
 import { getAllNutritionTrends, createIngredient, getAllSuppliers } from '../../assets/scripts/requester';
-import Suppliers from '../Query/Suppliers.vue';
 export default {
     methods: {
         closeWindow() {
@@ -79,11 +78,7 @@ export default {
                 alert("No Food Category Selected!");
                 return;
             }
-            const selectedNutritionTrend = this.$refs.nutritionTrend.value;
-            if (selectedNutritionTrend.length == 0) {
-                alert("No Nutrition Trend Selected!");
-                return;
-            }
+            const selectedNutritionTrend = this.$refs.nutritionTrend.getSelectedValues();
             const supplier = this.$refs.supplier.value;
             if (supplier == "none") {
                 alert("No Supplier Selected");

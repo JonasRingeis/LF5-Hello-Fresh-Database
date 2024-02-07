@@ -216,8 +216,42 @@ export async function createRecipe(name, instructions, preperationTime, ingredie
     });
     return "";
 }
-export async function createIngredient() {
+export async function createIngredient(name, quantity, unit, 
+    price, stock, calories, carbohydrates, proteins, diataryFiber, fat, sodium,
+    foodCategory, selectedNutritionTrend, supplier) {
+        
+    const getNewestId = "SELECT LAST_INSERT_ID() AS ID";
+    
+    const createNutritionQuery = "INSERT INTO NÄHRWERTE" +
+    " (KALORIEN, KOHLENHYDRATE, PROTEINE, BALLASTSTOFFE, FETT, NATRIUM) VALUES" +
+    " (" + calories + ", " + carbohydrates + ", " + proteins + ", " + diataryFiber + ", " + fat + ", " + sodium + ")";
 
+    const nutritionResult = await fetch('/api/getData?q=' + createNutritionQuery);
+    if (nutritionResult.status != "200") {
+        return nutritionResult;
+    }
+
+    const nutritionId = (await (await fetch('/api/getData?q=' + getNewestId)).json())[0].ID;
+
+    const createIngredientQuery = "INSERT INTO ZUTAT" + 
+    " (BEZEICHNUNG, MENGE, EINHEIT, NETTOPREIS, BESTAND, LIEFERANTEN_ID, NÄHRWERTE_ID, ERNÄHRUNGSKATEGORIE_ID) VALUES" +
+    " (\"" + name + "\", " + quantity + ", \"" + unit + "\", " + price + ", " + stock + ", " + supplier + ", " + nutritionId + ", " + foodCategory + ")";
+
+    const createIngredientResult = await fetch('/api/getData?q=' + createIngredientQuery);
+    if (createIngredientResult.status != "200") {
+        return createIngredientResult;
+    }
+
+    const ingredientId = (await (await fetch('/api/getData?q=' + getNewestId)).json())[0].ID;
+
+    selectedNutritionTrend.forEach(async (trend) => {
+        const nutritionTrendQuery = "INSERT INTO ZUTAT_ERNÄHRUNGSTRENDS" + 
+        " (ZUTAT_ID, ERNÄHRUNGSTREND_ID)" +
+        " (" + ingredientId + ", " + trend.ERNÄHRUNGSTREND_ID + ")";
+
+        await fetch('/api/getData?q=' + nutritionTrendQuery);
+    });
+    return "";
 }
 
 

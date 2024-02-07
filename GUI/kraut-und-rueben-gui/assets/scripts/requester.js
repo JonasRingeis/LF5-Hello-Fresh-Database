@@ -272,7 +272,7 @@ export async function createIngredient(name, quantity, unit,
     return "";
 }
 
-export async function createBox(name, price, description, ingredients) {
+export async function createBox(name, description, price, ingredients) {
     const createBoxQuery = "INSERT INTO BOX (NAME, BESCHREIBUNG, PREIS) VALUES " +
         "(\"" + name + "\", \"" + description + "\", " + price + ")";
 

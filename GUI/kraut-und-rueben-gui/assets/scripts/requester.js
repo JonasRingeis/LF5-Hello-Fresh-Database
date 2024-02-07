@@ -288,13 +288,15 @@ export async function createBox(name, description, price, ingredients) {
     const boxId = (await (await fetch('/api/getData?q=' + getNewBoxIdQuery)).json())[0].REZEPT_ID;
 
     ingredients.forEach(async (Ingredient) => {
-        const createBox = "INSERT INTO REZEPT_ZUTAT (MENGE, ZUTAT_ID, REZEPT_ID) VALUES " +
+        const createBox = "INSERT INTO BOX_ZUTAT (MENGE, ZUTAT_ID, BOX_ID) VALUES " +
             "(" + Ingredient.MENGE + ", " + Ingredient.ZUTAT_ID + ", " + boxId + ")";
 
         (await (await fetch('/api/getData?q=' + createBox)).json());
     });
     return "";
 }
+
+
 
 //✨ Special Queries ✨
 export async function getCheapestBox() {

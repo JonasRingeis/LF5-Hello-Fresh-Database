@@ -31,9 +31,7 @@ export default {
             this.$emit("onWindowClose");
         },
         async getAllIngredients() {
-            this.allIngredients = [];
-            const result = await getAllIngredients();
-            this.allIngredients = this.allIngredients.concat(result);
+            this.allIngredients = await getAllIngredients();
         },
         async createRecipe() {
             if (this.name == "" || this.instructions == "" || this.preparationTime == "") {

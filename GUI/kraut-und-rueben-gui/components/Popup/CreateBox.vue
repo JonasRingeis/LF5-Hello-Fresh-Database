@@ -8,16 +8,6 @@
             <form @submit.prevent="onSubmit">
                 <input placeholder="Name" class="inputfield" v-model="name" type="text" required />
                 <input placeholder="Price (X.xx)" class="inputfield" v-model="price" type="number" step="0.01" required />
-
-                <select class="dropdown" ref="foodCategory" required>
-                    <option value="none" hidden>Select a Food Category</option>
-                    <option value="1">Omnivor</option>
-                    <option value="2">Pescetarian</option>
-                    <option value="3">Vegetarian</option>
-                    <option value="4">Vegan</option>
-                    <option value="5">Frutar</option>
-                </select>
-
                 <textarea placeholder="Description" class="textarea" v-model="description" rows="4" required></textarea>
 
                 <DropdownMultiSelector ref="ingredients" placeholder="Select an Ingredient" :values="allIngredients"

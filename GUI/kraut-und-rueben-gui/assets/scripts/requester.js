@@ -141,7 +141,7 @@ export async function getAllRecipies() {
 }
 
 const orderQuery = "SELECT" +
-    " B.*, K.*, A.*" +
+    " B.*, K.*, A.*," +
     " BL.BUND_NAME, K.*, " +
     " (SELECT GROUP_CONCAT(DISTINCT CONCAT(Z.BEZEICHNUNG, '_', BZ.MENGE) SEPARATOR ', ')" +
     " FROM BESTELLUNG_ZUTAT AS BZ" +
@@ -187,8 +187,8 @@ export async function getAllNutritionTrends() {
     return await response.json();
 }
 
-const extraQuery = "SELECT E.NAME, H.ART, E.EXTRA_ID FROM EXTRAS AS E" + 
-" LEFT JOIN HALTUNGSFORM AS H ON H.HALTUNGSFORM_ID = E.HALTUNGSFORM_ID";
+const extraQuery = "SELECT E.NAME, H.ART, E.EXTRA_ID FROM EXTRAS AS E" +
+    " LEFT JOIN HALTUNGSFORM AS H ON H.HALTUNGSFORM_ID = E.HALTUNGSFORM_ID";
 
 export async function getAllExtras() {
     const query = extraQuery;
@@ -226,15 +226,15 @@ export async function createRecipe(name, instructions, preperationTime, ingredie
     });
     return "";
 }
-export async function createIngredient(name, quantity, unit, 
+export async function createIngredient(name, quantity, unit,
     price, stock, calories, carbohydrates, proteins, diataryFiber, fat, sodium,
     foodCategory, selectedNutritionTrend, supplier, extras) {
-        
+
     const getNewestId = "SELECT LAST_INSERT_ID() AS ID";
-    
+
     const createNutritionQuery = "INSERT INTO NÄHRWERTE" +
-    " (KALORIEN, KOHLENHYDRATE, PROTEINE, BALLASTSTOFFE, FETT, NATRIUM) VALUES" +
-    " (" + calories + ", " + carbohydrates + ", " + proteins + ", " + diataryFiber + ", " + fat + ", " + sodium + ")";
+        " (KALORIEN, KOHLENHYDRATE, PROTEINE, BALLASTSTOFFE, FETT, NATRIUM) VALUES" +
+        " (" + calories + ", " + carbohydrates + ", " + proteins + ", " + diataryFiber + ", " + fat + ", " + sodium + ")";
 
     const nutritionResult = await fetch('/api/getData?q=' + createNutritionQuery);
     if (nutritionResult.status != "200") {
@@ -243,9 +243,9 @@ export async function createIngredient(name, quantity, unit,
 
     const nutritionId = (await (await fetch('/api/getData?q=' + getNewestId)).json())[0].ID;
 
-    const createIngredientQuery = "INSERT INTO ZUTAT" + 
-    " (BEZEICHNUNG, MENGE, EINHEIT, NETTOPREIS, BESTAND, LIEFERANTEN_ID, NÄHRWERTE_ID, ERNÄHRUNGSKATEGORIE_ID) VALUES" +
-    " (\"" + name + "\", " + quantity + ", \"" + unit + "\", " + price + ", " + stock + ", " + supplier + ", " + nutritionId + ", " + foodCategory + ")";
+    const createIngredientQuery = "INSERT INTO ZUTAT" +
+        " (BEZEICHNUNG, MENGE, EINHEIT, NETTOPREIS, BESTAND, LIEFERANTEN_ID, NÄHRWERTE_ID, ERNÄHRUNGSKATEGORIE_ID) VALUES" +
+        " (\"" + name + "\", " + quantity + ", \"" + unit + "\", " + price + ", " + stock + ", " + supplier + ", " + nutritionId + ", " + foodCategory + ")";
 
     const createIngredientResult = await fetch('/api/getData?q=' + createIngredientQuery);
     if (createIngredientResult.status != "200") {
@@ -255,23 +255,44 @@ export async function createIngredient(name, quantity, unit,
     const ingredientId = (await (await fetch('/api/getData?q=' + getNewestId)).json())[0].ID;
 
     selectedNutritionTrend.forEach(async (trend) => {
-        const nutritionTrendQuery = "INSERT INTO ZUTAT_ERNÄHRUNGSTRENDS" + 
-        " (ZUTAT_ID, ERNÄHRUNGSTREND_ID)" +
-        " (" + ingredientId + ", " + trend.ERNÄHRUNGSTREND_ID + ")";
+        const nutritionTrendQuery = "INSERT INTO ZUTAT_ERNÄHRUNGSTRENDS" +
+            " (ZUTAT_ID, ERNÄHRUNGSTREND_ID)" +
+            " (" + ingredientId + ", " + trend.ERNÄHRUNGSTREND_ID + ")";
 
         await fetch('/api/getData?q=' + nutritionTrendQuery);
     });
 
     extras.forEach(async (extra) => {
-        const extraQuery = "INSERT INTO ZUTAT_EXTRAS" + 
-        " (ZUTAT_ID, EXTRA_ID) VALUES" +
-        " (" + ingredientId + ", " + extra.EXTRA_ID + ")";
+        const extraQuery = "INSERT INTO ZUTAT_EXTRAS" +
+            " (ZUTAT_ID, EXTRA_ID) VALUES" +
+            " (" + ingredientId + ", " + extra.EXTRA_ID + ")";
 
         await fetch('/api/getData?q=' + extraQuery);
     });
     return "";
 }
 
+export async function createBox(name, price, description, ingredients) {
+    const createBoxQuery = "INSERT INTO BOX (NAME, BESCHREIBUNG, PREIS) VALUES " +
+        "(\"" + name + "\", \"" + description + "\", " + price + ")";
+
+    const createBoxResult = await fetch('/api/getData?q=' + createBoxQuery);
+    if (createBoxResult.status != "200") {
+        return createBoxResult;
+    }
+
+    const getNewBoxIdQuery = "SELECT LAST_INSERT_ID() AS REZEPT_ID;"
+
+    const boxId = (await (await fetch('/api/getData?q=' + getNewBoxIdQuery)).json())[0].REZEPT_ID;
+
+    ingredients.forEach(async (Ingredient) => {
+        const createBox = "INSERT INTO REZEPT_ZUTAT (MENGE, ZUTAT_ID, REZEPT_ID) VALUES " +
+            "(" + Ingredient.MENGE + ", " + Ingredient.ZUTAT_ID + ", " + boxId + ")";
+
+        (await (await fetch('/api/getData?q=' + createBox)).json());
+    });
+    return "";
+}
 
 //✨ Special Queries ✨
 export async function getCheapestBox() {

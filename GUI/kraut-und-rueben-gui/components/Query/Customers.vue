@@ -90,6 +90,12 @@
         <h4 style="color:red;" v-if="error != ''">
             {{ this.error }}
         </h4>
+
+        <div v-if="deletingCustomer">
+            <PopupDeleteConfirm :customerId="customerToDelete.KUNDEN_ID"
+                :customerName="customerToDelete.VORNAME + ' ' + customerToDelete.NACHNAME"
+                @onWindowClose="deletingCustomer = false" />
+        </div>
     </div>
 </template>
 
@@ -105,11 +111,18 @@ export default {
             queryFinished: false,
             querySending: false,
             error: "",
+            
+            deletingCustomer: false,
+            customerToDelete: {},
         }
     },
     methods: {
         checkPlaceholder() {
             this.placeholderShown = this.$refs.searchValue.value.length == 0;
+        },
+        deleteCustomer(customerId) {
+            this.customerToDelete = this.customers.filter(customer => customer.KUNDEN_ID == customerId)[0];
+            this.deletingCustomer = true;
         },
         async getFilteredCustomers() {
             this.resetProps();

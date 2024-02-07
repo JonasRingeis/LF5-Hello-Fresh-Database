@@ -296,7 +296,23 @@ export async function createBox(name, description, price, ingredients) {
     return "";
 }
 
+// Delete Queries
+export async function deleteCustomer(customerId) {
+    const anonymiseCustomer = "UPDATE BESTELLUNG AS B" +
+    " SET KUNDEN_ID = 0 " +
+    " WHERE B.KUNDEN_ID = " + customerId;
 
+    const anonymiseResult = await fetch('/api/getData?q=' + anonymiseCustomer);
+    if (anonymiseResult.status != "200") {
+        return anonymiseResult;
+    }
+
+    const deleteCustomer = "DELETE FROM KUNDE K" +
+        " WHERE K.KUNDEN_ID = 1"
+
+    await fetch('/api/getData?q=' + deleteCustomer);
+    return "";
+}
 
 //✨ Special Queries ✨
 export async function getCheapestBox() {

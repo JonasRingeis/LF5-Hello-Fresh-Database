@@ -59,7 +59,11 @@ INSERT INTO ERNÄHRUNGSKATEGORIE (ERNÄHRUNGSKATEGORIE_ID, NAME, BESCHREIBUNG) V
 
 -- ERNÄHRUNGSTRENDS
 INSERT INTO ERNÄHRUNGSTRENDS (ERNÄHRUNGSTREND_ID, NAME, BESCHREIBUNG) VALUES (1, 'Paleo', 'Lebensmittel aus der Steinzeit'), 
-                                                                              (2, 'Low-Carb', 'Ernährung ohne Kohlenhydrate');
+                                                                              (2, 'Low-Carb', 'Ernährung ohne Kohlenhydrate'),
+                                                                              (3, 'Pflanzenbasierte Ernährung', 'Vegane und Vegetarische Produkte'),
+                                                                              (4, 'Clean Eating', 'Unverarbeitete "saubere" Lebensmittel ohne Zusatzstoffe'),
+                                                                              (5, 'Superfoods', 'Lebensmittel mit hohem Gehalt an Nährstoffen'),
+                                                                              (6, 'Functional Food', 'Lebensmittel, die mit zusätzlichem gesundheitlichen Vorteilen angereichert sind');
 
 -- ZUTAT
 INSERT INTO ZUTAT (ZUTAT_ID, BEZEICHNUNG, MENGE, EINHEIT, NETTOPREIS, BESTAND, LIEFERANTEN_ID, NÄHRWERTE_ID, ERNÄHRUNGSKATEGORIE_ID) VALUES (1, 'Bio-Rinderhackfleisch', 250, 'g', 3.99, 100, 1, 1, 1), 

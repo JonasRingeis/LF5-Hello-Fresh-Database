@@ -2,16 +2,16 @@
 INSERT INTO BUNDESLAND (BUND_ID, BUND_NAME) VALUES (0, 'Anonym'), (1, 'Baden-Württemberg'), (2, 'Bayern'), (3, 'Berlin'), (4, 'Brandenburg'), (5, 'Bremen'), (6, 'Hamburg'), (7, 'Hessen'), (8, 'Mecklenburg-Vorpommern'), (9, 'Niedersachsen'), (10, 'Nordrhein-Westfalen'), (11, 'Rheinland-Pfalz'), (12, 'Saarland'), (13, 'Sachsen'), (14, 'Sachsen-Anhalt'), (15, 'Schleswig-Holstein'), (16, 'Thüringen');
 
 INSERT INTO ADRESSE (ADRESS_ID, STRASSE, HAUSNR, PLZ, WOHNORT, BUND_ID) VALUES (0, 'Anonym', '0', '00000', 'Anonym', 0),
-                                                                              (1, 'Musterstraße', '12', '12345', 'Hamburg', 6),
-                                                                              (2, 'Hauptstraße', '5', '54321', 'Berlin',3),                                                                                                                  
-                                                                              (3, 'Neue Gasse', '9', '98765', 'München',2),                                                                                                                  
-                                                                              (4, 'Bachweg', '3', '67890', 'Stuttgart',1),                                                                                                                  
-                                                                              (5, 'Sonnenallee', '15', '54321', 'Dresden',13),                                                                                                                  
-                                                                              (6, 'Am Markt', '7', '34567', 'Hannover',9),                                                                                                                  
-                                                                              (7, 'Hauptstraße', '10', '09876', 'Köln',10),                                                                                                                  
-                                                                              (8, 'Rosenweg', '2', '76543', 'Leipzig',13),                                                                                                                  
-                                                                              (9, 'Lindenstraße', '8', '23456', 'Düsseldorf',10),                                                                                                                  
-                                                                              (10, 'Birkenweg', '6', '45678', 'Frankfurt',7);
+                                                                              (1, 'Musterstraße', '12', '20144', 'Hamburg', 6),
+                                                                              (2, 'Hauptstraße', '5', '10176', 'Berlin',3),                                                                                                                  
+                                                                              (3, 'Neue Gasse', '9', '80336', 'München',2),                                                                                                                  
+                                                                              (4, 'Bachweg', '3', '70178', 'Stuttgart',1),                                                                                                                  
+                                                                              (5, 'Sonnenallee', '15', '01099', 'Dresden',13),                                                                                                                  
+                                                                              (6, 'Am Markt', '7', '30165', 'Hannover',9),                                                                                                                  
+                                                                              (7, 'Hauptstraße', '10', '50672', 'Köln',10),                                                                                                                  
+                                                                              (8, 'Rosenweg', '2', '04109', 'Leipzig',13),                                                                                                                  
+                                                                              (9, 'Lindenstraße', '8', '40213', 'Düsseldorf',10),                                                                                                                  
+                                                                              (10, 'Birkenweg', '6', '60311', 'Frankfurt',7);
 
 -- KUNDE
 INSERT INTO KUNDE (KUNDEN_ID, NACHNAME, VORNAME, GEBURTSDATUM, ADRESS_ID, TELEFON, EMAIL) VALUES (0, 'Anonym', 'Anonym', NULL, 0, '0123456789', 'anonym.anonym@anonym.com'),
@@ -150,9 +150,9 @@ INSERT INTO EXTRAS (EXTRA_ID, NAME, HALTUNGSFORM_ID) VALUES (1, 'Biosiegel', NUL
                                                             (8, 'Haltungsform', 6),
                                                             (9, 'Haltungsform', 7),
                                                             (10, 'Haltungsform', 8),
-                                                            (11, 'Laktosefrei', NULL);
-                                                            (12, 'Gluten Frei', NULL);
-                                                            (13, 'CO2 Neutral', NULL);
+                                                            (11, 'Laktosefrei', NULL),
+                                                            (12, 'Gluten Frei', NULL),
+                                                            (13, 'CO2 Neutral', NULL),
                                                             (14, 'Nachhaltig', NULL);
 
 -- ZUTAT_EXTRAS

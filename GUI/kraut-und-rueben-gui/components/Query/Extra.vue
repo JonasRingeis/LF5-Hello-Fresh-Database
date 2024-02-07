@@ -10,6 +10,10 @@
             <button class="query-button" @click="findIngredientWithoutRecipe">
                 Get Ingredients Without Recipe
             </button>
+
+            <button class="query-button" @click="findAllNutritionTrends">
+                Get All Nutrition Trends
+            </button>
         </div>
 
         <div class="result-table-wrapper">
@@ -44,7 +48,7 @@
 </template>
 <script>
 import '../../assets/css/QueryStyle.css';
-import { getCheapestBox, getIngredientsWithoutRecipe } from '../../assets/scripts/requester';
+import { getCheapestBox, getIngredientsWithoutRecipe, getNutritionTrendsWithIngredients } from '../../assets/scripts/requester';
 
 export default {
     data() {
@@ -86,6 +90,23 @@ export default {
             if (result.error != undefined) {
                 this.error = result.error;
             } else {
+                this.resultFields = Object.keys(result[0]);
+                for (let i = 0; i < result.length; i++) {
+                    this.resultValues.push(Object.values(result[i]));
+                }
+                this.queryFinished = true;
+            }
+        },
+        async findAllNutritionTrends() {
+            this.resetProps();
+            this.querySending = true;
+
+            const result = await getNutritionTrendsWithIngredients();
+            this.querySending = false;
+            if (result.error != undefined) {
+                this.error = result.error;
+            }
+            else {
                 this.resultFields = Object.keys(result[0]);
                 for (let i = 0; i < result.length; i++) {
                     this.resultValues.push(Object.values(result[i]));

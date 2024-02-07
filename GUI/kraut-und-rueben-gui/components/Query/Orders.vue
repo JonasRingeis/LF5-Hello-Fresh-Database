@@ -66,21 +66,21 @@
                     <th v-if="customerData">Telephone</th>
                     <th v-if="customerData">Email</th>
                 </tr>
-                <tr v-for="(Order, index) in Orders" :key="index"
+                <tr v-for="(order, index) in filteredOrders" :key="index"
                     :style="'background: ' + (index % 2 == 0 ? '#f2f2f2' : 'white')">
-                    <td>{{ Order.BESTELL_ID }}</td>
-                    <td>{{ new Date(Order.BESTELLDATUM).toLocaleDateString() }}</td>
-                    <td>{{ Order.RECHNUNGSBETRAG }} €</td>
-                    <td v-if="boxes"> {{ Order.BOXEN == null ? "-" : Order.BOXEN }} </td>
-                    <td v-if="recipe"> {{ Order.REZEPTE == null ? "-" : Order.REZEPTE }} </td>
+                    <td>{{ order.BESTELL_ID }}</td>
+                    <td>{{ new Date(order.BESTELLDATUM).toLocaleDateString() }}</td>
+                    <td>{{ order.RECHNUNGSBETRAG }} €</td>
+                    <td v-if="boxes"> {{ order.BOXEN == null ? "-" : order.BOXEN }} </td>
+                    <td v-if="recipe"> {{ order.REZEPTE == null ? "-" : order.REZEPTE }} </td>
                     <td v-if="ingredients">
-                        {{ Order.ZUTATEN == null ? "-" : null }}
+                        {{ order.ZUTATEN == null ? "-" : null }}
                         <button @click="ingredientsCollapsed[index] = true"
-                            v-if="Order.ZUTATEN != null && ingredientsCollapsed[index] != true" class="collapse-button">
+                            v-if="order.ZUTATEN != null && ingredientsCollapsed[index] != true" class="collapse-button">
                             Open
                             <i class="arrow-down"></i>
                         </button>
-                        <table class="sub-result-table" v-if="Order.ZUTATEN != null && ingredientsCollapsed[index]">
+                        <table class="sub-result-table" v-if="order.ZUTATEN != null && ingredientsCollapsed[index]">
                             <tr style="position: relative;">
                                 <th>
                                     Menge
@@ -95,7 +95,7 @@
                                     </button>
                                 </div>
                             </tr>
-                            <tr v-for="(ingredient, index2) in Order.ZUTATEN.split(', ')" :key="index2">
+                            <tr v-for="(ingredient, index2) in order.ZUTATEN.split(', ')" :key="index2">
                                 <td style="text-align: center;">
                                     {{ ingredient.split("_")[1] }}
                                 </td>
@@ -105,16 +105,16 @@
                             </tr>
                         </table>
                     </td>
-                    <td v-if="customerData"> {{ Order.VORNAME }} </td>
-                    <td v-if="customerData"> {{ Order.NACHNAME }} </td>
-                    <td v-if="customerData"> {{ new Date(Order.GEBURTSDATUM).toLocaleDateString() }} </td>
-                    <td v-if="customerData"> {{ Order.STRASSE }} </td>
-                    <td v-if="customerData"> {{ Order.HAUSNR }} </td>
-                    <td v-if="customerData"> {{ Order.PLZ }} </td>
-                    <td v-if="customerData"> {{ Order.WOHNORT }} </td>
-                    <td v-if="customerData"> {{ Order.BUND_NAME }} </td>
-                    <td v-if="customerData"> {{ Order.TELEFON }} </td>
-                    <td v-if="customerData"> {{ Order.EMAIL }} </td>
+                    <td v-if="customerData"> {{ order.VORNAME }} </td>
+                    <td v-if="customerData"> {{ order.NACHNAME }} </td>
+                    <td v-if="customerData"> {{ new Date(order.GEBURTSDATUM).toLocaleDateString() }} </td>
+                    <td v-if="customerData"> {{ order.STRASSE }} </td>
+                    <td v-if="customerData"> {{ order.HAUSNR }} </td>
+                    <td v-if="customerData"> {{ order.PLZ }} </td>
+                    <td v-if="customerData"> {{ order.WOHNORT }} </td>
+                    <td v-if="customerData"> {{ order.BUND_NAME }} </td>
+                    <td v-if="customerData"> {{ order.TELEFON }} </td>
+                    <td v-if="customerData"> {{ order.EMAIL }} </td>
                 </tr>
             </table>
         </div>
@@ -123,7 +123,7 @@
             <div class="loader"></div>
         </div>
 
-        <div v-if="Orders.length == 0 && queryFinished">
+        <div v-if="orders.length == 0 && queryFinished">
             <h4 style="color: red;">
                 No Orders Found
             </h4>
@@ -154,6 +154,10 @@
                         <input name="customer" type="checkbox" checked @input="customerData = !customerData" />
                         Customer Data
                     </label>
+                    <label>
+                        <input name="customer" type="checkbox" @input="anonymCustomer = !anonymCustomer; filterCustomers();" />
+                        Anonym Customer
+                    </label>
                 </div>
             </div>
         </div>
@@ -167,7 +171,8 @@ export default {
     data() {
         return {
             placeholderShown: true,
-            Orders: [],
+            orders: [],
+            filteredOrders: [],
             queryFinished: false,
             querySending: false,
             error: "",
@@ -179,6 +184,7 @@ export default {
             recipe: true,
             ingredients: true,
             customerData: true,
+            anonymCustomer: false,
         }
     },
     methods: {
@@ -195,8 +201,9 @@ export default {
             if (result.error != undefined) {
                 this.error = result.error;
             } else {
-                this.Orders = result;
+                this.orders = result;
                 this.queryFinished = true;
+                this.filterCustomers();
             }
         },
         async getAllOrders() {
@@ -208,12 +215,21 @@ export default {
             if (result.error != undefined) {
                 this.error = result.error;
             } else {
-                this.Orders = result;
+                this.orders = result;
                 this.queryFinished = true;
+                this.filterCustomers();
+            }
+        },
+        filterCustomers() {
+            if (!this.anonymCustomer) {
+                this.filteredOrders = this.orders.filter(order => order.KUNDEN_ID != 0);
+            }
+            else {
+                this.filteredOrders = this.orders;
             }
         },
         resetProps() {
-            this.Orders = [];
+            this.orders = [];
             this.error = "";
             this.queryFinished = false;
         }

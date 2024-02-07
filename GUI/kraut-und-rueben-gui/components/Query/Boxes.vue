@@ -68,6 +68,15 @@
         <h4 style="color: red;" v-if="error != ''">
             {{ error }}
         </h4>
+
+        <div class="center-wrapper">
+            <div class="filter-wrapper">
+                <button @click="popupOpen = true" class="query-button">Create Box</button>
+            </div>
+        </div>
+    <div v-if="popupOpen">
+        <PopupCreateBox @onWindowClose="popupOpen = false" />
+    </div>
     </div>
 </template>
 
@@ -78,6 +87,7 @@ import { getBoxWithSearch, getAllBoxes } from '../../assets/scripts/requester';
 export default {
     data() {
         return {
+            popupOpen: false,
             placeholderShown: true,
             Boxes: [],
             queryFinished: false,

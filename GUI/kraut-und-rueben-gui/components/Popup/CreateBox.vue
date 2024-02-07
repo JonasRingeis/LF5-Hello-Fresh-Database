@@ -18,7 +18,7 @@
                     <option value="5">Frutar</option>
                 </select>
 
-                <textarea placeholder="Description" class="textarea" v-model="instructions" rows="4" required></textarea>
+                <textarea placeholder="Description" class="textarea" v-model="description" rows="4" required></textarea>
 
                 <DropdownMultiSelector ref="ingredients" placeholder="Select an Ingredient" :values="allIngredients"
                     idKey="ZUTAT_ID" nameKey="BEZEICHNUNG" quantityKey="MENGE" @submit.prevent />
@@ -28,14 +28,14 @@
                 <div class="center-wrapper" v-if="querySending">
                     <div class="loader"></div>
                 </div>
-                <input type="submit" value="Create" class="query-button" @click="createRecipe" />
+                <input type="submit" value="Create" class="query-button" @click="createBoxes" />
             </form>
         </div>
     </div>
 </template>
 
 <script>
-import { getAllIngredients, createRecipe } from '../../assets/scripts/requester';
+import { getAllIngredients, createBox } from '../../assets/scripts/requester';
 export default {
     methods: {
         closeWindow() {
@@ -46,8 +46,8 @@ export default {
             const result = await getAllIngredients();
             this.allIngredients = this.allIngredients.concat(result);
         },
-        async createRecipe() {
-            if (this.name == "" || this.instructions == "" || this.preparationTime == "") {
+        async createBoxes() {
+            if (this.name == "" || this.description == "" || this.price == "") {
                 return;
             }
             const ingredientsSelected = this.$refs.ingredients.getSelectedValues();
@@ -56,7 +56,7 @@ export default {
                 return;
             }
             this.querySending = true;
-            this.error = await createRecipe(this.name, this.instructions, this.preparationTime, ingredientsSelected);
+            this.error = await createBox(this.name, this.description, this.price, ingredientsSelected);
             this.querySending = false;
             if (this.error == "") {
                 this.closeWindow();
@@ -70,8 +70,8 @@ export default {
             querySending: false,
 
             name: "",
-            instructions: "",
-            preparationTime: "",
+            description: "",
+            price: "",
         }
     },
     emits: [
@@ -86,5 +86,9 @@ export default {
 .ingredient-dropdown {
     width: 100%;
     margin: 5px 0px;
+}
+
+input {
+    margin-block: 3px;
 }
 </style>

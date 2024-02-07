@@ -308,7 +308,7 @@ export async function deleteCustomer(customerId) {
     }
 
     const deleteCustomer = "DELETE FROM KUNDE K" +
-        " WHERE K.KUNDEN_ID = 1"
+        " WHERE K.KUNDEN_ID = " + customerId;
 
     await fetch('/api/getData?q=' + deleteCustomer);
     return "";

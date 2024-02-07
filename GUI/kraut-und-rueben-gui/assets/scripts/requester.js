@@ -4,13 +4,15 @@ const customerQuery = "SELECT * FROM KUNDE as K" +
 
 export async function getCustomerWithSearch(field, value, operator) {
     const query = customerQuery +
-        " " + buildSearchQuery(field, value, operator);
+        " " + buildSearchQuery(field, value, operator) +
+        " AND K.KUNDEN_ID != 0";
 
     const response = await fetch("/api/getData?q=" + query);
     return await response.json();
 }
 export async function getAllCustomers() {
-    const query = customerQuery;
+    const query = customerQuery +
+    " WHERE K.KUNDEN_ID != 0";
 
     const response = await fetch('/api/getData?q=' + query);
     return await response.json();

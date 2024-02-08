@@ -103,13 +103,15 @@ const ingredientQuery = "SELECT Z.ZUTAT_ID," +
 
 export async function getIngredientWithSearch(field, value, operator) {
     const query = ingredientQuery +
-        " " + buildSearchQuery(field, value, operator);
+        " " + buildSearchQuery(field, value, operator) +
+        " ORDER BY Z.ZUTAT_ID";
 
     const response = await fetch('/api/getData?q=' + query);
     return await response.json();
 }
 export async function getAllIngredients() {
-    const query = ingredientQuery;
+    const query = ingredientQuery +
+    " ORDER BY Z.ZUTAT_ID";
 
     const response = await fetch('/api/getData?q=' + query);
     return await response.json();
